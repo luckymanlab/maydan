@@ -1,0 +1,73 @@
+* {
+	outline: none;
+}
+.tl-wraper {
+	width: 100%;
+	height: 200px;
+	position: static !important;
+	overflow-x: hidden;
+	
+
+	.tl-container-wrap {
+		position: relative;
+		width: 700%;
+		margin-left: -125%;
+		overflow-x: hidden;
+
+		#tl-container {
+			height: 200px;
+			width: 50%;
+			position: relative;
+			z-index: 2;
+			cursor: pointer;
+			overflow-x: visible;
+		}
+		
+		.content-bg-block {
+			width: 100%;
+			height: 150px;
+			position: absolute;
+			top: 0;
+			z-index: 0;
+			background-color: $content-bg-block-background;		
+			-webkit-box-shadow:inset 0 0 7px 0px $content-bg-block-shadow;
+			box-shadow:inset 0 0 7px 0px $content-bg-block-shadow;
+		}
+
+		.time-bg-block {
+			width: 100%;
+			height: 50px;
+			position: absolute;
+			top: 150px;
+			background-color: $time-bg-block-background;			
+			background-image: url(../img/time-separate.png);
+			background-repeat: repeat-x;
+			background-position: top;
+		}
+	}
+	
+
+	.tl-sep-line {
+		position: absolute;
+		z-index: 5;
+		width: 5px;
+		height: 142px;
+		top: 8px;
+		left: 50%;
+		margin-left: -2px;
+		background-color: $tl-sep-line;
+
+		&:before {
+			content: '';
+			position: absolute;
+			width: 0;
+			height: 0;
+			border-style: solid;
+			border-width: 10px 10px 0 10px;
+			border-color: $tl-sep-line-arrow transparent transparent transparent;
+			top: -8px;
+			left: -8px;
+			z-index: 0
+		}	
+	}
+}

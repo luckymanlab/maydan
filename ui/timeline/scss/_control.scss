@@ -1,0 +1,103 @@
+.tl-wraper {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	
+	.tl-control {
+		position: absolute;
+		top: 15px;
+		left: 15px;
+		z-index: 5;
+		border: 1px solid $tl-control-border-color;
+		width: 36px;
+		padding-top: 10px;
+		background-color: $tl-control-background-color;
+		-webkit-border-radius: 7px;
+		-moz-border-radius: 7px;
+		border-radius: 7px;
+		-webkit-box-shadow: 2px 2px 1px 1px $tl-control-shadow;
+		box-shadow: 2px 2px 1px 1px $tl-control-shadow;
+		
+		.back-to-start {
+			display: block;
+			background-image: url($sprite-back1-image);
+			background-position: $sprite-back1-offset-x $sprite-back1-offset-y;
+			width: $sprite-back1-width;
+			height: $sprite-back1-height;
+			background-repeat: no-repeat;
+			margin: 0px 0 7px 10px;
+			cursor: pointer;
+
+			&:hover {
+				opacity: 0.4;
+			}
+		}	
+
+		.zoom-plus {
+			display: block;
+			background-image: url($sprite-zoom26-image);
+			background-position: $sprite-zoom26-offset-x $sprite-zoom26-offset-y;
+			width: $sprite-zoom26-width;
+			height: $sprite-zoom26-height;
+			background-repeat: no-repeat;
+			margin: 0 0 7px 10px;
+			cursor: pointer;
+
+			&:hover {
+				opacity: 0.4;
+			}
+		}	
+
+		.zoom-minus {
+			display: block;
+			background-image: url($sprite-zooming1-image);
+			background-position: $sprite-zooming1-offset-x $sprite-zooming1-offset-y;
+			width: $sprite-zooming1-width;
+			height: $sprite-zooming1-height;
+			background-repeat: no-repeat;
+			margin: 0 0 7px 10px;
+			cursor: pointer;
+
+			&:hover {
+				opacity: 0.4;
+			}
+		}
+
+		.start-time-line {
+			display: block;
+			background-image: url($sprite-play-image);
+			background-position: $sprite-play-offset-x $sprite-play-offset-y;
+			width: $sprite-play-width;
+			height: $sprite-play-height;
+			background-repeat: no-repeat;
+			margin: 0 0 7px 10px;
+			cursor: pointer;
+
+			&:hover {
+				opacity: 0.5;
+			}
+
+			&.active {
+				opacity: 0.3;
+			}
+		}
+
+		.stop-time-line {
+			display: block;
+			background-image: url($sprite-stop-image);
+			background-position: $sprite-stop-offset-x $sprite-stop-offset-y;
+			width: $sprite-stop-width;
+			height: $sprite-stop-height;
+			background-repeat: no-repeat;
+			margin: 0 0 7px 10px;
+			cursor: pointer;
+
+			&:hover {
+				opacity: 0.5;
+			}
+		}
+	} 
+}

@@ -1,0 +1,56 @@
+.tl-wraper {	
+	box-sizing: content-box;
+
+	.current-date {
+		border-left: 2px solid #000;
+		height: 10px;
+		padding-left: 5px;
+		position: absolute;
+		top: 120px;
+		left: 50%;
+		z-index: 2;
+		color: $current-date;
+		font-weight: bold;
+		pointer-events: none;
+	}
+
+	#time {
+		width: 100%;
+		height: 50px;	
+		font-size: 14px;
+		line-height: 16px;
+		position: relative;
+
+		
+		.date-element {
+			border-left: 2px solid #222;
+			height: 7px;
+			position: absolute;
+			bottom: 20px;
+		}
+		.date-year-element{
+			border-left: 2px solid $date-year-element;
+			height: 14px;
+			position: absolute;
+			top: 5px;
+			font-weight: bold;
+			color: $date-year-element;
+		}
+		.date-month-element {			
+			border-left: 2px solid $date-month-element;
+			height: 14px;
+			position: absolute;
+			top: 5px;
+			font-weight: bold;
+			color: $date-month-element;
+		}
+		.date-day-element {
+			border-left: 2px solid $date-day-element;
+			height: 14px;
+			position: absolute;
+			top: 10px;
+			font-weight: bold;
+			color: $date-day-element;
+		}
+	}
+}

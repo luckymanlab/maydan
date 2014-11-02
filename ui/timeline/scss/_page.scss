@@ -1,0 +1,10 @@
+body {
+	margin: 0;
+}
+.time-block {
+	width: 100%;
+	box-sizing: border-box;
+	border: 1px solid $time-block-border-color;
+	position: absolute;
+	bottom: 50px;
+}
