@@ -1,0 +1,25 @@
+incident
+{
+	id: string (some unique id) ex: '454545456',
+	time: number (UTC) ex: 654545646465,
+	type: string ex: 'fire',
+	coordinates: object (google maps coordinates) {
+		lat: number ex: 50.450201,
+		lon: number ex: 50.450201
+	}, 
+	title: string, ex: ''
+}
+
+media
+{
+	id: string (some unique id) ex: '454545456',
+	content: string (html content)
+} 
+
+article
+{
+	id: string (some unique id) ex: '454545456',
+	media: media
+	incident: incident
+}
+
