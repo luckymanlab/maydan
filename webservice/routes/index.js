@@ -1,7 +1,7 @@
 var express = require('express'),
-		router = express.Router(),
-		incident = require('../db/incident'),
-		article = require('../db/article');
+    router = express.Router(),
+    incident = require('../db/incident'),
+    article = require('../db/article');
 
 router.get('/incident', incident.getAll);
 router.get('/incident/:id', incident.getById);
