@@ -1,4 +1,4 @@
-var connectDB = require('../connect_db');
+var connectDB = require('./db-configs');
 
 exports.getAll = function(req, res) {
     db.collection('incidents', function(err, collection) {
