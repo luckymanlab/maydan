@@ -1,3 +1,2 @@
-next Node modules should be installed
-express
-mongoDB
+First step: npm i
+To start server type: npm start
