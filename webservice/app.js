@@ -6,9 +6,10 @@ var express = require('express'),
 
 var app = express();
 
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 app.use(logger('dev'));
-app.use(express.static(path.join(__dirname, '../ui')));
+app.use(express.static(path.join(__dirname, './public')));
 
 app.use('/', router);
 

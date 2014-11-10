@@ -1,16 +1,24 @@
 var express = require('express'),
     router = express.Router(),
-    incident = require('../db/incident'),
-    article = require('../db/article');
+    incident = require('../handlers/incident'),
+    article = require('../handlers/article');
 
-router.get('/incident', incident.getAll);
-router.get('/incident/:id', incident.getById);
+router.route('/article')
+    .get(article.getAll);
+// .put(incident.updateWine)
+// .delete(incident.deleteWine)
 
-router.get('/article', article.getAll);
-router.get('/article/:id', article.getById);
+// router.route('/incident')
+//     .get(incident.getAll)
+//     .post(incident.addIncident);
 
-//router.post('/incident', incident.addWine);
-//router.put('/incident/:id', incident.updateWine);
-//router.delete('/incident/:id', incident.deleteWine);
+router.route('/temp/articles')
+    .get(article.temp.getAll)
+    .post(article.temp.addArticle);
+//  .delete(article.temp.removeAll)
+
+// router.route('/temp/article/:id')
+//  .delete(article.temp.removeById);
+//  .put(article.temp.refreshById);
 
 module.exports = router;

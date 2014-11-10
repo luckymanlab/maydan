@@ -2,7 +2,7 @@ incident
 {
 	id: string (some unique id) ex: '454545456',
 	time: number (UTC) ex: 654545646465,
-	marker: string (marker icon name) ex: 'fire',
+	type: string ex: 'fire',
 	coordinates: object (google maps coordinates) {
 		lat: number ex: 50.450201,
 		lon: number ex: 50.450201
@@ -10,8 +10,15 @@ incident
 	title: string, ex: ''
 }
 
-article
+media
 {
 	id: string (some unique id) ex: '454545456',
 	content: string (html content)
+}
+
+article
+{
+	id: string (some unique id) ex: '454545456',
+	media: media
+	incident: incident
 }
