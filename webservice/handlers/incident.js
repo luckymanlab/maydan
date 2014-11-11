@@ -1,15 +1,7 @@
-var mongoose = require('../db/db-configs');
+var mongoose = require('../db/db-configs'),
+    schemas = require('../db/schemas');
 
-var incidentSchema = mongoose.Schema({
-    time: Number,
-    type: String,
-    coordinates: {
-        lat: Number,
-        lon: Number
-    }, 
-    title: String
-});
-var Incident = mongoose.model('Incident', incidentSchema);
+var Incident = mongoose.model('Incident', schemas.incidentSchema);
 
 exports.getAll = function(req, res) {
     Incident.find(function(err, data) {

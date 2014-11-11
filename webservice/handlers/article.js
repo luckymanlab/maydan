@@ -1,11 +1,8 @@
 var mongoose = require('../db/db-configs'),
-    temp = require('./article-temp');
+    temp = require('./article-temp'),
+    schemas = require('../db/schemas');
 
-var articleSchema = mongoose.Schema({
-    media: String,
-    incident: String
-});
-var Article = mongoose.model('Article', articleSchema);
+var Article = mongoose.model('Article', schemas.articleSchema);
 
 exports.getAll = function(req, res) {
     Article.find(function(err, data) {

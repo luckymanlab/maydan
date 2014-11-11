@@ -1,22 +1,7 @@
-var mongoose = require('../db/db-configs');
+var mongoose = require('../db/db-configs'),
+    schemas = require('../db/schemas');
 
-var date = new Date();
-
-var articleTempSchema = mongoose.Schema({
-    media: {
-        content: { type: String, required: true }
-    },
-    incident: {
-        time: {type: Number, min: 0, max: date.getTime()},
-        incidentType: {type: String, enum: ['']},
-        coordinates: {
-            lat: {type: Number, min: 0},
-            lon: {type: Number, min: 0}
-        }, 
-        title: String
-    }
-});
-var ArticleTemp = mongoose.model('ArticleTemp', articleTempSchema);
+var ArticleTemp = mongoose.model('ArticleTemp', schemas.articleTempSchema);
 
 exports.addArticle = function(req, res) {
     var article = req.body;
