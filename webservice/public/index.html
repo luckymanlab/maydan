@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>API instruction</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<h2>Here are a simple examples how work API.</h2>
+	<section>
+		<h3>Get all articles</h3>
+		<p>URL: host/article</p>
+
+		<a href="/article">link</a>
+	</section>
+
+	<section>
+		<h3>Article adding</h3>
+		<p>URL: host/temp/articles (POST)</p>
+
+		<h4>Example:</h4>
+		<form class="form-article">
+			<fieldset>
+				<legend>Media</legend>
+				<label>
+					Content:
+					<input type="text" name="media-content">
+					<span>Can't be empty</span>
+				</label>
+			</fieldset>
+			<fieldset>
+				<legend>Incident</legend>
+				<label>
+					Time:
+					<input type="text" name="incident-time">
+					<span>Must be bigger then 0 and smaller then current time</span>
+				</label>
+
+				<label>
+					Type:
+					<input type="text" name="incident-type">
+					<span>At the moment type must be empty</span>
+				</label>
+
+				<p>Coordinates:</p>
+				<label>
+					Lat:
+					<input type="number" name="incident-coordinates-lat">
+					<span>Can't be smaller then 0</span>
+				</label>
+
+				<label>
+					Lon:
+					<input type="number" name="incident-coordinates-lon">
+					<span>Can't be smaller then 0</span>
+				</label>
+
+				<label>
+					Title:
+					<input type="text" name="incident-title">
+				</label>
+			</fieldset>
+			<input type="submit" value="Submit">
+		</form>
+		You may see added data here: <a href="/temp/articles">link</a>
+	</section>
+
+	<section>
+		<h3>List of temp data:</h3>
+		<p>URL: host/temp/articles (GET)</p>
+
+		<a href="/temp/articles">link</a>
+	</section>
+
+	<script src="js/jquery-2.1.1.min.js"></script>
+	<script src="js/script.js"></script>
+</body>
+</html>

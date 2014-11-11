@@ -1,0 +1,20 @@
+body {
+	padding: 50px;
+	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+	color: #00B7FF;
+}
+
+section + section {
+	margin-top: 70px;
+}
+
+label {
+	display: block;
+}
+
+label + label {
+	margin-top: 10px;
+}
