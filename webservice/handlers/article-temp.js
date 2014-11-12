@@ -9,16 +9,16 @@ exports.addArticle = function(req, res) {
 
     var newArticle = new ArticleTemp({
         media: {
-            content: article.mediaContent
+            content: article.media.content
         },
         incident: {
-            time: article.incidentTime,
-            incidentType: article.incidentType,
+            time: article.incident.time,
+            incidentType: article.incident.type,
             coordinates: {
-                lat: article.incidentCoordinatesLat,
-                lon: article.incidentCoordinatesLon
+                lat: article.incident.coordinates.lat,
+                lon: article.incident.coordinates.lon
             },
-            title: article.incidentTitle
+            title: article.incident.title
         }
     });
 
