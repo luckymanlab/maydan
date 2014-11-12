@@ -1,23 +1,25 @@
 {
-    "name": "maydan",
-    "version": "1.0.0",
-    "description": "Webservice of full-Stack JavaScript application 'Maydan'",
-    "main": "app.js",
-    "dependencies": {
-        "body-parser": "^1.9.2",
-        "debug": "^2.1.0",
-        "express": "^4.10.1",
-        "mongodb": "^1.4.19",
-        "mongoose": "^3.8.18",
-        "morgan": "^1.4.1",
-        "path": "^0.4.9",
-        "supervisor": "^0.6.0"
-    },
-    "devDependencies": {},
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "start cmd.exe @cmd /k C:\\mongo\\bin\\mongod --dbpath db\\data | supervisor ./bin/www"
-    },
-    "author": "",
-    "license": "ISC"
+  "name": "maydan",
+  "version": "1.0.0",
+  "description": "Webservice of full-Stack JavaScript application 'Maydan'",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.9.2",
+    "debug": "^2.1.0",
+    "express": "^4.10.1",
+    "mongodb": "^1.4.19",
+    "mongoose": "^3.8.18",
+    "morgan": "^1.4.1",
+    "nodemon": "^1.2.1",
+    "path": "^0.4.9"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run mongodb | npm run server",
+    "server": "nodemon ./bin/www",
+    "mongodb": "start cmd.exe @cmd /k C:\\mongo\\bin\\mongod --dbpath db\\data"
+  },
+  "author": "",
+  "license": "ISC"
 }

@@ -29,8 +29,8 @@ UT.CreateArticleView = Backbone.View.extend({
             success: function (model, response, options) {
                 console.log("The model has been saved to the server" , response, model, options);
             },
-            error: function (model, xhr, options) {
-                console.log("Something went wrong while saving the model");
+            error: function (model, response, options) {
+                console.log("Something went wrong while saving the model", response);
             }
         });
     },
