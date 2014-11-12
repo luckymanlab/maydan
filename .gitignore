@@ -34,3 +34,5 @@ node_modules
 
 # webstorm files #
 .idea
+
+main.js
