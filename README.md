@@ -17,3 +17,8 @@ To run webservice you need make 3 steps:
         2) In line 19: "start": "start cmd.exe @cmd /k C:\\mongo\\bin\\mongod --dbpath db\\data | supervisor ./bin/www" change C:\\mongo\\bin\\ to your mongo path
     3) To start server type: npm start (it will start mongo server and then node server)
     4) Open in browser http://localhost:3000 (http://localhost:3000/incident - must responce json with all incendents)
+
+npm-scripts:
+    "npm start" - started app,
+    "npm run server" - started only express server,
+    "npm run mongodb" - started only mongodb;
