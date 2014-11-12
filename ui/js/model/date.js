@@ -47,15 +47,12 @@ UT.Article2 = Backbone.Model.extend({
 	},
 	validationEmptyField: function(model){
 		for(var attr in model){
-			if(attr != 'id'){
-				var attrValue = model[attr];
-				console.log(attrValue);
-				if(attrValue == ''){
-					console.log('You should enter ' + attr);
-					return false;
-				}
+			var attrValue = model[attr];
+			console.log(attrValue);
+			if(attrValue == ''){
+				console.log('You should enter ' + attr);
+				return false;
 			}
 		}
 	}
-
 });

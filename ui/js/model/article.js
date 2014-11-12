@@ -11,7 +11,3 @@ UT.Article = Backbone.Model.extend({
 		content: ''
 	}
 });
-
-UT.Modal = Backbone.Model.extend({
-	initialize: function() {}
-});

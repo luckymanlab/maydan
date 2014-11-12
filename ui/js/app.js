@@ -60,6 +60,15 @@ UT.ApplicationView = Backbone.View.extend({
 		self.dateModel = new UT.Date();
 		self.dateView = new UT.DateView({model: self.dateModel, el:$('#date-component')});
 	},
+
+	events:{
+		'click #articleModal2': 'articleModal'
+	},
+	articleModal: function(){
+		console.log('its work');
+		this.articleModalView.showModal();
+	},
+
 	updateArticle: function(id){
 		this.articleModalView.showModal();
 		this.articleModel.set('id', id);
@@ -69,6 +78,5 @@ UT.ApplicationView = Backbone.View.extend({
 
 
 $(function(){
-	UT.app = new UT.ApplicationView();
-	//UT.appModal = new UT.ArticleModalView2();
+	UT.app = new UT.ApplicationView({el: $('body')});
 });

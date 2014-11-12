@@ -1,45 +1,77 @@
+<div class="modal-body">
 
-<form name="My_form" class="form-article">
-    <fieldset>
-        <legend>Media</legend>
-        <label>
-            Content:
-            <input type="text" name="media-content" id="mediaName">
-            <span>Can't be empty</span>
-        </label>
-    </fieldset>
-    <fieldset>
-        <legend>Incident</legend>
-        <label>
-            Time:
-            <input type="text" name="incident-time" id="incidentTime">
-            <span>Must be bigger then 0 and smaller then current time</span>
-        </label>
 
-        <label>
-            Type:
-            <input type="text" name="incident-type" id="incidentType">
-            <span>At the moment type must be empty</span>
-        </label>
+    <form class="form-horizontal" role="form" id="articleForm">
+        <!--Title-->
+        <div class="form-group">
+            <div class="col-sm-10">
+                <input class="form-control" type="text" placeholder="Please, enter title" id="incidentTitle">
+            </div>
+        </div>
 
-        <p>Coordinates:</p>
-        <label>
-            Lat:
-            <input type="number" name="incident-coordinates-lat" id="coordLat">
-            <span>Can't be smaller then 0</span>
-        </label>
+        <!--date---->
+        <div class="form-group">
+            <div class="input-group date form_datetime col-sm-10" data-date="2013-10-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                <input class="form-control" size="16" type="text" value="" readonly placeholder="Please, enter date" id="incidentTime">
 
-        <label>
-            Lon:
-            <input type="number" name="incident-coordinates-lon" id="coordLon">
-            <span>Can't be smaller then 0</span>
-        </label>
+            </div>
+            <input type="hidden" id="dtp_input1" value="" /><br/>
+        </div>
 
-        <label>
-            Title:
-            <input type="text" name="incident-title">
-        </label>
-    </fieldset>
-    <a href="#" id="saveArticle"> sendArticle</a>
-    <a href="#" id="cancel"> cancelArticle</a>
-</form>
+
+
+        <!--map coordinate-->
+        <div class="row" data-example>
+            <div class="col-sm-10">
+                <div id="default-place">
+                    <input id="placepicker" class="form-control" data-latitude="53.538764" data-longitude="10.028240" />
+                </div>
+            </div>
+        </div>
+
+        <div data-example>
+            <div class="col-sm-10">
+                <div class="form-group">
+                    <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button data-toggle="collapse" href="#collapseOne" class="btn btn-default">
+                                            <i class="glyphicon glyphicon-globe"></i>
+                                        </button>
+                                    </span>
+                        <input id="placepicker" class="placepicker form-control" placeholder="Please, switch coordinate" />
+
+                    </div>
+                </div>
+                <div id="collapseOne" class="collapse">
+                    <div class="placepicker-map thumbnail"></div>
+                </div>
+            </div>
+        </div>
+
+        <!--incident type-->
+        <div class="form-group">
+            <div class="col-sm-10">
+                <select class="form-control">
+                    <option>Fire</option>
+                    <option>Love</option>
+                    <option>Smile</option>
+                </select>
+            </div>
+        </div>
+
+
+        <!--text area-->
+        <div class="form-group">
+            <div class="col-sm-10">
+                <textarea class="form-control"  rows="5" placeholder="Please, enter description of incident" id="mediaContent"></textarea>
+            </div>
+        </div>
+    </form>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel" type="reset" >Close</button>
+    <button type="button" class="btn btn-primary" id="saveArticle" >Save changes</button>
+</div>
+

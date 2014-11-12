@@ -5622,7 +5622,6 @@ UT.Incident = Backbone.Model.extend({
     defaults: {
         time: "",
         type: "",
-        marker: "",
         coordinates: "",
         title: ""
     }
@@ -5639,8 +5638,25 @@ UT.Article = Backbone.Model.extend({
     defaults: {
         content: ""
     }
-}), UT.Modal = Backbone.Model.extend({
-    initialize: function() {}
+});
+
+var UT = window.UT || {};
+
+UT.Article2 = Backbone.Model.extend({
+    urlRoot: "http://localhost:3000/temp/articles",
+    defaults: {
+        incident: new UT.Incident(),
+        media: new UT.Article()
+    },
+    validate: function(a) {
+        this.validationEmptyField(a.incident.attributes), this.validationEmptyField(a.media.attributes);
+    },
+    validationEmptyField: function(a) {
+        for (var b in a) {
+            var c = a[b];
+            if (console.log(c), "" == c) return console.log("You should enter " + b), !1;
+        }
+    }
 });
 
 var UT = window.UT || {};
@@ -5686,7 +5702,7 @@ UT.Date = Backbone.Model.extend({
         this.validationEmptyField(a.incident.attributes), this.validationEmptyField(a.media.attributes);
     },
     validationEmptyField: function(a) {
-        for (var b in a) if ("id" != b) {
+        for (var b in a) {
             var c = a[b];
             if (console.log(c), "" == c) return console.log("You should enter " + b), !1;
         }
@@ -5768,14 +5784,11 @@ UT.ArticleModalView = Backbone.View.extend({
     initialize: function() {
         this.showContent(), this.createArticleView = new UT.CreateArticleView({
             el: $(".content")
-        });
+        }), this.createArticleView.show();
     },
     events: {
         "click #articleModal": "articleModal",
         "click #closeModal": "closeModal"
-    },
-    articleModal: function() {
-        console.log("It works"), this.createArticleView.show();
     },
     showModal: function() {
         this.$el.modal("show");
@@ -5789,7 +5802,11 @@ UT.ArticleModalView = Backbone.View.extend({
     closeModal: function(a) {
         a.preventDefault(), console.log("Something"), this.createArticleView.cancelArticle();
     }
-}), UT.CreateArticleView = Backbone.View.extend({
+});
+
+var UT = window.UT || {};
+
+UT.CreateArticleView = Backbone.View.extend({
     initialize: function() {
         this.model = new UT.Article2();
     },
@@ -5809,19 +5826,16 @@ UT.ArticleModalView = Backbone.View.extend({
     },
     saveArticle: function(a) {
         a.preventDefault();
-        var b = this.model.get("incident");
-        console.log(b), this.model.get("incident").set({
+        this.model.get("incident");
+        this.model.get("incident").set({
             time: incidentTime.value,
-            marker: coordLat.value,
-            coordinates: coordLon.value
+            title: incidentTitle.value
         }), this.model.get("media").set({
-            content: mediaName.value
-        });
-        var c = this.model;
-        console.log(c), this.model.save({}, {
+            content: mediaContent.value
+        }), this.model.save({}, {
             dataType: "text",
-            success: function(a, b) {
-                console.log("The model has been saved to the server", b, a);
+            success: function(a, b, c) {
+                console.log("The model has been saved to the server", b, a, c);
             },
             error: function() {
                 console.log("Something went wrong while saving the model");
@@ -5834,8 +5848,10 @@ UT.ArticleModalView = Backbone.View.extend({
     checkFilledFields: function() {
         var a = $("input:text").filter(function() {
             return "" != $.trim(this.value);
+        }), b = $("textarea").filter(function() {
+            return "" != $.trim(this.value);
         });
-        return a.length ? (console.log("Not Empty!"), void alert("Are you sure?")) : void 0;
+        return a.length || b.length ? (console.log("Not Empty!"), void alert("Are you sure?")) : void 0;
     }
 });
 
@@ -5949,10 +5965,18 @@ UT.ApplicationView = Backbone.View.extend({
             el: $("#date-component")
         });
     },
+    events: {
+        "click #articleModal2": "articleModal"
+    },
+    articleModal: function() {
+        console.log("its work"), this.articleModalView.showModal();
+    },
     updateArticle: function(a) {
         this.articleModalView.showModal(), this.articleModel.set("id", a), this.articleModel.fetch();
     }
 }), $(function() {
-    UT.app = new UT.ApplicationView();
+    UT.app = new UT.ApplicationView({
+        el: $("body")
+    });
 });
 //# sourceMappingURL=main.js.map

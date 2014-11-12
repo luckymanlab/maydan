@@ -19,11 +19,13 @@ module.exports = function (grunt) {
 	var base = [
 		'js/model/incident.js',
 		'js/model/article.js',
+		'js/model/article2.js',
 		'js/model/date.js',
 		'js/collection/incident-collection.js',
 		'js/view/incident-map-view.js',
 		'js/view/incident-list-view.js',
 		'js/view/article-modal-view.js',
+		'js/view/create-article-view.js',
 		'js/view/incident-collection-view.js',
 		'js/view/date-view.js',
 		'js/router.js',

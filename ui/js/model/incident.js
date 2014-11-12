@@ -16,7 +16,6 @@ UT.Incident = Backbone.Model.extend({
 	defaults: {
 		time: '',
 		type: '',
-		marker: '',
 		coordinates: '',
 		title:''
 	}
