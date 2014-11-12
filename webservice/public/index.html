@@ -18,50 +18,30 @@
 		<h3>Article adding</h3>
 		<p>URL: host/temp/articles (POST)</p>
 
-		<h4>Example:</h4>
-		<form class="form-article">
-			<fieldset>
-				<legend>Media</legend>
-				<label>
-					Content:
-					<input type="text" name="media-content">
-					<span>Can't be empty</span>
-				</label>
-			</fieldset>
-			<fieldset>
-				<legend>Incident</legend>
-				<label>
-					Time:
-					<input type="text" name="incident-time">
-					<span>Must be bigger then 0 and smaller then current time</span>
-				</label>
+		<p>Data will be saved into temp.</p>
+		<h4>Request example: </h4>
+		<pre>
+	$.ajax({
+		url: 'http://localhost:3000/temp/articles',
+		type: 'POST',
+		dataType : "json",
+		data: {
+			media: {
+				content: 'Some html' // Not empty
+			},
+			incident: {
+				time: 10928374, // 0 <= time <= current time
+				type: '', // empty foe this moment
+				coordinates: {
+					lat: 0, // 0 <= lat
+					lon: 0 // 0 <= lon
+				},
+				title: ''
+			}
+		}
+	});
+		</pre>
 
-				<label>
-					Type:
-					<input type="text" name="incident-type">
-					<span>At the moment type must be empty</span>
-				</label>
-
-				<p>Coordinates:</p>
-				<label>
-					Lat:
-					<input type="number" name="incident-coordinates-lat">
-					<span>Can't be smaller then 0</span>
-				</label>
-
-				<label>
-					Lon:
-					<input type="number" name="incident-coordinates-lon">
-					<span>Can't be smaller then 0</span>
-				</label>
-
-				<label>
-					Title:
-					<input type="text" name="incident-title">
-				</label>
-			</fieldset>
-			<input type="submit" value="Submit">
-		</form>
 		You may see added data here: <a href="/temp/articles">link</a>
 	</section>
 
@@ -71,8 +51,5 @@
 
 		<a href="/temp/articles">link</a>
 	</section>
-
-	<script src="js/jquery-2.1.1.min.js"></script>
-	<script src="js/script.js"></script>
 </body>
 </html>
