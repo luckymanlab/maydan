@@ -5781,14 +5781,13 @@ UT.IncidentListView = Backbone.View.extend({
 var UT = window.UT || {};
 
 UT.ArticleModalView = Backbone.View.extend({
-    initialize: function() {
-        this.showContent(), this.createArticleView = new UT.CreateArticleView({
-            el: $(".content")
-        }), this.createArticleView.show();
-    },
-    events: {
-        "click #articleModal": "articleModal",
-        "click #closeModal": "closeModal"
+    initialize: function(a) {
+        var b = this;
+        b.model = a.model, b.model.on("request", function() {
+            b.showPreloader();
+        }), b.model.on("sync error", function() {
+            b.showContent();
+        });
     },
     showModal: function() {
         this.$el.modal("show");
@@ -5798,9 +5797,6 @@ UT.ArticleModalView = Backbone.View.extend({
     },
     showContent: function() {
         this.$el.find(".preloader").hide(), this.$el.find(".content").show();
-    },
-    closeModal: function(a) {
-        a.preventDefault(), console.log("Something"), this.createArticleView.cancelArticle();
     }
 });
 
@@ -5808,7 +5804,7 @@ var UT = window.UT || {};
 
 UT.CreateArticleView = Backbone.View.extend({
     initialize: function() {
-        this.model = new UT.Article2();
+        this.render();
     },
     render: function() {
         var a = this;
@@ -5819,13 +5815,14 @@ UT.CreateArticleView = Backbone.View.extend({
     },
     events: {
         "click #saveArticle": "saveArticle",
-        "click #cancel": "cancelArticle"
+        "click #cancel": "cancelArticle",
+        "click #closeModal": "cancelArticle"
     },
-    show: function() {
-        this.render(), this.$el.show();
+    showModal: function() {
+        this.$el.modal("show");
     },
     saveArticle: function(a) {
-        a.preventDefault();
+        a.preventDefault(), this.$el.find(".preloader").show();
         this.model.get("incident");
         this.model.get("incident").set({
             time: incidentTime.value,
@@ -5837,8 +5834,8 @@ UT.CreateArticleView = Backbone.View.extend({
             success: function(a, b, c) {
                 console.log("The model has been saved to the server", b, a, c);
             },
-            error: function() {
-                console.log("Something went wrong while saving the model");
+            error: function(a, b) {
+                console.log("Something went wrong while saving the model", b);
             }
         });
     },
@@ -5957,7 +5954,7 @@ UT.ApplicationView = Backbone.View.extend({
             map: a.map,
             vent: a.vent,
             el: $("#incident-panel")
-        }), a.articleModel = new UT.Article(), a.articleModalView = new UT.ArticleModalView({
+        }), a.articleModel = new UT.Article2(), a.createArticleView = new UT.CreateArticleView({
             model: a.articleModel,
             el: $("#article-modal")
         }), a.dateModel = new UT.Date(), a.dateView = new UT.DateView({
@@ -5966,10 +5963,10 @@ UT.ApplicationView = Backbone.View.extend({
         });
     },
     events: {
-        "click #articleModal2": "articleModal"
+        "click #createArticle": "createArticle"
     },
-    articleModal: function() {
-        console.log("its work"), this.articleModalView.showModal();
+    createArticle: function() {
+        this.createArticleView.showModal();
     },
     updateArticle: function(a) {
         this.articleModalView.showModal(), this.articleModel.set("id", a), this.articleModel.fetch();

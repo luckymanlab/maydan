@@ -2,22 +2,22 @@ var UT = window.UT || {};
 
 UT.CreateArticleView = Backbone.View.extend({
     initialize: function(){
-        this.model = new UT.Article2();
+        this.render();
     },
     render: function(){
         var that = this;
         $.get('js/templates/createArticleTemplate.html', function (data) {
-            var template=_.template(data); 
+            var template=_.template(data);
             that.$el.html(template); //adding the template content to the main template.
         }, 'html');
     },
     events: {
         'click #saveArticle': 'saveArticle',
-        'click #cancel': 'cancelArticle'
+        'click #cancel': 'cancelArticle',
+        'click #closeModal': 'cancelArticle'
     },
-    show: function () {
-        this.render();
-        this.$el.show();
+    showModal: function () {
+        this.$el.modal('show');
     },
     saveArticle: function(e){
         e.preventDefault();
@@ -30,7 +30,7 @@ UT.CreateArticleView = Backbone.View.extend({
                 console.log("The model has been saved to the server" , response, model, options);
             },
             error: function (model, response, options) {
-                console.log("Something went wrong while saving the model", response);
+                console.log("Something went wrong while saving the model",response);
             }
         });
     },
