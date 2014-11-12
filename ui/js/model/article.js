@@ -6,5 +6,12 @@ UT.Article = Backbone.Model.extend({
 	urlRoot: '/article',
 	clear: function() {
 		this.destroy();
+	},
+	defaults: {
+		content: ''
 	}
+});
+
+UT.Modal = Backbone.Model.extend({
+	initialize: function() {}
 });

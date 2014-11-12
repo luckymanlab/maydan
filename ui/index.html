@@ -10,13 +10,21 @@
 	<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 </head>
 <body>
+
+<button type="button" class="btn btn-primary btn-lg" id="articleModal2">
+	Add incident
+</button>
+<!-- Modal -->
+
+
 	<div id="map" class="map"></div>
 	<div class="modal fade" id="article-modal" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="closeModal">&times;</button>
 					<h4 class="modal-title" id="article-modal-title">Modal title</h4>
+					<div><a href="#" id="articleModal">Create new Article</a> </div>
 				</div>
 				<div class="modal-body">
 					<img class="preloader" src="public/img/preloader.gif">
@@ -42,6 +50,7 @@
 			</ul>
 		</div>
 	</div>
+
 	<div class="time-block"></div>
 	<script src="public/js/main.js"></script>
 	<script src="timeline/js/timeline.js"></script>

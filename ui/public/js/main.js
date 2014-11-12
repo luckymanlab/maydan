@@ -5612,6 +5612,19 @@ UT.Incident = Backbone.Model.extend({
     url: "",
     clear: function() {
         this.destroy();
+    },
+    getPos: function() {
+        return this.get("pos");
+    },
+    getTitle: function() {
+        return this.get("title");
+    },
+    defaults: {
+        time: "",
+        type: "",
+        marker: "",
+        coordinates: "",
+        title: ""
     }
 });
 
@@ -5622,7 +5635,12 @@ UT.Article = Backbone.Model.extend({
     urlRoot: "/article",
     clear: function() {
         this.destroy();
+    },
+    defaults: {
+        content: ""
     }
+}), UT.Modal = Backbone.Model.extend({
+    initialize: function() {}
 });
 
 var UT = window.UT || {};
@@ -5658,6 +5676,21 @@ UT.Date = Backbone.Model.extend({
         var b = Math.floor(a / 4.16), c = Math.floor((a - 4.16 * b) / .069), d = new Date(this.get("date"));
         d.setHours(b), d.setMinutes(c), this.set("date", d.getTime());
     }
+}), UT.Article2 = Backbone.Model.extend({
+    urlRoot: "http://localhost:3000/temp/articles",
+    defaults: {
+        incident: new UT.Incident(),
+        media: new UT.Article()
+    },
+    validate: function(a) {
+        this.validationEmptyField(a.incident.attributes), this.validationEmptyField(a.media.attributes);
+    },
+    validationEmptyField: function(a) {
+        for (var b in a) if ("id" != b) {
+            var c = a[b];
+            if (console.log(c), "" == c) return console.log("You should enter " + b), !1;
+        }
+    }
 });
 
 var UT = window.UT || {};
@@ -5667,7 +5700,7 @@ UT.IncidentCollection = Backbone.Collection.extend({
     sync: function() {
         return !1;
     },
-    url: "",
+    url: "http://fcoin.com.ua:3000/incident",
     addNew: function(a) {
         this.create(a);
     },
@@ -5682,15 +5715,15 @@ UT.IncidentMapView = Backbone.View.extend({
     initialize: function(a) {
         var b = this;
         b.model = a.model, b.model.on("remove", b.remove, b), b.map = a.map, b.vent = a.vent;
-        var c = b.model.get("pos");
+        var c = b.model.getPos();
         b.marker = new google.maps.Marker({
             map: b.map,
             position: new google.maps.LatLng(c.lat, c.lon),
             animation: google.maps.Animation.DROP,
-            title: b.model.get("title"),
+            title: b.model.getTitle(),
             icon: "public/img/markers/" + b.model.get("marker") + ".png",
             id: b.model.get("id")
-        }), b.content = $("<div><h6>" + b.model.get("title") + '</h6><img style="width:100%" src="http://images7.unian.net/photos/2014_01/1390164176-7127.jpeg" /></div>'), 
+        }), b.content = $("<div><h6>" + b.model.getTitle() + '</h6><img style="width:100%" src="http://images7.unian.net/photos/2014_01/1390164176-7127.jpeg" /></div>'), 
         b.infoBubble = new InfoBubble({
             maxWidth: 150,
             minHeight: 20,
@@ -5732,13 +5765,17 @@ UT.IncidentListView = Backbone.View.extend({
 var UT = window.UT || {};
 
 UT.ArticleModalView = Backbone.View.extend({
-    initialize: function(a) {
-        var b = this;
-        b.model = a.model, b.model.on("request", function() {
-            b.showPreloader();
-        }), b.model.on("sync error", function() {
-            b.showContent();
+    initialize: function() {
+        this.showContent(), this.createArticleView = new UT.CreateArticleView({
+            el: $(".content")
         });
+    },
+    events: {
+        "click #articleModal": "articleModal",
+        "click #closeModal": "closeModal"
+    },
+    articleModal: function() {
+        console.log("It works"), this.createArticleView.show();
     },
     showModal: function() {
         this.$el.modal("show");
@@ -5748,6 +5785,57 @@ UT.ArticleModalView = Backbone.View.extend({
     },
     showContent: function() {
         this.$el.find(".preloader").hide(), this.$el.find(".content").show();
+    },
+    closeModal: function(a) {
+        a.preventDefault(), console.log("Something"), this.createArticleView.cancelArticle();
+    }
+}), UT.CreateArticleView = Backbone.View.extend({
+    initialize: function() {
+        this.model = new UT.Article2();
+    },
+    render: function() {
+        var a = this;
+        $.get("js/templates/createArticleTemplate.html", function(b) {
+            var c = _.template(b);
+            a.$el.html(c);
+        }, "html");
+    },
+    events: {
+        "click #saveArticle": "saveArticle",
+        "click #cancel": "cancelArticle"
+    },
+    show: function() {
+        this.render(), this.$el.show();
+    },
+    saveArticle: function(a) {
+        a.preventDefault();
+        var b = this.model.get("incident");
+        console.log(b), this.model.get("incident").set({
+            time: incidentTime.value,
+            marker: coordLat.value,
+            coordinates: coordLon.value
+        }), this.model.get("media").set({
+            content: mediaName.value
+        });
+        var c = this.model;
+        console.log(c), this.model.save({}, {
+            dataType: "text",
+            success: function(a, b) {
+                console.log("The model has been saved to the server", b, a);
+            },
+            error: function() {
+                console.log("Something went wrong while saving the model");
+            }
+        });
+    },
+    cancelArticle: function() {
+        this.checkFilledFields();
+    },
+    checkFilledFields: function() {
+        var a = $("input:text").filter(function() {
+            return "" != $.trim(this.value);
+        });
+        return a.length ? (console.log("Not Empty!"), void alert("Are you sure?")) : void 0;
     }
 });
 
@@ -5810,10 +5898,20 @@ UT.DateView = Backbone.View.extend({
 
 var UT = window.UT || {};
 
+UT.Router = Backbone.Router.extend({
+    routes: {
+        "editor/*id": "editor"
+    }
+});
+
+var UT = window.UT || {};
+
 UT.ApplicationView = Backbone.View.extend({
     initialize: function() {
         var a = this;
-        a.map = $("#map"), a.vent = _.extend({}, Backbone.Events), a.vent.on("incidentSelected", a.updateArticle, a);
+        a.map = $("#map"), a.router = new UT.Router(), a.router.on("route:editor", function(a) {
+            alert(a);
+        }), Backbone.history.start(), a.vent = _.extend({}, Backbone.Events), a.vent.on("incidentSelected", a.updateArticle, a);
         var b = new google.maps.LatLng(50.450201, 30.524021), c = [ {
             elementType: "geometry",
             stylers: [ {

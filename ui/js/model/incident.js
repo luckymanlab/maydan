@@ -12,5 +12,12 @@ UT.Incident = Backbone.Model.extend({
 	},
 	getTitle: function() {
 		return this.get('title');
+	},
+	defaults: {
+		time: '',
+		type: '',
+		marker: '',
+		coordinates: '',
+		title:''
 	}
 });

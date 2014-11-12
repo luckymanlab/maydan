@@ -9,13 +9,13 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(logger('dev'));
-app.use(express.static(path.join(__dirname, './public')));
+app.use(express.static(path.join(__dirname, '../ui')));
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    next();
-});
+//app.use(function(req, res, next) {
+//    res.header("Access-Control-Allow-Origin", "*");
+//    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+//    next();
+//});
 
 app.use('/', router);
 

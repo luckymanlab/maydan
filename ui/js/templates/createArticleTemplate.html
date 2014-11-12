@@ -1,0 +1,45 @@
+
+<form name="My_form" class="form-article">
+    <fieldset>
+        <legend>Media</legend>
+        <label>
+            Content:
+            <input type="text" name="media-content" id="mediaName">
+            <span>Can't be empty</span>
+        </label>
+    </fieldset>
+    <fieldset>
+        <legend>Incident</legend>
+        <label>
+            Time:
+            <input type="text" name="incident-time" id="incidentTime">
+            <span>Must be bigger then 0 and smaller then current time</span>
+        </label>
+
+        <label>
+            Type:
+            <input type="text" name="incident-type" id="incidentType">
+            <span>At the moment type must be empty</span>
+        </label>
+
+        <p>Coordinates:</p>
+        <label>
+            Lat:
+            <input type="number" name="incident-coordinates-lat" id="coordLat">
+            <span>Can't be smaller then 0</span>
+        </label>
+
+        <label>
+            Lon:
+            <input type="number" name="incident-coordinates-lon" id="coordLon">
+            <span>Can't be smaller then 0</span>
+        </label>
+
+        <label>
+            Title:
+            <input type="text" name="incident-title">
+        </label>
+    </fieldset>
+    <a href="#" id="saveArticle"> sendArticle</a>
+    <a href="#" id="cancel"> cancelArticle</a>
+</form>
