@@ -7,7 +7,14 @@ exports.addArticle = function(req, res) {
     var article = req.body;
     console.log('Adding article into temp: ' + JSON.stringify(article));
 
-    if(typeof article.media.content === undefined || typeof article.incident.time === undefined || typeof article.incident.type === undefined || article.incident.coordinates.lat === undefined || article.incident.coordinates.lon === undefined || article.incident.title === undefined) {
+    if(
+        typeof article.media.content === undefined
+        || typeof article.incident.time === undefined
+        || typeof article.incident.type === undefined
+        || typeof article.incident.coordinates.lat === undefined
+        || typeof article.incident.coordinates.lon === undefined
+        || typeof article.incident.title === undefined
+    ) {
         res.status(400).res('Requested data is invalid');
         throw "Bad request"
     }
