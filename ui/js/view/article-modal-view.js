@@ -2,13 +2,14 @@ var UT = window.UT || {};
 
 UT.ArticleModalView = Backbone.View.extend({
 	initialize: function(options) {
-		this.showContent();
-		this.createArticleView = new UT.CreateArticleView ({el: $('.content')});
-		this.createArticleView.show();
-	},
-	events:{
-		'click #articleModal': 'articleModal',
-		'click #closeModal': 'closeModal'
+		var self = this;
+		self.model = options.model;
+		self.model.on('request', function () {
+			self.showPreloader();
+		});
+		self.model.on('sync error', function () {
+			self.showContent();
+		});
 	},
 	showModal: function () {
 		this.$el.modal('show');
@@ -20,11 +21,6 @@ UT.ArticleModalView = Backbone.View.extend({
 	showContent: function () {
 		this.$el.find('.preloader').hide();
 		this.$el.find('.content').show();
-	},
-	closeModal: function(e){
-		e.preventDefault();
-		console.log("Something");
-		this.createArticleView.cancelArticle();
 	}
 });
 
