@@ -1,11 +1,11 @@
 <div class="modal-body">
 
 
-    <form class="form-horizontal" role="form" id="articleForm">
+    <form class="form-horizontal" role="form">
         <!--Title-->
         <div class="form-group">
             <div class="col-sm-10">
-                <input class="form-control" type="text" placeholder="Please, enter title" id="incidentTitle">
+                <input class="form-control" type="text" placeholder="Please, enter title">
             </div>
         </div>
 
@@ -13,7 +13,7 @@
         <div class="form-group">
             <div class="input-group date form_datetime col-sm-10" data-date="2013-10-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-                <input class="form-control" size="16" type="text" value="" readonly placeholder="Please, enter date" id="incidentTime">
+                <input class="form-control" size="16" type="text" value="" readonly placeholder="Please, enter date">
 
             </div>
             <input type="hidden" id="dtp_input1" value="" /><br/>
@@ -22,14 +22,8 @@
 
 
         <!--map coordinate-->
-        <div class="row" data-example>
-            <div class="col-sm-10">
-                <div id="default-place">
-                    <input id="placepicker" class="form-control" data-latitude="53.538764" data-longitude="10.028240" />
-                </div>
-            </div>
-        </div>
-
+        <input id="placepicker" class="form-control" style="display: none;"/>
+        <input type="text" id="hiddenMapCoordinate" hidden/>
         <div data-example>
             <div class="col-sm-10">
                 <div class="form-group">
@@ -39,7 +33,7 @@
                                             <i class="glyphicon glyphicon-globe"></i>
                                         </button>
                                     </span>
-                        <input id="placepicker" class="placepicker form-control" placeholder="Please, switch coordinate" />
+                        <input id="placepicker" class="placepicker form-control" placeholder="Please, switch coordinate"/>
 
                     </div>
                 </div>
@@ -50,28 +44,37 @@
         </div>
 
         <!--incident type-->
-        <div class="form-group">
-            <div class="col-sm-10">
-                <select class="form-control">
-                    <option>Fire</option>
-                    <option>Love</option>
-                    <option>Smile</option>
-                </select>
+        <div class="incident-type">
+            <input type="text" id="hiddenIncidentType" hidden/>
+
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <div  id="mainSelectIncidentType" class="form-control col-sm-10"><i class="glyphicon glyphicon-chevron-down"></i><span class="selectValue placeholder">Please, select mark</span></div>
+                    <div id="optionsIncidentType"  class="col-sm-10">
+                        <div class="col-sm-10 select-option"><img src="img/markers/fire.png">111</div>
+                        <div class="col-sm-10 select-option"><img src="img/markers/fire.png">222</div>
+                        <div class="col-sm-10 select-option"><img src="img/markers/fire.png">333</div>
+                        <div class="col-sm-10 select-option"><img src="img/markers/fire.png">444</div>
+                    </div>
+                </div>
             </div>
         </div>
-
 
         <!--text area-->
         <div class="form-group">
             <div class="col-sm-10">
-                <textarea class="form-control"  rows="5" placeholder="Please, enter description of incident" id="mediaContent"></textarea>
+                <textarea class="form-control"  rows="5" placeholder="Please, enter description of incident"></textarea>
+            </div>
+        </div>
+
+        <!--buttons-->
+        <div class="form-group">
+            <div class="col-sm-10">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="reset" class="btn btn-default">Cancel</button>
             </div>
         </div>
     </form>
 
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel" type="reset" >Close</button>
-    <button type="button" class="btn btn-primary" id="saveArticle" >Save changes</button>
 </div>
 

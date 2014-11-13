@@ -13,7 +13,10 @@ module.exports = function (grunt) {
 		'js/vendor/backbone-min.js',
 		'js/vendor/infobubble.js',
 		'js/vendor/bootstrap.min.js',
-		'js/vendor/bootstrap-datepicker.js'
+		'js/vendor/bootstrap-datepicker.js',
+		'js/vendor/placepicker.js',
+		'js/vendor/bootstrap-datetimepicker.js',
+		'js/vendor/calendarLengauge/*.js'
 	];
 
 	var base = [
@@ -29,7 +32,8 @@ module.exports = function (grunt) {
 		'js/view/incident-collection-view.js',
 		'js/view/date-view.js',
 		'js/router.js',
-		'js/app.js'
+		'js/app.js',
+		'js/popupForm.js'
 	];
 
 	var timeLine = [
@@ -127,7 +131,8 @@ module.exports = function (grunt) {
 					style: 'compressed'
 				},
 				files: {
-					'public/css/timeLine.css': 'timeLine/scss/timeLine.scss'
+					'public/css/timeLine.css': 'timeLine/scss/timeLine.scss',
+					'public/css/popupForm.css': 'scss/popupForm.scss'
                 }
             }
         },
@@ -167,6 +172,6 @@ module.exports = function (grunt) {
         }
 	});
 
-	grunt.registerTask('default', ['jshint:files', 'uglify', 'watch']);
+	grunt.registerTask('default', ['sass', 'uglify', 'watch']);
 	grunt.registerTask('timeLine', ['jshint:files', 'uglify:buildTL', 'imagemin', 'sprite', 'sass', 'watch']);
 };

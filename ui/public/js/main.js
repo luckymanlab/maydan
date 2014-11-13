@@ -11,6 +11,36 @@ function InfoBubble(a) {
     this.buildDom_(), this.setValues(b);
 }
 
+function popupFormInitialize() {
+    $("#placepicker").placepicker(), $(".placepicker").each(function() {
+        var a = this, b = $(this).parents(".form-group").next(".collapse"), c = b.find(".placepicker-map"), d = $(this).placepicker({
+            map: c.get(0),
+            placeChanged: function() {
+                $("#hiddenMapCoordinate").attr("value", this.getLocation()), console.log(this.getLocation());
+            }
+        }).data("placepicker");
+        b.on("show.bs.collapse", function() {
+            window.setTimeout(function() {
+                d.resizeMap(), d.reloadMap(), $(a).prop("value") || d.geoLocation();
+            }, 0);
+        });
+    }), $(".form_datetime").datetimepicker({
+        language: "us",
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1
+    }), $("#mainSelectIncidentType").on("click", function() {
+        "none" === $("#optionsIncidentType").css("display") ? $("#optionsIncidentType").css("display", "block") : $("#optionsIncidentType").css("display", "none");
+    }), $("#optionsIncidentType > .select-option").on("click", function() {
+        $("#mainSelectIncidentType > span").text($(this).text()).removeClass("placeholder"), 
+        $("#optionsIncidentType").css("display", "none"), $("#hiddenIncidentType").attr("value", $(this).text());
+    });
+}
+
 if (!function(a, b) {
     "object" == typeof module && "object" == typeof module.exports ? module.exports = a.document ? b(a, !0) : function(a) {
         if (!a.document) throw new Error("jQuery requires a window with a document");
@@ -5600,7 +5630,838 @@ InfoBubble.prototype.positionCloseButton_ = function() {
         contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>'
     };
     c.template = '<div class="datepicker dropdown-menu"><div class="datepicker-days"><table class=" table-condensed">' + c.headTemplate + '<tbody></tbody></table></div><div class="datepicker-months"><table class="table-condensed">' + c.headTemplate + c.contTemplate + '</table></div><div class="datepicker-years"><table class="table-condensed">' + c.headTemplate + c.contTemplate + "</table></div></div>";
-}(window.jQuery);
+}(window.jQuery), !function(a) {
+    function b() {
+        return new Date(Date.UTC.apply(Date, arguments));
+    }
+    var c = function(b, c) {
+        var f = this;
+        this.element = a(b), this.container = c.container || "body", this.language = c.language || this.element.data("date-language") || "en", 
+        this.language = this.language in d ? this.language : "en", this.isRTL = d[this.language].rtl || !1, 
+        this.formatType = c.formatType || this.element.data("format-type") || "standard", 
+        this.format = e.parseFormat(c.format || this.element.data("date-format") || d[this.language].format || e.getDefaultFormat(this.formatType, "input"), this.formatType), 
+        this.isInline = !1, this.isVisible = !1, this.isInput = this.element.is("input"), 
+        this.fontAwesome = c.fontAwesome || this.element.data("font-awesome") || !1, this.bootcssVer = c.bootcssVer || (this.isInput ? this.element.is(".form-control") ? 3 : 2 : this.bootcssVer = this.element.is(".input-group") ? 3 : 2), 
+        this.component = this.element.is(".date") ? 3 == this.bootcssVer ? this.element.find(".input-group-addon .glyphicon-th, .input-group-addon .glyphicon-time, .input-group-addon .glyphicon-calendar, .input-group-addon .glyphicon-calendar .fa-calendar .fa-clock-o").parent() : this.element.find(".add-on .icon-th, .add-on .icon-time, .add-on .icon-calendar .fa-calendar .fa-clock-o").parent() : !1, 
+        this.componentReset = this.element.is(".date") ? 3 == this.bootcssVer ? this.element.find(".input-group-addon .glyphicon-remove .fa-times").parent() : this.element.find(".add-on .icon-remove .fa-times").parent() : !1, 
+        this.hasInput = this.component && this.element.find("input").length, this.component && 0 === this.component.length && (this.component = !1), 
+        this.linkField = c.linkField || this.element.data("link-field") || !1, this.linkFormat = e.parseFormat(c.linkFormat || this.element.data("link-format") || e.getDefaultFormat(this.formatType, "link"), this.formatType), 
+        this.minuteStep = c.minuteStep || this.element.data("minute-step") || 5, this.pickerPosition = c.pickerPosition || this.element.data("picker-position") || "bottom-right", 
+        this.showMeridian = c.showMeridian || this.element.data("show-meridian") || !1, 
+        this.initialDate = c.initialDate || new Date(), this.icons = {
+            leftArrow: this.fontAwesome ? "fa-arrow-left" : 3 === this.bootcssVer ? "glyphicon-arrow-left" : "icon-arrow-left",
+            rightArrow: this.fontAwesome ? "fa-arrow-right" : 3 === this.bootcssVer ? "glyphicon-arrow-right" : "icon-arrow-right"
+        }, this.icontype = this.fontAwesome ? "fa" : "glyphicon", this._attachEvents(), 
+        this.formatViewType = "datetime", "formatViewType" in c ? this.formatViewType = c.formatViewType : "formatViewType" in this.element.data() && (this.formatViewType = this.element.data("formatViewType")), 
+        this.minView = 0, "minView" in c ? this.minView = c.minView : "minView" in this.element.data() && (this.minView = this.element.data("min-view")), 
+        this.minView = e.convertViewMode(this.minView), this.maxView = e.modes.length - 1, 
+        "maxView" in c ? this.maxView = c.maxView : "maxView" in this.element.data() && (this.maxView = this.element.data("max-view")), 
+        this.maxView = e.convertViewMode(this.maxView), this.wheelViewModeNavigation = !1, 
+        "wheelViewModeNavigation" in c ? this.wheelViewModeNavigation = c.wheelViewModeNavigation : "wheelViewModeNavigation" in this.element.data() && (this.wheelViewModeNavigation = this.element.data("view-mode-wheel-navigation")), 
+        this.wheelViewModeNavigationInverseDirection = !1, "wheelViewModeNavigationInverseDirection" in c ? this.wheelViewModeNavigationInverseDirection = c.wheelViewModeNavigationInverseDirection : "wheelViewModeNavigationInverseDirection" in this.element.data() && (this.wheelViewModeNavigationInverseDirection = this.element.data("view-mode-wheel-navigation-inverse-dir")), 
+        this.wheelViewModeNavigationDelay = 100, "wheelViewModeNavigationDelay" in c ? this.wheelViewModeNavigationDelay = c.wheelViewModeNavigationDelay : "wheelViewModeNavigationDelay" in this.element.data() && (this.wheelViewModeNavigationDelay = this.element.data("view-mode-wheel-navigation-delay")), 
+        this.startViewMode = 2, "startView" in c ? this.startViewMode = c.startView : "startView" in this.element.data() && (this.startViewMode = this.element.data("start-view")), 
+        this.startViewMode = e.convertViewMode(this.startViewMode), this.viewMode = this.startViewMode, 
+        this.viewSelect = this.minView, "viewSelect" in c ? this.viewSelect = c.viewSelect : "viewSelect" in this.element.data() && (this.viewSelect = this.element.data("view-select")), 
+        this.viewSelect = e.convertViewMode(this.viewSelect), this.forceParse = !0, "forceParse" in c ? this.forceParse = c.forceParse : "dateForceParse" in this.element.data() && (this.forceParse = this.element.data("date-force-parse"));
+        for (var g = 3 === this.bootcssVer ? e.templateV3 : e.template; -1 !== g.indexOf("{iconType}"); ) g = g.replace("{iconType}", this.icontype);
+        for (;-1 !== g.indexOf("{leftArrow}"); ) g = g.replace("{leftArrow}", this.icons.leftArrow);
+        for (;-1 !== g.indexOf("{rightArrow}"); ) g = g.replace("{rightArrow}", this.icons.rightArrow);
+        if (this.picker = a(g).appendTo(this.isInline ? this.element : this.container).on({
+            click: a.proxy(this.click, this),
+            mousedown: a.proxy(this.mousedown, this)
+        }), this.wheelViewModeNavigation && (a.fn.mousewheel ? this.picker.on({
+            mousewheel: a.proxy(this.mousewheel, this)
+        }) : console.log("Mouse Wheel event is not supported. Please include the jQuery Mouse Wheel plugin before enabling this option")), 
+        this.picker.addClass(this.isInline ? "datetimepicker-inline" : "datetimepicker-dropdown-" + this.pickerPosition + " dropdown-menu"), 
+        this.isRTL) {
+            this.picker.addClass("datetimepicker-rtl");
+            var h = 3 === this.bootcssVer ? ".prev span, .next span" : ".prev i, .next i";
+            this.picker.find(h).toggleClass(this.icons.leftArrow + " " + this.icons.rightArrow);
+        }
+        a(document).on("mousedown", function(b) {
+            0 === a(b.target).closest(".datetimepicker").length && f.hide();
+        }), this.autoclose = !1, "autoclose" in c ? this.autoclose = c.autoclose : "dateAutoclose" in this.element.data() && (this.autoclose = this.element.data("date-autoclose")), 
+        this.keyboardNavigation = !0, "keyboardNavigation" in c ? this.keyboardNavigation = c.keyboardNavigation : "dateKeyboardNavigation" in this.element.data() && (this.keyboardNavigation = this.element.data("date-keyboard-navigation")), 
+        this.todayBtn = c.todayBtn || this.element.data("date-today-btn") || !1, this.todayHighlight = c.todayHighlight || this.element.data("date-today-highlight") || !1, 
+        this.weekStart = (c.weekStart || this.element.data("date-weekstart") || d[this.language].weekStart || 0) % 7, 
+        this.weekEnd = (this.weekStart + 6) % 7, this.startDate = -1/0, this.endDate = 1/0, 
+        this.daysOfWeekDisabled = [], this.setStartDate(c.startDate || this.element.data("date-startdate")), 
+        this.setEndDate(c.endDate || this.element.data("date-enddate")), this.setDaysOfWeekDisabled(c.daysOfWeekDisabled || this.element.data("date-days-of-week-disabled")), 
+        this.setMinutesDisabled(c.minutesDisabled || this.element.data("date-minute-disabled")), 
+        this.setHoursDisabled(c.hoursDisabled || this.element.data("date-hour-disabled")), 
+        this.fillDow(), this.fillMonths(), this.update(), this.showMode(), this.isInline && this.show();
+    };
+    c.prototype = {
+        constructor: c,
+        _events: [],
+        _attachEvents: function() {
+            this._detachEvents(), this.isInput ? this._events = [ [ this.element, {
+                focus: a.proxy(this.show, this),
+                keyup: a.proxy(this.update, this),
+                keydown: a.proxy(this.keydown, this)
+            } ] ] : this.component && this.hasInput ? (this._events = [ [ this.element.find("input"), {
+                focus: a.proxy(this.show, this),
+                keyup: a.proxy(this.update, this),
+                keydown: a.proxy(this.keydown, this)
+            } ], [ this.component, {
+                click: a.proxy(this.show, this)
+            } ] ], this.componentReset && this._events.push([ this.componentReset, {
+                click: a.proxy(this.reset, this)
+            } ])) : this.element.is("div") ? this.isInline = !0 : this._events = [ [ this.element, {
+                click: a.proxy(this.show, this)
+            } ] ];
+            for (var b, c, d = 0; d < this._events.length; d++) b = this._events[d][0], c = this._events[d][1], 
+            b.on(c);
+        },
+        _detachEvents: function() {
+            for (var a, b, c = 0; c < this._events.length; c++) a = this._events[c][0], b = this._events[c][1], 
+            a.off(b);
+            this._events = [];
+        },
+        show: function(b) {
+            this.picker.show(), this.height = this.component ? this.component.outerHeight() : this.element.outerHeight(), 
+            this.forceParse && this.update(), this.place(), a(window).on("resize", a.proxy(this.place, this)), 
+            b && (b.stopPropagation(), b.preventDefault()), this.isVisible = !0, this.element.trigger({
+                type: "show",
+                date: this.date
+            });
+        },
+        hide: function() {
+            this.isVisible && (this.isInline || (this.picker.hide(), a(window).off("resize", this.place), 
+            this.viewMode = this.startViewMode, this.showMode(), this.isInput || a(document).off("mousedown", this.hide), 
+            this.forceParse && (this.isInput && this.element.val() || this.hasInput && this.element.find("input").val()) && this.setValue(), 
+            this.isVisible = !1, this.element.trigger({
+                type: "hide",
+                date: this.date
+            })));
+        },
+        remove: function() {
+            this._detachEvents(), this.picker.remove(), delete this.picker, delete this.element.data().datetimepicker;
+        },
+        getDate: function() {
+            var a = this.getUTCDate();
+            return new Date(a.getTime() + 6e4 * a.getTimezoneOffset());
+        },
+        getUTCDate: function() {
+            return this.date;
+        },
+        setDate: function(a) {
+            this.setUTCDate(new Date(a.getTime() - 6e4 * a.getTimezoneOffset()));
+        },
+        setUTCDate: function(a) {
+            a >= this.startDate && a <= this.endDate ? (this.date = a, this.setValue(), this.viewDate = this.date, 
+            this.fill()) : this.element.trigger({
+                type: "outOfRange",
+                date: a,
+                startDate: this.startDate,
+                endDate: this.endDate
+            });
+        },
+        setFormat: function(a) {
+            this.format = e.parseFormat(a, this.formatType);
+            var b;
+            this.isInput ? b = this.element : this.component && (b = this.element.find("input")), 
+            b && b.val() && this.setValue();
+        },
+        setValue: function() {
+            var b = this.getFormattedDate();
+            this.isInput ? this.element.val(b) : (this.component && this.element.find("input").val(b), 
+            this.element.data("date", b)), this.linkField && a("#" + this.linkField).val(this.getFormattedDate(this.linkFormat));
+        },
+        getFormattedDate: function(a) {
+            return void 0 == a && (a = this.format), e.formatDate(this.date, a, this.language, this.formatType);
+        },
+        setStartDate: function(a) {
+            this.startDate = a || -1/0, this.startDate !== -1/0 && (this.startDate = e.parseDate(this.startDate, this.format, this.language, this.formatType)), 
+            this.update(), this.updateNavArrows();
+        },
+        setEndDate: function(a) {
+            this.endDate = a || 1/0, 1/0 !== this.endDate && (this.endDate = e.parseDate(this.endDate, this.format, this.language, this.formatType)), 
+            this.update(), this.updateNavArrows();
+        },
+        setDaysOfWeekDisabled: function(b) {
+            this.daysOfWeekDisabled = b || [], a.isArray(this.daysOfWeekDisabled) || (this.daysOfWeekDisabled = this.daysOfWeekDisabled.split(/,\s*/)), 
+            this.daysOfWeekDisabled = a.map(this.daysOfWeekDisabled, function(a) {
+                return parseInt(a, 10);
+            }), this.update(), this.updateNavArrows();
+        },
+        setMinutesDisabled: function(b) {
+            this.minutesDisabled = b || [], a.isArray(this.minutesDisabled) || (this.minutesDisabled = this.minutesDisabled.split(/,\s*/)), 
+            this.minutesDisabled = a.map(this.minutesDisabled, function(a) {
+                return parseInt(a, 10);
+            }), this.update(), this.updateNavArrows();
+        },
+        setHoursDisabled: function(b) {
+            this.hoursDisabled = b || [], a.isArray(this.hoursDisabled) || (this.hoursDisabled = this.hoursDisabled.split(/,\s*/)), 
+            this.hoursDisabled = a.map(this.hoursDisabled, function(a) {
+                return parseInt(a, 10);
+            }), this.update(), this.updateNavArrows();
+        },
+        place: function() {
+            if (!this.isInline) {
+                var b = 0;
+                a("div").each(function() {
+                    var c = parseInt(a(this).css("zIndex"), 10);
+                    c > b && (b = c);
+                });
+                var c, d, e, f, g = b + 10;
+                f = this.container instanceof a ? this.container.offset() : a(this.container).offset(), 
+                this.component ? (c = this.component.offset(), e = c.left, ("bottom-left" == this.pickerPosition || "top-left" == this.pickerPosition) && (e += this.component.outerWidth() - this.picker.outerWidth())) : (c = this.element.offset(), 
+                e = c.left), e + 220 > document.body.clientWidth && (e = document.body.clientWidth - 220), 
+                d = "top-left" == this.pickerPosition || "top-right" == this.pickerPosition ? c.top - this.picker.outerHeight() : c.top + this.height, 
+                d -= f.top, e -= f.left, this.picker.css({
+                    top: d,
+                    left: e,
+                    zIndex: g
+                });
+            }
+        },
+        update: function() {
+            var a, b = !1;
+            arguments && arguments.length && ("string" == typeof arguments[0] || arguments[0] instanceof Date) ? (a = arguments[0], 
+            b = !0) : (a = (this.isInput ? this.element.val() : this.element.find("input").val()) || this.element.data("date") || this.initialDate, 
+            ("string" == typeof a || a instanceof String) && (a = a.replace(/^\s+|\s+$/g, ""))), 
+            a || (a = new Date(), b = !1), this.date = e.parseDate(a, this.format, this.language, this.formatType), 
+            b && this.setValue(), this.viewDate = new Date(this.date < this.startDate ? this.startDate : this.date > this.endDate ? this.endDate : this.date), 
+            this.fill();
+        },
+        fillDow: function() {
+            for (var a = this.weekStart, b = "<tr>"; a < this.weekStart + 7; ) b += '<th class="dow">' + d[this.language].daysMin[a++ % 7] + "</th>";
+            b += "</tr>", this.picker.find(".datetimepicker-days thead").append(b);
+        },
+        fillMonths: function() {
+            for (var a = "", b = 0; 12 > b; ) a += '<span class="month">' + d[this.language].monthsShort[b++] + "</span>";
+            this.picker.find(".datetimepicker-months td").html(a);
+        },
+        fill: function() {
+            if (null != this.date && null != this.viewDate) {
+                var c = new Date(this.viewDate), f = c.getUTCFullYear(), g = c.getUTCMonth(), h = c.getUTCDate(), i = c.getUTCHours(), j = c.getUTCMinutes(), k = this.startDate !== -1/0 ? this.startDate.getUTCFullYear() : -1/0, l = this.startDate !== -1/0 ? this.startDate.getUTCMonth() + 1 : -1/0, m = 1/0 !== this.endDate ? this.endDate.getUTCFullYear() : 1/0, n = 1/0 !== this.endDate ? this.endDate.getUTCMonth() + 1 : 1/0, o = new b(this.date.getUTCFullYear(), this.date.getUTCMonth(), this.date.getUTCDate()).valueOf(), p = new Date();
+                if (this.picker.find(".datetimepicker-days thead th:eq(1)").text(d[this.language].months[g] + " " + f), 
+                "time" == this.formatViewType) {
+                    var q = this.getFormattedDate();
+                    this.picker.find(".datetimepicker-hours thead th:eq(1)").text(q), this.picker.find(".datetimepicker-minutes thead th:eq(1)").text(q);
+                } else this.picker.find(".datetimepicker-hours thead th:eq(1)").text(h + " " + d[this.language].months[g] + " " + f), 
+                this.picker.find(".datetimepicker-minutes thead th:eq(1)").text(h + " " + d[this.language].months[g] + " " + f);
+                this.picker.find("tfoot th.today").text(d[this.language].today).toggle(this.todayBtn !== !1), 
+                this.updateNavArrows(), this.fillMonths();
+                var r = b(f, g - 1, 28, 0, 0, 0, 0), s = e.getDaysInMonth(r.getUTCFullYear(), r.getUTCMonth());
+                r.setUTCDate(s), r.setUTCDate(s - (r.getUTCDay() - this.weekStart + 7) % 7);
+                var t = new Date(r);
+                t.setUTCDate(t.getUTCDate() + 42), t = t.valueOf();
+                for (var u, v = []; r.valueOf() < t; ) r.getUTCDay() == this.weekStart && v.push("<tr>"), 
+                u = "", r.getUTCFullYear() < f || r.getUTCFullYear() == f && r.getUTCMonth() < g ? u += " old" : (r.getUTCFullYear() > f || r.getUTCFullYear() == f && r.getUTCMonth() > g) && (u += " new"), 
+                this.todayHighlight && r.getUTCFullYear() == p.getFullYear() && r.getUTCMonth() == p.getMonth() && r.getUTCDate() == p.getDate() && (u += " today"), 
+                r.valueOf() == o && (u += " active"), (r.valueOf() + 864e5 <= this.startDate || r.valueOf() > this.endDate || -1 !== a.inArray(r.getUTCDay(), this.daysOfWeekDisabled)) && (u += " disabled"), 
+                v.push('<td class="day' + u + '">' + r.getUTCDate() + "</td>"), r.getUTCDay() == this.weekEnd && v.push("</tr>"), 
+                r.setUTCDate(r.getUTCDate() + 1);
+                this.picker.find(".datetimepicker-days tbody").empty().append(v.join("")), v = [];
+                for (var w = "", x = "", y = "", z = this.hoursDisabled || [], A = 0; 24 > A; A++) if (-1 === z.indexOf(A)) {
+                    var B = b(f, g, h, A);
+                    u = "", B.valueOf() + 36e5 <= this.startDate || B.valueOf() > this.endDate ? u += " disabled" : i == A && (u += " active"), 
+                    this.showMeridian && 2 == d[this.language].meridiem.length ? (x = 12 > A ? d[this.language].meridiem[0] : d[this.language].meridiem[1], 
+                    x != y && ("" != y && v.push("</fieldset>"), v.push('<fieldset class="hour"><legend>' + x.toUpperCase() + "</legend>")), 
+                    y = x, w = A % 12 ? A % 12 : 12, v.push('<span class="hour' + u + " hour_" + (12 > A ? "am" : "pm") + '">' + w + "</span>"), 
+                    23 == A && v.push("</fieldset>")) : (w = A + ":00", v.push('<span class="hour' + u + '">' + w + "</span>"));
+                }
+                this.picker.find(".datetimepicker-hours td").html(v.join("")), v = [], w = "", x = "", 
+                y = "";
+                for (var C = this.minutesDisabled || [], A = 0; 60 > A; A += this.minuteStep) if (-1 === C.indexOf(A)) {
+                    var B = b(f, g, h, i, A, 0);
+                    u = "", B.valueOf() < this.startDate || B.valueOf() > this.endDate ? u += " disabled" : Math.floor(j / this.minuteStep) == Math.floor(A / this.minuteStep) && (u += " active"), 
+                    this.showMeridian && 2 == d[this.language].meridiem.length ? (x = 12 > i ? d[this.language].meridiem[0] : d[this.language].meridiem[1], 
+                    x != y && ("" != y && v.push("</fieldset>"), v.push('<fieldset class="minute"><legend>' + x.toUpperCase() + "</legend>")), 
+                    y = x, w = i % 12 ? i % 12 : 12, v.push('<span class="minute' + u + '">' + w + ":" + (10 > A ? "0" + A : A) + "</span>"), 
+                    59 == A && v.push("</fieldset>")) : (w = A + ":00", v.push('<span class="minute' + u + '">' + i + ":" + (10 > A ? "0" + A : A) + "</span>"));
+                }
+                this.picker.find(".datetimepicker-minutes td").html(v.join(""));
+                var D = this.date.getUTCFullYear(), E = this.picker.find(".datetimepicker-months").find("th:eq(1)").text(f).end().find("span").removeClass("active");
+                D == f && E.eq(this.date.getUTCMonth() + 2).addClass("active"), (k > f || f > m) && E.addClass("disabled"), 
+                f == k && E.slice(0, l + 1).addClass("disabled"), f == m && E.slice(n).addClass("disabled"), 
+                v = "", f = 10 * parseInt(f / 10, 10);
+                var F = this.picker.find(".datetimepicker-years").find("th:eq(1)").text(f + "-" + (f + 9)).end().find("td");
+                f -= 1;
+                for (var A = -1; 11 > A; A++) v += '<span class="year' + (-1 == A || 10 == A ? " old" : "") + (D == f ? " active" : "") + (k > f || f > m ? " disabled" : "") + '">' + f + "</span>", 
+                f += 1;
+                F.html(v), this.place();
+            }
+        },
+        updateNavArrows: function() {
+            var a = new Date(this.viewDate), b = a.getUTCFullYear(), c = a.getUTCMonth(), d = a.getUTCDate(), e = a.getUTCHours();
+            switch (this.viewMode) {
+              case 0:
+                this.picker.find(".prev").css(this.startDate !== -1/0 && b <= this.startDate.getUTCFullYear() && c <= this.startDate.getUTCMonth() && d <= this.startDate.getUTCDate() && e <= this.startDate.getUTCHours() ? {
+                    visibility: "hidden"
+                } : {
+                    visibility: "visible"
+                }), this.picker.find(".next").css(1/0 !== this.endDate && b >= this.endDate.getUTCFullYear() && c >= this.endDate.getUTCMonth() && d >= this.endDate.getUTCDate() && e >= this.endDate.getUTCHours() ? {
+                    visibility: "hidden"
+                } : {
+                    visibility: "visible"
+                });
+                break;
+
+              case 1:
+                this.picker.find(".prev").css(this.startDate !== -1/0 && b <= this.startDate.getUTCFullYear() && c <= this.startDate.getUTCMonth() && d <= this.startDate.getUTCDate() ? {
+                    visibility: "hidden"
+                } : {
+                    visibility: "visible"
+                }), this.picker.find(".next").css(1/0 !== this.endDate && b >= this.endDate.getUTCFullYear() && c >= this.endDate.getUTCMonth() && d >= this.endDate.getUTCDate() ? {
+                    visibility: "hidden"
+                } : {
+                    visibility: "visible"
+                });
+                break;
+
+              case 2:
+                this.picker.find(".prev").css(this.startDate !== -1/0 && b <= this.startDate.getUTCFullYear() && c <= this.startDate.getUTCMonth() ? {
+                    visibility: "hidden"
+                } : {
+                    visibility: "visible"
+                }), this.picker.find(".next").css(1/0 !== this.endDate && b >= this.endDate.getUTCFullYear() && c >= this.endDate.getUTCMonth() ? {
+                    visibility: "hidden"
+                } : {
+                    visibility: "visible"
+                });
+                break;
+
+              case 3:
+              case 4:
+                this.picker.find(".prev").css(this.startDate !== -1/0 && b <= this.startDate.getUTCFullYear() ? {
+                    visibility: "hidden"
+                } : {
+                    visibility: "visible"
+                }), this.picker.find(".next").css(1/0 !== this.endDate && b >= this.endDate.getUTCFullYear() ? {
+                    visibility: "hidden"
+                } : {
+                    visibility: "visible"
+                });
+            }
+        },
+        mousewheel: function(b) {
+            if (b.preventDefault(), b.stopPropagation(), !this.wheelPause) {
+                this.wheelPause = !0;
+                var c = b.originalEvent, d = c.wheelDelta, e = d > 0 ? 1 : 0 === d ? 0 : -1;
+                this.wheelViewModeNavigationInverseDirection && (e = -e), this.showMode(e), setTimeout(a.proxy(function() {
+                    this.wheelPause = !1;
+                }, this), this.wheelViewModeNavigationDelay);
+            }
+        },
+        click: function(c) {
+            c.stopPropagation(), c.preventDefault();
+            var d = a(c.target).closest("span, td, th, legend");
+            if (d.is("." + this.icontype) && (d = a(d).parent().closest("span, td, th, legend")), 
+            1 == d.length) {
+                if (d.is(".disabled")) return void this.element.trigger({
+                    type: "outOfRange",
+                    date: this.viewDate,
+                    startDate: this.startDate,
+                    endDate: this.endDate
+                });
+                switch (d[0].nodeName.toLowerCase()) {
+                  case "th":
+                    switch (d[0].className) {
+                      case "switch":
+                        this.showMode(1);
+                        break;
+
+                      case "prev":
+                      case "next":
+                        var f = e.modes[this.viewMode].navStep * ("prev" == d[0].className ? -1 : 1);
+                        switch (this.viewMode) {
+                          case 0:
+                            this.viewDate = this.moveHour(this.viewDate, f);
+                            break;
+
+                          case 1:
+                            this.viewDate = this.moveDate(this.viewDate, f);
+                            break;
+
+                          case 2:
+                            this.viewDate = this.moveMonth(this.viewDate, f);
+                            break;
+
+                          case 3:
+                          case 4:
+                            this.viewDate = this.moveYear(this.viewDate, f);
+                        }
+                        this.fill(), this.element.trigger({
+                            type: d[0].className + ":" + this.convertViewModeText(this.viewMode),
+                            date: this.viewDate,
+                            startDate: this.startDate,
+                            endDate: this.endDate
+                        });
+                        break;
+
+                      case "today":
+                        var g = new Date();
+                        g = b(g.getFullYear(), g.getMonth(), g.getDate(), g.getHours(), g.getMinutes(), g.getSeconds(), 0), 
+                        g < this.startDate ? g = this.startDate : g > this.endDate && (g = this.endDate), 
+                        this.viewMode = this.startViewMode, this.showMode(0), this._setDate(g), this.fill(), 
+                        this.autoclose && this.hide();
+                    }
+                    break;
+
+                  case "span":
+                    if (!d.is(".disabled")) {
+                        var h = this.viewDate.getUTCFullYear(), i = this.viewDate.getUTCMonth(), j = this.viewDate.getUTCDate(), k = this.viewDate.getUTCHours(), l = this.viewDate.getUTCMinutes(), m = this.viewDate.getUTCSeconds();
+                        if (d.is(".month") ? (this.viewDate.setUTCDate(1), i = d.parent().find("span").index(d), 
+                        j = this.viewDate.getUTCDate(), this.viewDate.setUTCMonth(i), this.element.trigger({
+                            type: "changeMonth",
+                            date: this.viewDate
+                        }), this.viewSelect >= 3 && this._setDate(b(h, i, j, k, l, m, 0))) : d.is(".year") ? (this.viewDate.setUTCDate(1), 
+                        h = parseInt(d.text(), 10) || 0, this.viewDate.setUTCFullYear(h), this.element.trigger({
+                            type: "changeYear",
+                            date: this.viewDate
+                        }), this.viewSelect >= 4 && this._setDate(b(h, i, j, k, l, m, 0))) : d.is(".hour") ? (k = parseInt(d.text(), 10) || 0, 
+                        (d.hasClass("hour_am") || d.hasClass("hour_pm")) && (12 == k && d.hasClass("hour_am") ? k = 0 : 12 != k && d.hasClass("hour_pm") && (k += 12)), 
+                        this.viewDate.setUTCHours(k), this.element.trigger({
+                            type: "changeHour",
+                            date: this.viewDate
+                        }), this.viewSelect >= 1 && this._setDate(b(h, i, j, k, l, m, 0))) : d.is(".minute") && (l = parseInt(d.text().substr(d.text().indexOf(":") + 1), 10) || 0, 
+                        this.viewDate.setUTCMinutes(l), this.element.trigger({
+                            type: "changeMinute",
+                            date: this.viewDate
+                        }), this.viewSelect >= 0 && this._setDate(b(h, i, j, k, l, m, 0))), 0 != this.viewMode) {
+                            var n = this.viewMode;
+                            this.showMode(-1), this.fill(), n == this.viewMode && this.autoclose && this.hide();
+                        } else this.fill(), this.autoclose && this.hide();
+                    }
+                    break;
+
+                  case "td":
+                    if (d.is(".day") && !d.is(".disabled")) {
+                        var j = parseInt(d.text(), 10) || 1, h = this.viewDate.getUTCFullYear(), i = this.viewDate.getUTCMonth(), k = this.viewDate.getUTCHours(), l = this.viewDate.getUTCMinutes(), m = this.viewDate.getUTCSeconds();
+                        d.is(".old") ? 0 === i ? (i = 11, h -= 1) : i -= 1 : d.is(".new") && (11 == i ? (i = 0, 
+                        h += 1) : i += 1), this.viewDate.setUTCFullYear(h), this.viewDate.setUTCMonth(i, j), 
+                        this.element.trigger({
+                            type: "changeDay",
+                            date: this.viewDate
+                        }), this.viewSelect >= 2 && this._setDate(b(h, i, j, k, l, m, 0));
+                    }
+                    var n = this.viewMode;
+                    this.showMode(-1), this.fill(), n == this.viewMode && this.autoclose && this.hide();
+                }
+            }
+        },
+        _setDate: function(a, b) {
+            b && "date" != b || (this.date = a), b && "view" != b || (this.viewDate = a), this.fill(), 
+            this.setValue();
+            var c;
+            this.isInput ? c = this.element : this.component && (c = this.element.find("input")), 
+            c && (c.change(), this.autoclose && (!b || "date" == b)), this.element.trigger({
+                type: "changeDate",
+                date: this.date
+            });
+        },
+        moveMinute: function(a, b) {
+            if (!b) return a;
+            var c = new Date(a.valueOf());
+            return c.setUTCMinutes(c.getUTCMinutes() + b * this.minuteStep), c;
+        },
+        moveHour: function(a, b) {
+            if (!b) return a;
+            var c = new Date(a.valueOf());
+            return c.setUTCHours(c.getUTCHours() + b), c;
+        },
+        moveDate: function(a, b) {
+            if (!b) return a;
+            var c = new Date(a.valueOf());
+            return c.setUTCDate(c.getUTCDate() + b), c;
+        },
+        moveMonth: function(a, b) {
+            if (!b) return a;
+            var c, d, e = new Date(a.valueOf()), f = e.getUTCDate(), g = e.getUTCMonth(), h = Math.abs(b);
+            if (b = b > 0 ? 1 : -1, 1 == h) d = -1 == b ? function() {
+                return e.getUTCMonth() == g;
+            } : function() {
+                return e.getUTCMonth() != c;
+            }, c = g + b, e.setUTCMonth(c), (0 > c || c > 11) && (c = (c + 12) % 12); else {
+                for (var i = 0; h > i; i++) e = this.moveMonth(e, b);
+                c = e.getUTCMonth(), e.setUTCDate(f), d = function() {
+                    return c != e.getUTCMonth();
+                };
+            }
+            for (;d(); ) e.setUTCDate(--f), e.setUTCMonth(c);
+            return e;
+        },
+        moveYear: function(a, b) {
+            return this.moveMonth(a, 12 * b);
+        },
+        dateWithinRange: function(a) {
+            return a >= this.startDate && a <= this.endDate;
+        },
+        keydown: function(a) {
+            if (this.picker.is(":not(:visible)")) return void (27 == a.keyCode && this.show());
+            var b, c, d, e = !1;
+            switch (a.keyCode) {
+              case 27:
+                this.hide(), a.preventDefault();
+                break;
+
+              case 37:
+              case 39:
+                if (!this.keyboardNavigation) break;
+                b = 37 == a.keyCode ? -1 : 1, viewMode = this.viewMode, a.ctrlKey ? viewMode += 2 : a.shiftKey && (viewMode += 1), 
+                4 == viewMode ? (c = this.moveYear(this.date, b), d = this.moveYear(this.viewDate, b)) : 3 == viewMode ? (c = this.moveMonth(this.date, b), 
+                d = this.moveMonth(this.viewDate, b)) : 2 == viewMode ? (c = this.moveDate(this.date, b), 
+                d = this.moveDate(this.viewDate, b)) : 1 == viewMode ? (c = this.moveHour(this.date, b), 
+                d = this.moveHour(this.viewDate, b)) : 0 == viewMode && (c = this.moveMinute(this.date, b), 
+                d = this.moveMinute(this.viewDate, b)), this.dateWithinRange(c) && (this.date = c, 
+                this.viewDate = d, this.setValue(), this.update(), a.preventDefault(), e = !0);
+                break;
+
+              case 38:
+              case 40:
+                if (!this.keyboardNavigation) break;
+                b = 38 == a.keyCode ? -1 : 1, viewMode = this.viewMode, a.ctrlKey ? viewMode += 2 : a.shiftKey && (viewMode += 1), 
+                4 == viewMode ? (c = this.moveYear(this.date, b), d = this.moveYear(this.viewDate, b)) : 3 == viewMode ? (c = this.moveMonth(this.date, b), 
+                d = this.moveMonth(this.viewDate, b)) : 2 == viewMode ? (c = this.moveDate(this.date, 7 * b), 
+                d = this.moveDate(this.viewDate, 7 * b)) : 1 == viewMode ? this.showMeridian ? (c = this.moveHour(this.date, 6 * b), 
+                d = this.moveHour(this.viewDate, 6 * b)) : (c = this.moveHour(this.date, 4 * b), 
+                d = this.moveHour(this.viewDate, 4 * b)) : 0 == viewMode && (c = this.moveMinute(this.date, 4 * b), 
+                d = this.moveMinute(this.viewDate, 4 * b)), this.dateWithinRange(c) && (this.date = c, 
+                this.viewDate = d, this.setValue(), this.update(), a.preventDefault(), e = !0);
+                break;
+
+              case 13:
+                if (0 != this.viewMode) {
+                    var f = this.viewMode;
+                    this.showMode(-1), this.fill(), f == this.viewMode && this.autoclose && this.hide();
+                } else this.fill(), this.autoclose && this.hide();
+                a.preventDefault();
+                break;
+
+              case 9:
+                this.hide();
+            }
+            if (e) {
+                var g;
+                this.isInput ? g = this.element : this.component && (g = this.element.find("input")), 
+                g && g.change(), this.element.trigger({
+                    type: "changeDate",
+                    date: this.date
+                });
+            }
+        },
+        showMode: function(a) {
+            if (a) {
+                var b = Math.max(0, Math.min(e.modes.length - 1, this.viewMode + a));
+                b >= this.minView && b <= this.maxView && (this.element.trigger({
+                    type: "changeMode",
+                    date: this.viewDate,
+                    oldViewMode: this.viewMode,
+                    newViewMode: b
+                }), this.viewMode = b);
+            }
+            this.picker.find(">div").hide().filter(".datetimepicker-" + e.modes[this.viewMode].clsName).css("display", "block"), 
+            this.updateNavArrows();
+        },
+        reset: function() {
+            this._setDate(null, "date");
+        },
+        convertViewModeText: function(a) {
+            switch (a) {
+              case 4:
+                return "decade";
+
+              case 3:
+                return "year";
+
+              case 2:
+                return "month";
+
+              case 1:
+                return "day";
+
+              case 0:
+                return "hour";
+            }
+        }
+    }, a.fn.datetimepicker = function(b) {
+        var d = Array.apply(null, arguments);
+        d.shift();
+        var e;
+        return this.each(function() {
+            var f = a(this), g = f.data("datetimepicker"), h = "object" == typeof b && b;
+            return g || f.data("datetimepicker", g = new c(this, a.extend({}, a.fn.datetimepicker.defaults, h))), 
+            "string" == typeof b && "function" == typeof g[b] && (e = g[b].apply(g, d), void 0 !== e) ? !1 : void 0;
+        }), void 0 !== e ? e : this;
+    }, a.fn.datetimepicker.defaults = {}, a.fn.datetimepicker.Constructor = c;
+    var d = a.fn.datetimepicker.dates = {
+        en: {
+            days: [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ],
+            daysShort: [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ],
+            daysMin: [ "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su" ],
+            months: [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ],
+            monthsShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
+            meridiem: [ "am", "pm" ],
+            suffix: [ "st", "nd", "rd", "th" ],
+            today: "Today"
+        }
+    }, e = {
+        modes: [ {
+            clsName: "minutes",
+            navFnc: "Hours",
+            navStep: 1
+        }, {
+            clsName: "hours",
+            navFnc: "Date",
+            navStep: 1
+        }, {
+            clsName: "days",
+            navFnc: "Month",
+            navStep: 1
+        }, {
+            clsName: "months",
+            navFnc: "FullYear",
+            navStep: 1
+        }, {
+            clsName: "years",
+            navFnc: "FullYear",
+            navStep: 10
+        } ],
+        isLeapYear: function(a) {
+            return a % 4 === 0 && a % 100 !== 0 || a % 400 === 0;
+        },
+        getDaysInMonth: function(a, b) {
+            return [ 31, e.isLeapYear(a) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ][b];
+        },
+        getDefaultFormat: function(a, b) {
+            if ("standard" == a) return "input" == b ? "yyyy-mm-dd hh:ii" : "yyyy-mm-dd hh:ii:ss";
+            if ("php" == a) return "input" == b ? "Y-m-d H:i" : "Y-m-d H:i:s";
+            throw new Error("Invalid format type.");
+        },
+        validParts: function(a) {
+            if ("standard" == a) return /hh?|HH?|p|P|ii?|ss?|dd?|DD?|mm?|MM?|yy(?:yy)?/g;
+            if ("php" == a) return /[dDjlNwzFmMnStyYaABgGhHis]/g;
+            throw new Error("Invalid format type.");
+        },
+        nonpunctuation: /[^ -\/:-@\[-`{-~\t\n\rTZ]+/g,
+        parseFormat: function(a, b) {
+            var c = a.replace(this.validParts(b), "\x00").split("\x00"), d = a.match(this.validParts(b));
+            if (!c || !c.length || !d || 0 == d.length) throw new Error("Invalid date format.");
+            return {
+                separators: c,
+                parts: d
+            };
+        },
+        parseDate: function(e, f, g, h) {
+            if (e instanceof Date) {
+                var i = new Date(e.valueOf() - 6e4 * e.getTimezoneOffset());
+                return i.setMilliseconds(0), i;
+            }
+            if (/^\d{4}\-\d{1,2}\-\d{1,2}$/.test(e) && (f = this.parseFormat("yyyy-mm-dd", h)), 
+            /^\d{4}\-\d{1,2}\-\d{1,2}[T ]\d{1,2}\:\d{1,2}$/.test(e) && (f = this.parseFormat("yyyy-mm-dd hh:ii", h)), 
+            /^\d{4}\-\d{1,2}\-\d{1,2}[T ]\d{1,2}\:\d{1,2}\:\d{1,2}[Z]{0,1}$/.test(e) && (f = this.parseFormat("yyyy-mm-dd hh:ii:ss", h)), 
+            /^[-+]\d+[dmwy]([\s,]+[-+]\d+[dmwy])*$/.test(e)) {
+                var j, k, l = /([-+]\d+)([dmwy])/, m = e.match(/([-+]\d+)([dmwy])/g);
+                e = new Date();
+                for (var n = 0; n < m.length; n++) switch (j = l.exec(m[n]), k = parseInt(j[1]), 
+                j[2]) {
+                  case "d":
+                    e.setUTCDate(e.getUTCDate() + k);
+                    break;
+
+                  case "m":
+                    e = c.prototype.moveMonth.call(c.prototype, e, k);
+                    break;
+
+                  case "w":
+                    e.setUTCDate(e.getUTCDate() + 7 * k);
+                    break;
+
+                  case "y":
+                    e = c.prototype.moveYear.call(c.prototype, e, k);
+                }
+                return b(e.getUTCFullYear(), e.getUTCMonth(), e.getUTCDate(), e.getUTCHours(), e.getUTCMinutes(), e.getUTCSeconds(), 0);
+            }
+            var o, p, j, m = e && e.match(this.nonpunctuation) || [], e = new Date(0, 0, 0, 0, 0, 0, 0), q = {}, r = [ "hh", "h", "ii", "i", "ss", "s", "yyyy", "yy", "M", "MM", "m", "mm", "D", "DD", "d", "dd", "H", "HH", "p", "P" ], s = {
+                hh: function(a, b) {
+                    return a.setUTCHours(b);
+                },
+                h: function(a, b) {
+                    return a.setUTCHours(b);
+                },
+                HH: function(a, b) {
+                    return a.setUTCHours(12 == b ? 0 : b);
+                },
+                H: function(a, b) {
+                    return a.setUTCHours(12 == b ? 0 : b);
+                },
+                ii: function(a, b) {
+                    return a.setUTCMinutes(b);
+                },
+                i: function(a, b) {
+                    return a.setUTCMinutes(b);
+                },
+                ss: function(a, b) {
+                    return a.setUTCSeconds(b);
+                },
+                s: function(a, b) {
+                    return a.setUTCSeconds(b);
+                },
+                yyyy: function(a, b) {
+                    return a.setUTCFullYear(b);
+                },
+                yy: function(a, b) {
+                    return a.setUTCFullYear(2e3 + b);
+                },
+                m: function(a, b) {
+                    for (b -= 1; 0 > b; ) b += 12;
+                    for (b %= 12, a.setUTCMonth(b); a.getUTCMonth() != b; ) {
+                        if (isNaN(a.getUTCMonth())) return a;
+                        a.setUTCDate(a.getUTCDate() - 1);
+                    }
+                    return a;
+                },
+                d: function(a, b) {
+                    return a.setUTCDate(b);
+                },
+                p: function(a, b) {
+                    return a.setUTCHours(1 == b ? a.getUTCHours() + 12 : a.getUTCHours());
+                }
+            };
+            if (s.M = s.MM = s.mm = s.m, s.dd = s.d, s.P = s.p, e = b(e.getFullYear(), e.getMonth(), e.getDate(), e.getHours(), e.getMinutes(), e.getSeconds()), 
+            m.length == f.parts.length) {
+                for (var n = 0, t = f.parts.length; t > n; n++) {
+                    if (o = parseInt(m[n], 10), j = f.parts[n], isNaN(o)) switch (j) {
+                      case "MM":
+                        p = a(d[g].months).filter(function() {
+                            var a = this.slice(0, m[n].length), b = m[n].slice(0, a.length);
+                            return a == b;
+                        }), o = a.inArray(p[0], d[g].months) + 1;
+                        break;
+
+                      case "M":
+                        p = a(d[g].monthsShort).filter(function() {
+                            var a = this.slice(0, m[n].length), b = m[n].slice(0, a.length);
+                            return a.toLowerCase() == b.toLowerCase();
+                        }), o = a.inArray(p[0], d[g].monthsShort) + 1;
+                        break;
+
+                      case "p":
+                      case "P":
+                        o = a.inArray(m[n].toLowerCase(), d[g].meridiem);
+                    }
+                    q[j] = o;
+                }
+                for (var u, n = 0; n < r.length; n++) u = r[n], u in q && !isNaN(q[u]) && s[u](e, q[u]);
+            }
+            return e;
+        },
+        formatDate: function(b, c, f, g) {
+            if (null == b) return "";
+            var h;
+            if ("standard" == g) h = {
+                yy: b.getUTCFullYear().toString().substring(2),
+                yyyy: b.getUTCFullYear(),
+                m: b.getUTCMonth() + 1,
+                M: d[f].monthsShort[b.getUTCMonth()],
+                MM: d[f].months[b.getUTCMonth()],
+                d: b.getUTCDate(),
+                D: d[f].daysShort[b.getUTCDay()],
+                DD: d[f].days[b.getUTCDay()],
+                p: 2 == d[f].meridiem.length ? d[f].meridiem[b.getUTCHours() < 12 ? 0 : 1] : "",
+                h: b.getUTCHours(),
+                i: b.getUTCMinutes(),
+                s: b.getUTCSeconds()
+            }, h.H = 2 == d[f].meridiem.length ? h.h % 12 == 0 ? 12 : h.h % 12 : h.h, h.HH = (h.H < 10 ? "0" : "") + h.H, 
+            h.P = h.p.toUpperCase(), h.hh = (h.h < 10 ? "0" : "") + h.h, h.ii = (h.i < 10 ? "0" : "") + h.i, 
+            h.ss = (h.s < 10 ? "0" : "") + h.s, h.dd = (h.d < 10 ? "0" : "") + h.d, h.mm = (h.m < 10 ? "0" : "") + h.m; else {
+                if ("php" != g) throw new Error("Invalid format type.");
+                h = {
+                    y: b.getUTCFullYear().toString().substring(2),
+                    Y: b.getUTCFullYear(),
+                    F: d[f].months[b.getUTCMonth()],
+                    M: d[f].monthsShort[b.getUTCMonth()],
+                    n: b.getUTCMonth() + 1,
+                    t: e.getDaysInMonth(b.getUTCFullYear(), b.getUTCMonth()),
+                    j: b.getUTCDate(),
+                    l: d[f].days[b.getUTCDay()],
+                    D: d[f].daysShort[b.getUTCDay()],
+                    w: b.getUTCDay(),
+                    N: 0 == b.getUTCDay() ? 7 : b.getUTCDay(),
+                    S: b.getUTCDate() % 10 <= d[f].suffix.length ? d[f].suffix[b.getUTCDate() % 10 - 1] : "",
+                    a: 2 == d[f].meridiem.length ? d[f].meridiem[b.getUTCHours() < 12 ? 0 : 1] : "",
+                    g: b.getUTCHours() % 12 == 0 ? 12 : b.getUTCHours() % 12,
+                    G: b.getUTCHours(),
+                    i: b.getUTCMinutes(),
+                    s: b.getUTCSeconds()
+                }, h.m = (h.n < 10 ? "0" : "") + h.n, h.d = (h.j < 10 ? "0" : "") + h.j, h.A = h.a.toString().toUpperCase(), 
+                h.h = (h.g < 10 ? "0" : "") + h.g, h.H = (h.G < 10 ? "0" : "") + h.G, h.i = (h.i < 10 ? "0" : "") + h.i, 
+                h.s = (h.s < 10 ? "0" : "") + h.s;
+            }
+            for (var b = [], i = a.extend([], c.separators), j = 0, k = c.parts.length; k > j; j++) i.length && b.push(i.shift()), 
+            b.push(h[c.parts[j]]);
+            return i.length && b.push(i.shift()), b.join("");
+        },
+        convertViewMode: function(a) {
+            switch (a) {
+              case 4:
+              case "decade":
+                a = 4;
+                break;
+
+              case 3:
+              case "year":
+                a = 3;
+                break;
+
+              case 2:
+              case "month":
+                a = 2;
+                break;
+
+              case 1:
+              case "day":
+                a = 1;
+                break;
+
+              case 0:
+              case "hour":
+                a = 0;
+            }
+            return a;
+        },
+        headTemplate: '<thead><tr><th class="prev"><i class="{leftArrow}"/></th><th colspan="5" class="switch"></th><th class="next"><i class="{rightArrow}"/></th></tr></thead>',
+        headTemplateV3: '<thead><tr><th class="prev"><span class="{iconType} {leftArrow}"></span> </th><th colspan="5" class="switch"></th><th class="next"><span class="{iconType} {rightArrow}"></span> </th></tr></thead>',
+        contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>',
+        footTemplate: '<tfoot><tr><th colspan="7" class="today"></th></tr></tfoot>'
+    };
+    e.template = '<div class="datetimepicker"><div class="datetimepicker-minutes"><table class=" table-condensed">' + e.headTemplate + e.contTemplate + e.footTemplate + '</table></div><div class="datetimepicker-hours"><table class=" table-condensed">' + e.headTemplate + e.contTemplate + e.footTemplate + '</table></div><div class="datetimepicker-days"><table class=" table-condensed">' + e.headTemplate + "<tbody></tbody>" + e.footTemplate + '</table></div><div class="datetimepicker-months"><table class="table-condensed">' + e.headTemplate + e.contTemplate + e.footTemplate + '</table></div><div class="datetimepicker-years"><table class="table-condensed">' + e.headTemplate + e.contTemplate + e.footTemplate + "</table></div></div>", 
+    e.templateV3 = '<div class="datetimepicker"><div class="datetimepicker-minutes"><table class=" table-condensed">' + e.headTemplateV3 + e.contTemplate + e.footTemplate + '</table></div><div class="datetimepicker-hours"><table class=" table-condensed">' + e.headTemplateV3 + e.contTemplate + e.footTemplate + '</table></div><div class="datetimepicker-days"><table class=" table-condensed">' + e.headTemplateV3 + "<tbody></tbody>" + e.footTemplate + '</table></div><div class="datetimepicker-months"><table class="table-condensed">' + e.headTemplateV3 + e.contTemplate + e.footTemplate + '</table></div><div class="datetimepicker-years"><table class="table-condensed">' + e.headTemplateV3 + e.contTemplate + e.footTemplate + "</table></div></div>", 
+    a.fn.datetimepicker.DPGlobal = e, a.fn.datetimepicker.noConflict = function() {
+        return a.fn.datetimepicker = old, this;
+    }, a(document).on("focus.datetimepicker.data-api click.datetimepicker.data-api", '[data-provide="datetimepicker"]', function(b) {
+        var c = a(this);
+        c.data("datetimepicker") || (b.preventDefault(), c.datetimepicker("show"));
+    }), a(function() {
+        a('[data-provide="datetimepicker-inline"]').datetimepicker();
+    });
+}(window.jQuery), function(a) {
+    a.fn.datetimepicker.dates.uk = {
+        days: [ "Неділя", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота", "Неділя" ],
+        daysShort: [ "Нед", "Пнд", "Втр", "Срд", "Чтв", "Птн", "Суб", "Нед" ],
+        daysMin: [ "Нд", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд" ],
+        months: [ "Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень" ],
+        monthsShort: [ "Січ", "Лют", "Бер", "Кві", "Тра", "Чер", "Лип", "Сер", "Вер", "Жов", "Лис", "Гру" ],
+        today: "Сьогодні",
+        suffix: [],
+        meridiem: []
+    };
+}(jQuery), function(a) {
+    a.fn.datetimepicker.dates.us = {
+        days: [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ],
+        daysShort: [ "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su" ],
+        daysMin: [ "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su" ],
+        months: [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ],
+        monthsShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
+        today: "Today",
+        suffix: [],
+        meridiem: []
+    };
+}(jQuery);
 
 var UT = window.UT || {};
 
@@ -5837,8 +6698,8 @@ UT.CreateArticleView = Backbone.View.extend({
             success: function(a, b, c) {
                 console.log("The model has been saved to the server", b, a, c);
             },
-            error: function() {
-                console.log("Something went wrong while saving the model");
+            error: function(a, b) {
+                console.log("Something went wrong while saving the model", b);
             }
         });
     },

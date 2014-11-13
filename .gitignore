@@ -33,4 +33,6 @@ node_modules
 /ui/public
 main.js
 
+# webstorm files #
+/.idea
 
