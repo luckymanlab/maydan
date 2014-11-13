@@ -7,48 +7,33 @@ exports.addArticle = function(req, res) {
     var article = req.body;
     console.log('Adding article into temp: ' + JSON.stringify(article));
 
-    if(!article.media.content || !article.incident.time || !article.incident.type || !article.incident.coordinates.lat || !article.incident.coordinates.lon || !article.incident.title) {
-        res.status(400).end();
+    if(typeof article.media.content === undefined || typeof article.incident.time === undefined || typeof article.incident.type === undefined || article.incident.coordinates.lat === undefined || article.incident.coordinates.lon === undefined || article.incident.title === undefined) {
+        res.status(400).res('Requested data is invalid');
         throw "Bad request"
-    } else {
-        var newArticle = new ArticleTemp({
-            media: {
-                content: article.media.content
-            },
-            incident: {
-                time: article.incident.time,
-                incidentType: article.incident.type,
-                coordinates: {
-                    lat: article.incident.coordinates.lat,
-                    lon: article.incident.coordinates.lon
-                },
-                title: article.incident.title
-            }
-        });
-
-        var newArticle = new ArticleTemp({
-            media: {
-                content: article.media.content
-            },
-            incident: {
-                time: article.incident.time,
-                incidentType: article.incident.type,
-                coordinates: {
-                    lat: article.incident.coordinates.lat,
-                    lon: article.incident.coordinates.lon
-                },
-                title: article.incident.title
-            }
-        });
-
-        newArticle.save(function(err, data) {
-            if(err) {
-                res.status(400).send(err);
-                throw err
-            }
-            res.send('Success');
-        });
     }
+
+    var newArticle = new ArticleTemp({
+        media: {
+            content: article.media.content
+        },
+        incident: {
+            time: article.incident.time,
+            incidentType: article.incident.type,
+            coordinates: {
+                lat: article.incident.coordinates.lat,
+                lon: article.incident.coordinates.lon
+            },
+            title: article.incident.title
+        }
+    });
+
+    newArticle.save(function(err, data) {
+        if(err) {
+            res.status(400).send(err);
+            throw err
+        }
+        res.send('Success');
+    });
 }
 
 exports.getAll = function(req, res) {
