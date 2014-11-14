@@ -40,7 +40,7 @@ UT.CreateArticleView = Backbone.View.extend({
     },
     cancelArticle: function(){
         if(!this.checkFilledFields()){
-            $('#myConfirm').modal('show');
+            $('#confirm-modal').modal('show');
             $('#article-content').css('opacity', .5);
             $('#article-content').unbind();
         }
@@ -68,7 +68,7 @@ UT.CreateArticleView = Backbone.View.extend({
         $('#article-content').css('opacity', 1);
     },
     cancelModalConfirm: function(){
-        $('#myConfirm').modal('hide');
+        $('#confirm-modal').modal('hide');
         $('#article-content').css('opacity', 1);
     }
 

@@ -1,127 +1,109 @@
+<div id="article-content" class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="close-modal">&times;</button>
+            <h4 class="modal-title" id="article-modal-title">Modal title</h4>
+        </div>
+        <div class="modal-body">
+
+            <form class="form-horizontal" role="form">
+                <!--Title-->
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <input class="form-control" type="text" placeholder="Please, enter title" id="incidentTitle" required>
+                    </div>
+                </div>
+
+                <!--date---->
+                <div class="form-group">
+                    <div class="input-group date form_datetime col-sm-10" data-date="2013-10-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                        <input class="form-control" size="16" type="text" value="" readonly placeholder="Please, enter date" id="incidentTime" >
+
+                    </div>
+                    <input type="hidden" id="dtp_input1" value="" /><br/>
+                </div>
 
 
-    <div id="article-content" class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" aria-hidden="true" id="close-modal">&times;</button>
-                <h4 class="modal-title" id="article-modal-title">Modal title</h4>
-            </div>
-            <div class="modal-body">
 
-                <form class="form-horizontal" role="form" id="articleForm">
-                    <!--Title-->
-                    <div class="form-group">
-                        <div class="col-sm-10">
-                            <input class="form-control required" type="text" placeholder="Please, enter title" id="incidentTitle" required="required">
-                        </div>
-                    </div>
-                    <!--Title-->
-                    <div class="form-group">
-                        <div class="col-sm-10">
-                            <input class="form-control" type="text" placeholder="Please, enter time" id="incidentTime">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-10">
-                            <select>
-                                <option>Пункт 1</option>
-                                <option>Пункт 2</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-10">
-                            <input class="form-control" type="text" placeholder="Please, enter lat" id="incidentLat">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-10">
-                            <input class="form-control" type="text" placeholder="Please, enter lon" id="incidentLon">
-                        </div>
-                    </div>
+                <!--map coordinate-->
+                <input id="placepicker" class="form-control" style="display: none;"/>
 
-                    <div class="row" data-example>
-                        <div class="col-sm-10">
-                            <div id="default-place">
-                                <input id="placepicker" class="form-control" data-latitude="53.538764" data-longitude="10.028240" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div data-example>
-                        <div class="col-sm-10">
-                            <div class="form-group">
-                                <div class="input-group">
+                <div data-example>
+                    <div class="col-sm-10">
+                        <div class="form-group">
+                            <div class="input-group">
                                     <span class="input-group-btn">
                                         <button data-toggle="collapse" href="#collapseOne" class="btn btn-default">
                                             <i class="glyphicon glyphicon-globe"></i>
                                         </button>
                                     </span>
-                                    <input id="placepicker" class="placepicker form-control" placeholder="Please, switch coordinate" />
+                                <input id="placepicker" class="placepicker form-control" placeholder="Please, switch coordinate"/>
 
-                                </div>
-                            </div>
-                            <div id="collapseOne" class="collapse">
-                                <div class="placepicker-map thumbnail"></div>
                             </div>
                         </div>
-                    </div>
-
-                    <!--incident type-->
-                    <div class="form-group">
-                        <div class="col-sm-10">
-                            <select class="form-control">
-                                <option>Fire</option>
-                                <option>Love</option>
-                                <option>Smile</option>
-                            </select>
+                        <div id="collapseOne" class="collapse">
+                            <div class="placepicker-map thumbnail"></div>
                         </div>
                     </div>
+                </div>
 
+                <!--incident type-->
 
-                    <!--text area-->
+                <div class="incident-type">
+                    <input type="text" id="hiddenIncidentType" hidden/>
+
                     <div class="form-group">
                         <div class="col-sm-10">
-                            <textarea class="form-control"  rows="5" placeholder="Please, enter description of incident" id="mediaContent"></textarea>
+                            <div  id="mainSelectIncidentType" class="form-control col-sm-10"><i class="glyphicon glyphicon-chevron-down"></i><span class="selectValue placeholder">Please, select mark</span></div>
+                            <div id="optionsIncidentType"  class="col-sm-10" style="display: none;">
+                                <div class="col-sm-10 select-option"><img src="img/markers/fire.png">111</div>
+                                <div class="col-sm-10 select-option"><img src="img/markers/fire.png">222</div>
+                                <div class="col-sm-10 select-option"><img src="img/markers/fire.png">333</div>
+                                <div class="col-sm-10 select-option"><img src="img/markers/fire.png">444</div>
+                            </div>
                         </div>
                     </div>
-                </form>
+                </div>
 
+
+                <!--text area-->
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <textarea class="form-control"  rows="5" placeholder="Please, enter description of incident"></textarea>
+                    </div>
+                </div>
+
+                <!--buttons-->
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <button type="button" class="btn btn-default"  id="close-article-modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="save-article" >Save changes</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div id="confirm-modal" class="modal fade" data-backdrop-limit="1" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="close-confirm-default" >&times;</button>
+                <h4 class="modal-title">Confirmation</h4>
+            </div>
+            <div class="modal-body">
+                <p>You have unsaved changes, are you sure?</p>
+                <p class="text-warning"><small>If you don't save, your changes will be lost.</small></p>
             </div>
             <div class="modal-footer">
-                <!--<button type="button" class="btn btn-default" data-dismiss="modal" id="cancel"  >Close</button>-->
-                <button type="button" class="btn btn-default"  id="close-article-modal">Close</button>
-                <button type="button" class="btn btn-primary" id="save-article" >Save changes</button>
-            </div>
-
-
-
-
-        </div>
-    </div>
-    <div id="myConfirm" class="modal fade" data-backdrop-limit="1" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="close-confirm-default" >&times;</button>
-                    <h4 class="modal-title">Confirmation</h4>
-                </div>
-                <div class="modal-body">
-                    <p>You have unsaved changes, are you sure?</p>
-                    <p class="text-warning"><small>If you don't save, your changes will be lost.</small></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="close-confirm">Ok</button>
-                    <button type="button" class="btn btn-default " id="close-return">Cancel</button>
-                </div>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="close-confirm">Ok</button>
+                <button type="button" class="btn btn-default " id="close-return">Cancel</button>
             </div>
         </div>
     </div>
-
-
-
-
-
-
+</div>
 
 
