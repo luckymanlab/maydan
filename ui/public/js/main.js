@@ -5622,7 +5622,10 @@ UT.Incident = Backbone.Model.extend({
     defaults: {
         time: "",
         type: "",
-        coordinates: "",
+        coordinates: {
+            lat: "",
+            lon: ""
+        },
         title: ""
     }
 });
@@ -5691,21 +5694,6 @@ UT.Date = Backbone.Model.extend({
     setDayProgress: function(a) {
         var b = Math.floor(a / 4.16), c = Math.floor((a - 4.16 * b) / .069), d = new Date(this.get("date"));
         d.setHours(b), d.setMinutes(c), this.set("date", d.getTime());
-    }
-}), UT.Article2 = Backbone.Model.extend({
-    urlRoot: "http://localhost:3000/temp/articles",
-    defaults: {
-        incident: new UT.Incident(),
-        media: new UT.Article()
-    },
-    validate: function(a) {
-        this.validationEmptyField(a.incident.attributes), this.validationEmptyField(a.media.attributes);
-    },
-    validationEmptyField: function(a) {
-        for (var b in a) {
-            var c = a[b];
-            if (console.log(c), "" == c) return console.log("You should enter " + b), !1;
-        }
     }
 });
 
@@ -5814,22 +5802,28 @@ UT.CreateArticleView = Backbone.View.extend({
         }, "html");
     },
     events: {
-        "click #saveArticle": "saveArticle",
-        "click #cancel": "cancelArticle",
-        "click #closeModal": "cancelArticle"
+        "click #save-article": "saveArticle",
+        "click #close-modal": "cancelArticle",
+        "click #close-article-modal": "cancelArticle",
+        "click #close-confirm": "closeModalConfirm",
+        "click #close-confirm-default": "closeModalConfirm",
+        "click #close-return": "cancelModalConfirm"
     },
     showModal: function() {
         this.$el.modal("show");
     },
     saveArticle: function(a) {
-        a.preventDefault(), this.$el.find(".preloader").show();
-        this.model.get("incident");
-        this.model.get("incident").set({
+        a.preventDefault(), this.model.get("incident").set({
             time: incidentTime.value,
             title: incidentTitle.value
+        }, {
+            coordinates: {
+                lat: incidentLat.value,
+                lon: incidentLon.value
+            }
         }), this.model.get("media").set({
             content: mediaContent.value
-        }), this.model.save({}, {
+        }), console.log(this.model), this.model.save({}, {
             dataType: "text",
             success: function(a, b, c) {
                 console.log("The model has been saved to the server", b, a, c);
@@ -5840,15 +5834,22 @@ UT.CreateArticleView = Backbone.View.extend({
         });
     },
     cancelArticle: function() {
-        this.checkFilledFields();
+        this.checkFilledFields() ? this.$el.modal("hide") : ($("#myConfirm").modal("show"), 
+        $("#article-content").css("opacity", .5), $("#article-content").unbind());
     },
     checkFilledFields: function() {
-        var a = $("input:text").filter(function() {
+        var a = !0, b = $("input:text").filter(function() {
             return "" != $.trim(this.value);
-        }), b = $("textarea").filter(function() {
+        }), c = $("textarea").filter(function() {
             return "" != $.trim(this.value);
         });
-        return a.length || b.length ? (console.log("Not Empty!"), void alert("Are you sure?")) : void 0;
+        return (b.length || c.length) && (a = !1, console.log("Not Empty!")), a;
+    },
+    closeModalConfirm: function() {
+        $("#article-content").css("opacity", 1);
+    },
+    cancelModalConfirm: function() {
+        $("#myConfirm").modal("hide"), $("#article-content").css("opacity", 1);
     }
 });
 

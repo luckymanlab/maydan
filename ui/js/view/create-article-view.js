@@ -12,18 +12,22 @@ UT.CreateArticleView = Backbone.View.extend({
         }, 'html');
     },
     events: {
-        'click #saveArticle': 'saveArticle',
-        'click #cancel': 'cancelArticle',
-        'click #closeModal': 'cancelArticle'
+        'click #save-article': 'saveArticle',
+        'click #close-modal': 'cancelArticle',
+        'click #close-article-modal': 'cancelArticle',
+        'click #close-confirm': 'closeModalConfirm',
+        'click #close-confirm-default': 'closeModalConfirm',
+        'click #close-return': 'cancelModalConfirm'
     },
     showModal: function () {
         this.$el.modal('show');
     },
     saveArticle: function(e){
         e.preventDefault();
-        var c = this.model.get('incident');
-        this.model.get('incident').set({time: incidentTime.value , title: incidentTitle.value});
+        this.model.get('incident').set({time: incidentTime.value , title: incidentTitle.value},{coordinates: {lat:incidentLat.value , lon: incidentLon.value}});
         this.model.get('media').set({content: mediaContent.value});
+        console.log(this.model);
+
         this.model.save({}, {
             dataType: 'text',
             success: function (model, response, options) {
@@ -35,9 +39,17 @@ UT.CreateArticleView = Backbone.View.extend({
         });
     },
     cancelArticle: function(){
-        this.checkFilledFields();
+        if(!this.checkFilledFields()){
+            $('#myConfirm').modal('show');
+            $('#article-content').css('opacity', .5);
+            $('#article-content').unbind();
+        }
+        else{
+            this.$el.modal('hide');
+        }
     },
     checkFilledFields:function(){
+        var isFilled = true;
         var filledInput  = $('input:text').filter(function(){
             return $.trim(this.value) != ''
         });
@@ -46,9 +58,18 @@ UT.CreateArticleView = Backbone.View.extend({
         });
         if(filledInput.length || filledTextarea.length)
         {
+            isFilled = false;
             console.log("Not Empty!");
-            alert("Are you sure?");
-            return;
         }
+        return isFilled;
+    },
+    closeModalConfirm: function(){
+        //$('#article-content').bind('click');
+        $('#article-content').css('opacity', 1);
+    },
+    cancelModalConfirm: function(){
+        $('#myConfirm').modal('hide');
+        $('#article-content').css('opacity', 1);
     }
+
 });
