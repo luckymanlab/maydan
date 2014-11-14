@@ -13,8 +13,8 @@ UT.CreateArticleView = Backbone.View.extend({
     },
     events: {
         'click #save-article': 'saveArticle',
-        'click #close-modal': 'cancelArticle',
-        'click #close-article-modal': 'cancelArticle',
+        'click #close-modal': 'closeArticleModal',
+        'click #close-article-modal': 'closeArticleModal',
         'click #close-confirm': 'closeModalConfirm',
         'click #close-confirm-default': 'closeModalConfirm',
         'click #close-return': 'cancelModalConfirm'
@@ -24,10 +24,9 @@ UT.CreateArticleView = Backbone.View.extend({
     },
     saveArticle: function(e){
         e.preventDefault();
-        this.model.get('incident').set({time: incidentTime.value , title: incidentTitle.value},{coordinates: {lat:incidentLat.value , lon: incidentLon.value}});
+        this.model.get('incident').set({time: incidentDate.value , title: incidentTitle.value},{coordinates: {lat:hiddenMapCoordinateLat.value , lon: hiddenMapCoordinateLng.value}});
         this.model.get('media').set({content: mediaContent.value});
         console.log(this.model);
-
         this.model.save({}, {
             dataType: 'text',
             success: function (model, response, options) {
@@ -37,8 +36,9 @@ UT.CreateArticleView = Backbone.View.extend({
                 console.log("Something went wrong while saving the model",response);
             }
         });
+        //this.formReset();
     },
-    cancelArticle: function(){
+    closeArticleModal: function(){
         if(!this.checkFilledFields()){
             $('#confirm-modal').modal('show');
             $('#article-content').css('opacity', .5);
@@ -50,7 +50,7 @@ UT.CreateArticleView = Backbone.View.extend({
     },
     checkFilledFields:function(){
         var isFilled = true;
-        var filledInput  = $('input:text').filter(function(){
+        var filledInput  = $('input:text:visible').filter(function(){
             return $.trim(this.value) != ''
         });
         var filledTextarea = $('textarea').filter(function(){
@@ -64,12 +64,17 @@ UT.CreateArticleView = Backbone.View.extend({
         return isFilled;
     },
     closeModalConfirm: function(){
-        //$('#article-content').bind('click');
         $('#article-content').css('opacity', 1);
+        this.formReset();
     },
     cancelModalConfirm: function(){
         $('#confirm-modal').modal('hide');
         $('#article-content').css('opacity', 1);
+    },
+    formReset: function(){
+        //$('#article-form').find('input,textarea').val('');
+        //$('#article-form').find('input, textarea').val('');
+        //$('#mainSelectIncidentType > span').text('Please, select mark').addClass('placeholder');
     }
 
 });
