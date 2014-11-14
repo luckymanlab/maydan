@@ -5630,7 +5630,125 @@ InfoBubble.prototype.positionCloseButton_ = function() {
         contTemplate: '<tbody><tr><td colspan="7"></td></tr></tbody>'
     };
     c.template = '<div class="datepicker dropdown-menu"><div class="datepicker-days"><table class=" table-condensed">' + c.headTemplate + '<tbody></tbody></table></div><div class="datepicker-months"><table class="table-condensed">' + c.headTemplate + c.contTemplate + '</table></div><div class="datepicker-years"><table class="table-condensed">' + c.headTemplate + c.contTemplate + "</table></div></div>";
-}(window.jQuery), !function(a) {
+}(window.jQuery), +function(a, b) {
+    function c(b, c) {
+        function e(a) {
+            if (a) {
+                var b = {
+                    query: a
+                };
+                u.textSearch(b, function(a, b) {
+                    if (b == google.maps.places.PlacesServiceStatus.OK) for (var c = 0; c < a.length; c++) {
+                        var d = a[c];
+                        l(d.geometry.location), g(d), k(d);
+                    }
+                });
+            }
+        }
+        function f(a) {
+            t.geocode({
+                latLng: a
+            }, function(c, d) {
+                if (d == google.maps.GeocoderStatus.OK) if (c[0]) {
+                    var e = c[0], f = e.formatted_address;
+                    p.setPosition(a), b.value = f, k(e);
+                } else alert("No results found"); else alert("Geocoder failed due to: " + d);
+            });
+        }
+        function g(a) {
+            if (o && (p.setVisible(!1), a.geometry)) {
+                a.geometry.viewport ? o.fitBounds(a.geometry.viewport) : (o.setCenter(a.geometry.location), 
+                o.setZoom(c.mapOptions.zoom)), p.setIcon({
+                    url: a.icon,
+                    size: new google.maps.Size(71, 71),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(35, 35)
+                }), p.setPosition(a.geometry.location), p.setVisible(!0);
+                var b = "";
+                a.address_components && (b = [ a.address_components[0] && a.address_components[0].short_name || "", a.address_components[1] && a.address_components[1].short_name || "", a.address_components[2] && a.address_components[2].short_name || "" ].join(" "));
+            }
+        }
+        function h() {
+            n = a(c.map).get(0) || document.createElement("div"), o = new google.maps.Map(n, c.mapOptions), 
+            q.bindTo("bounds", o), google.maps.event.addListener(o, "click", function(a) {
+                var c = a.latLng;
+                f(c), p.setPosition(c), o.panTo(c), b.blur();
+            }), p = new google.maps.Marker({
+                map: o
+            }), u = new google.maps.places.PlacesService(o);
+        }
+        function i() {
+            console.log(b), q = new google.maps.places.Autocomplete(b, c.autoCompleteOptions), 
+            google.maps.event.addListener(q, "place_changed", function() {
+                var a = q.getPlace();
+                g(a), k(a);
+            });
+        }
+        function j() {
+            if (i(), h(), b.value) e(b.value); else {
+                var a = r.data("latitude") || c.latitude, d = r.data("longitude") || c.longitude;
+                a && d && s.setLocation(a, d);
+            }
+        }
+        function k(a) {
+            v = a, "function" == typeof c.placeChanged && c.placeChanged.call(s, a);
+        }
+        function l(a) {
+            p.setPosition(a), o.setCenter(a);
+        }
+        function m() {}
+        var n, o, p, q, r = a(b), s = this, t = new google.maps.Geocoder(), u = null, v = null, w = null;
+        this.setValue = function(a) {
+            b.value = a, e(a);
+        }, this.getValue = function() {
+            return b.value;
+        }, this.setLocation = function(a, b) {
+            var c = new google.maps.LatLng(a, b);
+            this.setLatLng(c);
+        }, this.getLocation = function() {
+            var a = this.getLatLng();
+            return a ? {
+                latitude: a.lat(),
+                longitude: a.lng()
+            } : void 0;
+        }, this.setLatLng = function(a) {
+            w = a, f(w);
+        }, this.getLatLng = function() {
+            return v && v.geometry ? v.geometry.location : w;
+        }, this.getMap = function() {
+            return o;
+        }, this.reloadMap = function() {
+            o && e(b.value);
+        }, this.resizeMap = function() {
+            o && google.maps.event.trigger(o, "resize");
+        }, this.geoLocation = function() {
+            navigator.geolocation ? navigator.geolocation.getCurrentPosition(function() {
+                var a = new google.maps.LatLng(d.lat, d.lon);
+                f(a), l(a);
+            }, function() {
+                m(!0);
+            }) : m(!1);
+        }, j.call(this);
+    }
+    var d = {
+        lat: 50.4505879,
+        lon: 30.523233300000015
+    }, e = (a(b), "placepicker"), f = {
+        map: "",
+        mapOptions: {
+            zoom: 17
+        },
+        autoCompleteOptions: {},
+        placeChanged: null,
+        location: null
+    }, g = c;
+    a.fn[e] = function(b) {
+        return b = a.extend({}, f, b), this.each(function() {
+            return a(this).data(e) || a(this).data(e, new g(this, b)), a(this);
+        });
+    };
+}(jQuery, window), !function(a) {
     function b() {
         return new Date(Date.UTC.apply(Date, arguments));
     }
@@ -6695,7 +6813,7 @@ UT.CreateArticleView = Backbone.View.extend({
         });
     },
     cancelArticle: function() {
-        this.checkFilledFields() ? this.$el.modal("hide") : ($("#confirm-modal").modal("show"),
+        this.checkFilledFields() ? this.$el.modal("hide") : ($("#confirm-modal").modal("show"), 
         $("#article-content").css("opacity", .5), $("#article-content").unbind());
     },
     checkFilledFields: function() {
@@ -6828,7 +6946,7 @@ UT.ApplicationView = Backbone.View.extend({
         "click #createArticle": "createArticle"
     },
     createArticle: function() {
-        this.createArticleView.showModal();
+        this.createArticleView.showModal(), popupFormInitialize();
     },
     updateArticle: function(a) {
         this.articleModalView.showModal(), this.articleModel.set("id", a), this.articleModel.fetch();

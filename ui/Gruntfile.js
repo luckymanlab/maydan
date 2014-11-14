@@ -14,7 +14,7 @@ module.exports = function (grunt) {
 		'js/vendor/infobubble.js',
 		'js/vendor/bootstrap.min.js',
 		'js/vendor/bootstrap-datepicker.js',
-		'js/vendor/placepicker.js',
+		'js/vendor/jquery.placepicker.js',
 		'js/vendor/bootstrap-datetimepicker.js',
 		'js/vendor/calendarLengauge/*.js'
 	];

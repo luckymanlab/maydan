@@ -69,6 +69,7 @@ UT.ApplicationView = Backbone.View.extend({
 	},
 	createArticle: function(){
 		this.createArticleView.showModal();
+		popupFormInitialize ();
 	},
 
 	updateArticle: function(id){

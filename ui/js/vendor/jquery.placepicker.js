@@ -172,7 +172,7 @@
     
     
     function initAutoComplete() {
-      
+      console.log(element);
       autocomplete = new google.maps.places.Autocomplete(element, options.autoCompleteOptions);
       
       google.maps.event.addListener(autocomplete, 'place_changed', function() {
