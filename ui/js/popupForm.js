@@ -10,13 +10,13 @@ function popupFormInitialize () {
         var target = this;
         var $collapse = $(this).parents('.form-group').next('.collapse');
         var $map = $collapse.find('.placepicker-map');
-
+        var coordinate = {};
         // init placepicker
         var placepicker = $(this).placepicker({
             map: $map.get(0),
             placeChanged: function(place) {
-                $('#hiddenMapCoordinate').attr('value', this.getLocation());
-                console.log( this.getLocation());
+                $('#hiddenMapCoordinateLat').attr('value', this.getLocation().latitude);
+                $('#hiddenMapCoordinateLng').attr('value',this.getLocation().longitude);
             }
         }).data('placepicker');
 

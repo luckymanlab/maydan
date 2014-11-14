@@ -16,7 +16,7 @@ function popupFormInitialize() {
         var a = this, b = $(this).parents(".form-group").next(".collapse"), c = b.find(".placepicker-map"), d = $(this).placepicker({
             map: c.get(0),
             placeChanged: function() {
-                $("#hiddenMapCoordinate").attr("value", this.getLocation()), console.log(this.getLocation());
+                $("#hiddenMapCoordinateLat").attr("value", this.getLocation().latitude), $("#hiddenMapCoordinateLng").attr("value", this.getLocation().longitude);
             }
         }).data("placepicker");
         b.on("show.bs.collapse", function() {
