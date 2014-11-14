@@ -54,12 +54,6 @@ UT.ApplicationView = Backbone.View.extend({
 		self.currentIncidentCollectionView = new UT.IncidentCollectionView({model: self.currentIncidentCollection,
 			map: self.map, vent: self.vent, el:$('#incident-panel')});
 
-		//self.articleModel = new UT.Article();
-		//self.articleModalView = new UT.ArticleModalView({model: self.articleModel, el:$('#article-modal')});
-
-		self.articleModel = new UT.Article2();
-		self.createArticleView = new UT.CreateArticleView({model:self.articleModel, el:$('#article-modal')});
-
 		self.dateModel = new UT.Date();
 		self.dateView = new UT.DateView({model: self.dateModel, el:$('#date-component')});
 	},
@@ -68,8 +62,7 @@ UT.ApplicationView = Backbone.View.extend({
 		'click #createArticle': 'createArticle'
 	},
 	createArticle: function(){
-		this.createArticleView.showModal();
-		popupFormInitialize ();
+		new UT.CreateArticleView({el:$('#article-modal')});
 	},
 
 	updateArticle: function(id){

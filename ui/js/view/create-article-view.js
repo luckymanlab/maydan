@@ -2,7 +2,9 @@ var UT = window.UT || {};
 
 UT.CreateArticleView = Backbone.View.extend({
     initialize: function(){
+        this.model = new UT.Article2();
         this.render();
+        this.showModal();
     },
     render: function(){
         var that = this;
@@ -36,13 +38,11 @@ UT.CreateArticleView = Backbone.View.extend({
                 console.log("Something went wrong while saving the model",response);
             }
         });
-        //this.formReset();
     },
     closeArticleModal: function(){
         if(!this.checkFilledFields()){
             $('#confirm-modal').modal('show');
             $('#article-content').css('opacity', .5);
-            $('#article-content').unbind();
         }
         else{
             this.$el.modal('hide');
@@ -65,16 +65,9 @@ UT.CreateArticleView = Backbone.View.extend({
     },
     closeModalConfirm: function(){
         $('#article-content').css('opacity', 1);
-        this.formReset();
     },
     cancelModalConfirm: function(){
         $('#confirm-modal').modal('hide');
         $('#article-content').css('opacity', 1);
-    },
-    formReset: function(){
-        //$('#article-form').find('input,textarea').val('');
-        //$('#article-form').find('input, textarea').val('');
-        //$('#mainSelectIncidentType > span').text('Please, select mark').addClass('placeholder');
     }
-
 });
