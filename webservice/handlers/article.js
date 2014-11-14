@@ -1,4 +1,4 @@
-var mongoose = require('../db/db-configs'),
+var mongoose = require('../db/connect'),
     temp = require('./article-temp'),
     schemas = require('../db/schemas');
 

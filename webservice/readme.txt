@@ -10,3 +10,8 @@ npm-scripts:
     "npm start" - started app,
     "npm run server" - started only express server,
     "npm run mongodb" - started only mongodb;
+
+
+use maydan
+db.createUser({ user: "padawan", pwd: "123123", roles:[{ role: "readWrite", db: "maydan" }]})
+
