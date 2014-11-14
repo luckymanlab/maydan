@@ -5,6 +5,8 @@ UT.CreateArticleView = Backbone.View.extend({
         this.model = new UT.Article2();
         this.render();
         this.showModal();
+        setTimeout(popupFormInitialize, 1000);
+
     },
     render: function(){
         var that = this;
@@ -25,8 +27,11 @@ UT.CreateArticleView = Backbone.View.extend({
         this.$el.modal('show');
     },
     saveArticle: function(e){
+        var timeValue = new Date(incidentDate.value).getTime();
+        var lat = hiddenMapCoordinateLat.value;
+        var lng = hiddenMapCoordinateLng.value;
         e.preventDefault();
-        this.model.get('incident').set({time: incidentDate.value , title: incidentTitle.value},{coordinates: {lat:hiddenMapCoordinateLat.value , lon: hiddenMapCoordinateLng.value}});
+        this.model.get('incident').set({time: incidentDate.value , title: incidentTitle.value},{coordinates: {lat:lat , lng:lng }});
         this.model.get('media').set({content: mediaContent.value});
         console.log(this.model);
         this.model.save({}, {

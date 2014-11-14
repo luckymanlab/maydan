@@ -11,6 +11,7 @@
 		monthsShort: ["Січ", "Лют", "Бер", "Кві", "Тра", "Чер", "Лип", "Сер", "Вер", "Жов", "Лис", "Гру"],
 		today: "Сьогодні",
 		suffix: [],
-		meridiem: []
+		meridiem: [],
+		format: 'yyyy/mm/dd hh:mm'
 	};
 }(jQuery));

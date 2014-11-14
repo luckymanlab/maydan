@@ -10,7 +10,6 @@ function popupFormInitialize () {
         var target = this;
         var $collapse = $(this).parents('.form-group').next('.collapse');
         var $map = $collapse.find('.placepicker-map');
-        var coordinate = {};
         // init placepicker
         var placepicker = $(this).placepicker({
             map: $map.get(0),
@@ -43,7 +42,8 @@ function popupFormInitialize () {
         todayHighlight: 1,
         startView: 2,
         forceParse: 0,
-        showMeridian: 1
+        showMeridian: 1,
+        format: 'yyyy/mm/dd hh:mm'
     });
 
 
