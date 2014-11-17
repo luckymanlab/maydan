@@ -31,7 +31,8 @@ UT.CreateArticleView = Backbone.View.extend({
         var lat = hiddenMapCoordinateLat.value;
         var lng = hiddenMapCoordinateLng.value;
         e.preventDefault();
-        this.model.get('incident').set({time: incidentDate.value , title: incidentTitle.value},{coordinates: {lat:lat , lng:lng }});
+        this.model.get('incident').set({coordinates: {lat:lat , lng:lng }});
+        this.model.get('incident').set({time: timeValue , title: incidentTitle.value});
         this.model.get('media').set({content: mediaContent.value});
         console.log(this.model);
         this.model.save({}, {
