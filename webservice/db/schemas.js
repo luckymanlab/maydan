@@ -1,4 +1,4 @@
-var mongoose = require('../db/db-configs'),
+var mongoose = require('../db/connect'),
     date = new Date();
 
 exports.articleSchema = mongoose.Schema({

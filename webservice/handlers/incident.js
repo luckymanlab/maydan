@@ -1,4 +1,4 @@
-var mongoose = require('../db/db-configs'),
+var mongoose = require('../db/connect'),
     schemas = require('../db/schemas');
 
 var Incident = mongoose.model('Incident', schemas.incidentSchema);

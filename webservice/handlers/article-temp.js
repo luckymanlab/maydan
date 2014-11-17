@@ -1,4 +1,4 @@
-var mongoose = require('../db/db-configs'),
+var mongoose = require('../db/connect'),
     schemas = require('../db/schemas');
 
 var ArticleTemp = mongoose.model('ArticleTemp', schemas.articleTempSchema);
