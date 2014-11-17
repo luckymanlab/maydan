@@ -11,6 +11,7 @@
         monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         today: "Today",
         suffix: [],
-        meridiem: []
+        meridiem: [],
+        format: 'yyyy/mm/dd hh:mm'
     };
 }(jQuery));
