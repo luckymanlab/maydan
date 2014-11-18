@@ -21,8 +21,8 @@ module.exports = function (grunt) {
 
 	var base = [
 		'js/model/incident.js',
+		'js/model/media.js',
 		'js/model/article.js',
-		'js/model/article2.js',
 		'js/model/date.js',
 		'js/collection/incident-collection.js',
 		'js/view/incident-map-view.js',
@@ -33,7 +33,6 @@ module.exports = function (grunt) {
 		'js/view/date-view.js',
 		'js/router.js',
 		'js/app.js',
-		'js/popupForm.js'
 	];
 
 	var timeLine = [

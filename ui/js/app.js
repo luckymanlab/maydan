@@ -62,7 +62,7 @@ UT.ApplicationView = Backbone.View.extend({
 		'click #createArticle': 'createArticle'
 	},
 	createArticle: function(){
-		new UT.CreateArticleView({el:$('#article-modal')});
+		new UT.CreateArticleView();
 	},
 
 	updateArticle: function(id){
