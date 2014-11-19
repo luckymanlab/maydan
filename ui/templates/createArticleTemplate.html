@@ -1,17 +1,23 @@
-<div class="modal" style="display: block" id="article-modal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal article-modal" style="display: block" id="article-modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div id="article-content" class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" aria-hidden="true" id="close-modal">&times;</button>
-                <h4 class="modal-title" id="article-modal-title">Modal title</h4>
+                <h4 class="modal-title" id="article-modal-title">Create article</h4>
             </div>
             <div class="modal-body">
 
                 <form class="form-horizontal" role="form" id="article-form">
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            <div class="alert alert-success" role="alert">The model has been saved to the server</div>
+                            <div class="alert alert-danger" role="alert">Something went wrong while saving the model</div>
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <div class="col-sm-10">
-                            <input class="form-control" type="text" placeholder="Please, enter title" id="incidentTitle"
+                            <input class="form-control inputData" type="text" placeholder="Please, enter title" id="incidentTitle" data-label ="title"
                                    required>
                         </div>
                     </div>
@@ -20,15 +26,15 @@
                         <div class="input-group date form_datetime col-sm-10" data-date="2013-10-16T05:25:07Z"
                              data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-                            <input class="form-control" size="16" type="text" value="" readonly
-                                   placeholder="Please, enter date" id="incidentDate">
+                            <input class="form-control inputData" size="16" type="text" value="" readonly
+                                   placeholder="Please, enter date" id="incidentDate" data-label ="date">
 
                         </div>
                         <input type="hidden" id="dtp_input1" value=""/><br/>
                     </div>
 
-                    <input id="placepicker" class="form-control hiddenPlacepicker" data-latitude="53.538764"
-                           data-longitude="10.028240" style="display: none;"/>
+                    <input id="placepicker" class="form-control hiddenPlacepicker"
+                           style="display: none;" />
                     <input id="hiddenMapCoordinateLat" hidden/>
                     <input id="hiddenMapCoordinateLng" hidden/>
 
@@ -41,9 +47,8 @@
                                             <i class="glyphicon glyphicon-globe"></i>
                                         </button>
                                     </span>
-                                    <input id="placepicker" class="placepicker form-control"
-                                           placeholder="Please, switch coordinate"/>
-
+                                    <input id="placepicker" class="placepicker form-control inputData"
+                                           placeholder="Please, switch coordinate" data-label ="coordinates" />
                                 </div>
                             </div>
                             <div id="collapseOne" class="collapse">
@@ -73,8 +78,8 @@
 
                     <div class="form-group">
                         <div class="col-sm-10">
-                            <textarea class="form-control" rows="5" placeholder="Please, enter description of incident"
-                                      id="mediaContent"></textarea>
+                            <textarea class="form-control inputData" rows="5" placeholder="Please, enter description of incident"
+                                      id="mediaContent" data-label ="description"></textarea>
                         </div>
                     </div>
 
@@ -112,6 +117,8 @@
             </div>
         </div>
     </div>
+
+
 </div>
 
 

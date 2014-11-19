@@ -34,7 +34,46 @@
 .date-picker {
 	width: 100px;
 }
+/* Bootstrap alert*/
+.alert-success, .alert-danger{
+	display: none;
+}
+/* Tooltip in one line */
+/*.tooltip-inner{*/
+	/*white-space: pre;*/
+/*}*/
 
-/* Color Scheme link
- http://colorschemedesigner.com/#2p61T1KrnFfFf
-*/
+/*PopupForm css*/
+.placepicker-map {
+	width: 100%;
+	height: 200px;
+	margin-bottom: 20px;
+}
+#optionsIncidentType {
+	border: 1px #ccc solid;
+	border-top: none;
+	font-size: 14px;
+	width: 100%;
+	padding: 0;
+	display: none;
+}
+#optionsIncidentType .select-option {
+	cursor: pointer;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	height: 25px;
+}
+#optionsIncidentType .select-option:hover {
+	background-color: #428bca;
+	color: #fff;
+}
+#mainSelectIncidentType {
+	cursor: pointer;
+}
+#mainSelectIncidentType .placeholder {
+	color: #bfa297;
+}
+#mainSelectIncidentType .selectValue {
+	margin-left: 10px;
+}

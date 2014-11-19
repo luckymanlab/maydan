@@ -1,7 +1,7 @@
 var UT = window.UT || {};
 
 UT.Article = Backbone.Model.extend({
-    urlRoot:'http://localhost:3000/temp/articles',
+    urlRoot: UT.Config.saveArticlePath,
     defaults:{
         incident: new UT.Incident(),
         media: new UT.Media()

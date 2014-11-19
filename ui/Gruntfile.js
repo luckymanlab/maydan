@@ -16,10 +16,11 @@ module.exports = function (grunt) {
 		'js/vendor/bootstrap-datepicker.js',
 		'js/vendor/jquery.placepicker.js',
 		'js/vendor/bootstrap-datetimepicker.js',
-		'js/vendor/calendarLengauge/*.js'
+		'js/vendor/calendarLanguage/*.js'
 	];
 
 	var base = [
+		'js/config.js',
 		'js/model/incident.js',
 		'js/model/media.js',
 		'js/model/article.js',
@@ -32,7 +33,7 @@ module.exports = function (grunt) {
 		'js/view/incident-collection-view.js',
 		'js/view/date-view.js',
 		'js/router.js',
-		'js/app.js',
+		'js/app.js'
 	];
 
 	var timeLine = [
@@ -130,8 +131,7 @@ module.exports = function (grunt) {
 					style: 'compressed'
 				},
 				files: {
-					'public/css/timeLine.css': 'timeLine/scss/timeLine.scss',
-					'public/css/popupForm.css': 'scss/popupForm.scss'
+					'public/css/timeLine.css': 'timeLine/scss/timeLine.scss'
                 }
             }
         },

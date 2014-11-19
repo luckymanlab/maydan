@@ -12,57 +12,94 @@ UT.CreateArticleView = Backbone.View.extend({
             that.$el.append(template); //adding the template content to the main template.
             that.popupFormInitialize();
         }, 'html');
+        //this.setUpListeners();
         this.showModal();
     },
     events: {
         'click #save-article': 'saveArticle',
-        'click #close-modal': 'closeArticleModal',
-        'click #close-article-modal': 'closeArticleModal',
-        'click #close-confirm': 'closeModalConfirm',
-        'click #close-confirm-default': 'closeModalConfirm',
+        'click #close-modal,#close-article-modal': 'closeArticleModal',
+        'click #close-confirm,#close-confirm-default': 'closeModalConfirm',
         'click #close-return': 'cancelModalConfirm'
     },
     showModal: function () {
         this.$el.modal('show');
     },
+    validateForm: function(){
+        var isValid = true,
+            that = this,
+            inputs =  $('#article-form').find('.inputData');
+        _.forEach(inputs,function(input){
+            var inputValue = input.value,
+                label = $(input).attr('data-label'),
+                formGroup = input.parentNode.parentNode,
+                textError = 'Enter ' + label;
+            if (inputValue.length === 0){
+                $(formGroup).addClass('has-error').removeClass('has-success');
+                $(input).tooltip({
+                    trigger: 'manual',
+                    placement: 'right',
+                    title: textError
+                }).tooltip('show');
+                isValid =false;
+            } else {
+                $(formGroup).addClass('has-success').removeClass('has-error');
+                that.removeError(input);
+            }
+        });
+        return isValid;
+    },
+    //setUpListeners: function(){
+    //    $('#article-form input').on('keydown', function(e){console.log(e,e.target(),this)});
+    //},
+    removeError: function(input){
+        $(input).tooltip('destroy');
+    },
     saveArticle: function(e){
-        var timeValue = new Date(incidentDate.value).getTime();
-        var lat = hiddenMapCoordinateLat.value;
-        var lng = hiddenMapCoordinateLng.value;
+        var that = this,
+            timeValue = new Date(incidentDate.value).getTime(),
+            lat = hiddenMapCoordinateLat.value,
+            lng = hiddenMapCoordinateLng.value,
+            incident = this.model.get('incident'),
+            media = this.model.get('media');
         e.preventDefault();
-        this.model.get('incident').set({coordinates: {lat:lat , lng:lng }});
-        this.model.get('incident').set({time: timeValue , title: incidentTitle.value});
-        this.model.get('media').set({content: mediaContent.value});
+        incident.set({coordinates: {lat:lat , lng:lng }});
+        incident.set({time: timeValue , title: incidentTitle.value});
+        media.set({content: mediaContent.value});
+        if (!this.validateForm()){
+            return;
+        };
         this.model.save({}, {
             dataType: 'text',
             success: function (model, response, options) {
                 console.log("The model has been saved to the server" , response, model, options);
+                $('#article-form')[0].reset();
+                $('.alert-success').toggle();
             },
             error: function (model, response, options) {
                 console.log("Something went wrong while saving the model",response);
+                $('#article-form')[0].reset();
+                $('.alert-danger').toggle();
             }
         });
     },
     closeArticleModal: function(){
-        if(!this.checkFilledFields()){
+        if(this.filledFields()){
             $('#confirm-modal').modal('show');
             $('#article-content').css('opacity', .5);
         } else{
             this.destroyView();
         }
     },
-    checkFilledFields:function(){
-        var isFilled = true;
-        var filledInput  = $('input:text:visible').filter(function(){
-            return $.trim(this.value) != ''
+    filledFields:function(){
+        var isFilled = false,
+            inputs =  $('#article-form').find('.inputData');
+        _.forEach(inputs,function(input){
+            var inputValue = input.value;
+            if(inputValue.length !== 0){
+                isFilled = true;
+                return isFilled;
+            }
         });
-        var filledTextarea = $('textarea').filter(function(){
-            return $.trim(this.value) != ''
-        });
-        if(filledInput.length || filledTextarea.length)
-        {
-            isFilled = false;
-        }
         return isFilled;
     },
     closeModalConfirm: function(){
@@ -77,7 +114,6 @@ UT.CreateArticleView = Backbone.View.extend({
         $('.modal-backdrop').remove();
         $('.pac-container').remove();
         $('.datetimepicker').remove();
-
         this.unbind(); // Unbind all local event bindings
         this.model.unbind( 'change', this.render, this ); // Unbind reference to the model
         this.remove();// Remove view element from Dom
