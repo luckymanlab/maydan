@@ -31,3 +31,8 @@ node_modules
 
 # builded files #
 /ui/public
+main.js
+
+# webstorm files #
+/.idea
+

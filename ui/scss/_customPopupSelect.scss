@@ -1,0 +1,34 @@
+#optionsIncidentType {
+  border: 1px $form-border-color solid;
+  border-top: none;
+  font-size: 14px;
+  width: 100%;
+  padding: 0;
+  display: none;
+
+    .select-option {
+        cursor: pointer;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        height: 25px;
+
+        &:hover {
+          background-color: $select-element-bg-hover;
+          color: $select-element-hover;
+        }
+    }
+}
+
+
+#mainSelectIncidentType {
+  cursor: pointer;
+
+  .placeholder {
+    color: $custom-placeholder;
+  }
+
+  .selectValue {
+    margin-left: 10px;
+  }
+}

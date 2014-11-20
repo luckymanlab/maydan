@@ -1,10 +1,9 @@
 var express = require('express'),
     router = express.Router(),
     incident = require('../handlers/incident'),
-    article = require('../handlers/article'),
-    incidentTypes = require('../handlers/incident-types');
+    article = require('../handlers/article');
 
-router.route('/articles')
+router.route('/article')
     .get(article.getAll);
 // .put(incident.updateWine)
 // .delete(incident.deleteWine)
@@ -21,8 +20,5 @@ router.route('/temp/articles')
 // router.route('/temp/article/:id')
 //  .delete(article.temp.removeById);
 //  .put(article.temp.refreshById);
-
-router.route('/incident-types')
-    .get(incidentTypes.getTypes);
 
 module.exports = router;
