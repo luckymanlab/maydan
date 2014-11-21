@@ -15,7 +15,6 @@ To run webservice you need to make 3 steps:
   1) Open package.json,   
   2) In line 19: "start": "start cmd.exe @cmd /k C:\\mongo\\bin\\mongod --dbpath db\\data | supervisor ./bin/www" change C:\\mongo\\bin\\ to your mongo path,    
   3) Open ./db/create-user.bat and change "C:\mongo\bin\mongo.exe" to your current way.   
-
 * Before you run server you need to create user with admin permistions. You should type "npm run create-user" into prompt.
 * To start server type: npm start (it will start mongo server and then node server).
 * Your server will watch 3000 port (http://localhost:3000/incident - must responce json with all incendents).
