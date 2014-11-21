@@ -8,7 +8,7 @@
 * Grunt
 
 #Instruction  
-To run webservice you need make 3 steps:  
+To run webservice you need to make 3 steps:  
 
 * First step: npm i (install all node packages)
 * Next u need to set current way to your mongodb path:  
