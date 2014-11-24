@@ -35,7 +35,12 @@ First you need to give node.js server permission to connect to your mongodb serv
 ###To run webservice: 
 * You need set current way to your mongodb path:  
   1) Open package.json,   
-  2) In line 19: "start": "start cmd.exe @cmd /k C:\\mongo\\bin\\mongod --dbpath db\\data | supervisor ./bin/www" change C:\\mongo\\bin\\ to your mongo path.
+  2) In line 19: 
+    ```bash
+    "start": "start cmd.exe @cmd /k C:\\mongo\\bin\\mongod --dbpath db\\data | supervisor ./bin/www"
+    ```
+
+    change "C:\\mongo\\bin\\" to your mongo path.
 * To start server type: npm start (it will start mongo server and then node server).
 * Your server will watch 3000 port (http://localhost:3000/incident - must responce json with all incendents).
 
