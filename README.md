@@ -7,7 +7,7 @@
 * Google Maps API
 * Grunt
 
-##Instruction
+##Webservice instruction
 First you need to give node.js server permission to connect to your mongodb server. You need to create a administrator user and configurate node.js server. Pay attention, db "admin", already has one user, with name "padawan" and pass "123123"
 
 ###To create user, you need to do:
