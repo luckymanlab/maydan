@@ -18,11 +18,11 @@ First you need to give node.js server permission to connect to your mongodb serv
     db.createUser({ user: "username", pwd: "password", roles:[{ role: "readWrite", db: "maydan" }]})
 * Configurate node server. 
     open file: webservice/db/connect.js
-    edit this code: 
-      var options = {
-        user: 'username',
-        pass: 'password'
-      }
+    edit this code:  
+      var options = {  
+        user: 'username',  
+        pass: 'password'  
+      }  
 
 ###To run webservice: 
 * You need set current way to your mongodb path:  
