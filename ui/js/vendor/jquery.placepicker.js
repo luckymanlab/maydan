@@ -190,9 +190,7 @@
       if (!element.value) {
         var lat = defaultPosition.lat;
         var lng = defaultPosition.lon;
-        if (lat && lng) {
-          instance.setLocation(lat, lng);
-        }
+        instance.setLocation(lat, lng);
       } else {
         codePlace(element.value);
       }

@@ -48,6 +48,8 @@
 	width: 100%;
 	height: 200px;
 	margin-bottom: 20px;
+	box-sizing: content-box;
+	margin-top: -15px;
 }
 #optionsIncidentType {
 	border: 1px #ccc solid;
@@ -82,4 +84,7 @@
 }
 #article-modal {
 	display: block;
+}
+#collapseOne {
+	padding-left: 0;
 }
