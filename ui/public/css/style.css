@@ -77,3 +77,9 @@
 #mainSelectIncidentType .selectValue {
 	margin-left: 10px;
 }
+.hiddenPlacepicker {
+	display: none;
+}
+#article-modal {
+	display: block;
+}
