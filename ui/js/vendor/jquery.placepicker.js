@@ -188,11 +188,9 @@
       initMap();
       
       if (!element.value) {
-        var lat = $element.data('latitude') || options.latitude;
-        var lng = $element.data('longitude') || options.longitude;
-        if (lat && lng) {
-          instance.setLocation(lat, lng);
-        }
+        var lat = defaultPosition.lat;
+        var lng = defaultPosition.lon;
+        instance.setLocation(lat, lng);
       } else {
         codePlace(element.value);
       }

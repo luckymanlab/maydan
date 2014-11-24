@@ -48,6 +48,8 @@
 	width: 100%;
 	height: 200px;
 	margin-bottom: 20px;
+	box-sizing: content-box;
+	margin-top: -15px;
 }
 #optionsIncidentType {
 	border: 1px #ccc solid;
@@ -76,4 +78,13 @@
 }
 #mainSelectIncidentType .selectValue {
 	margin-left: 10px;
+}
+.hiddenPlacepicker {
+	display: none;
+}
+#article-modal {
+	display: block;
+}
+#collapseOne {
+	padding-left: 0;
 }
