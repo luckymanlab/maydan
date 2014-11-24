@@ -17,8 +17,10 @@ First you need to give node.js server permission to connect to your mongodb serv
 * Type commands:
 
 
+    ```javascript
     use admin
     db.createUser({ user: "username", pwd: "password", roles:[{ role: "readWrite", db: "maydan" }]})
+    ```
 
 * Configurate node server.
     * open file: webservice/db/connect.js
