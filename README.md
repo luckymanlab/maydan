@@ -8,7 +8,7 @@
 * Grunt
 
 ##Instruction
-First you need to give node.js server permission to connect to your mongodb server. You need to create a administrator user and configurate node.js server. 
+First you need to give node.js server permission to connect to your mongodb server. You need to create a administrator user and configurate node.js server. Pay attention, db "admin", already has one user, with name "padawan" and pass "123123"
 
 ###To create user, you need to do:
 * First step: npm i (install all node packages)
@@ -37,7 +37,7 @@ First you need to give node.js server permission to connect to your mongodb serv
 * To start server type: npm start (it will start mongo server and then node server).
 * Your server will watch 3000 port (http://localhost:3000/incident - must responce json with all incendents).
 
-####npm-scripts:  
+###npm-scripts:  
 
     "npm start" - started app
     "npm run server" - started only express server
