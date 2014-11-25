@@ -3,4 +3,4 @@ var UT = window.UT || {};
 UT.Config = {
     //Path for saving articles
     saveArticlePath: 'http://localhost:3000/temp/articles'
-}
+};
