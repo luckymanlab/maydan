@@ -13,7 +13,6 @@ UT.CreateArticleView = Backbone.View.extend({
             that.popupFormInitialize();
             that.createIncidentTypesView();
         }, 'html');
-        //this.setUpListeners();
         this.showModal();
     },
     events: {
@@ -52,9 +51,6 @@ UT.CreateArticleView = Backbone.View.extend({
         });
         return isValid;
     },
-    //setUpListeners: function(){
-    //    $('#article-form input').on('keydown', function(e){console.log(e,e.target(),this)});
-    //},
     removeError: function(input){
         $(input).tooltip('destroy');
     },
@@ -72,7 +68,6 @@ UT.CreateArticleView = Backbone.View.extend({
         if (!this.validateForm()){
             return;
         };
-        console.log(this.model);
         this.model.save({}, {
             dataType: 'text',
             success: function (model, response, options) {
