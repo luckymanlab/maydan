@@ -172,5 +172,5 @@ module.exports = function (grunt) {
 	});
 
 	grunt.registerTask('default', ['jshint:files', 'sass', 'uglify', 'watch']);
-	grunt.registerTask('timeLine', ['jshint:files', 'uglify:buildTL', 'imagemin',  'sass', 'watch']);
+	grunt.registerTask('timeLine', ['jshint:files', 'uglify:buildTL', 'imagemin', 'sprite:all', 'sass', 'watch']);
 };

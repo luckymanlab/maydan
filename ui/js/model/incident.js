@@ -18,7 +18,7 @@ UT.Incident = Backbone.Model.extend({
 		type: '',
 		coordinates: {
 			lat: '',
-			lng: ''
+			lon: ''
 		},
 		title:''
 	}
