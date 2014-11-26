@@ -8,7 +8,7 @@ exports.getAll = function(req, res) {
     Article.find(function(err, data) {
         if(err) throw err
         res.send(data);
-    })
+    });
 };
 
 exports.getById = function(req, res) {

@@ -22,7 +22,7 @@
     "newcap": true,
     "noarg": true,
     "noempty": true,
-    "nonew": false,
+    "nonew": true,
     "plusplus": false,
     "quotmark": "single",
     "regexp": true,
