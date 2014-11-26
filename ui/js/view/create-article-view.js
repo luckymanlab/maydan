@@ -13,7 +13,6 @@ UT.CreateArticleView = Backbone.View.extend({
             that.popupFormInitialize();
             that.createIncidentTypesView();
         }, 'html');
-        //this.setUpListeners();
         this.showModal();
     },
     events: {
@@ -52,9 +51,6 @@ UT.CreateArticleView = Backbone.View.extend({
         });
         return isValid;
     },
-    //setUpListeners: function(){
-    //    $('#article-form input').on('keydown', function(e){console.log(e,e.target(),this)});
-    //},
     removeError: function(input){
         $(input).tooltip('destroy');
     },
@@ -62,11 +58,11 @@ UT.CreateArticleView = Backbone.View.extend({
         var that = this,
             timeValue = new Date(incidentDate.value).getTime(),
             lat = hiddenMapCoordinateLat.value,
-            lng = hiddenMapCoordinateLng.value,
+            lon = hiddenMapCoordinateLng.value,
             incident = this.model.get('incident'),
             media = this.model.get('media');
         e.preventDefault();
-        incident.set({coordinates: {lat:lat , lng:lng }});
+        incident.set({coordinates: {lat:parseFloat(lat) , lon:parseFloat(lon)}});
         incident.set({time: timeValue , title: incidentTitle.value});
         media.set({content: mediaContent.value});
         if (!this.validateForm()){

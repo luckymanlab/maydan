@@ -54,8 +54,6 @@ UT.ApplicationView = Backbone.View.extend({
 		self.currentIncidentCollectionView = new UT.IncidentCollectionView({model: self.currentIncidentCollection,
 			map: self.map, vent: self.vent, el:$('#incident-panel')});
 
-		self.dateModel = new UT.Date();
-		self.dateView = new UT.DateView({model: self.dateModel, el:$('#date-component')});
 	},
 
 	events:{
