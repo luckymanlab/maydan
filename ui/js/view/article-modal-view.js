@@ -23,11 +23,3 @@ UT.ArticleModalView = Backbone.View.extend({
 		this.$el.find('.content').show();
 	}
 });
-
-
-
-
-
-
-
-
