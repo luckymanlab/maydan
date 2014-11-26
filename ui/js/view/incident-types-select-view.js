@@ -7,7 +7,6 @@ UT.IncidentTypesSelectView = Backbone.View.extend({
 	},
 	initialize: function(){
 		var that = this;
-		this.showLoader();
 		this.model = new UT.IncidentTypesCollection();
 		this.model.fetch({
 			success: function() {
@@ -25,11 +24,8 @@ UT.IncidentTypesSelectView = Backbone.View.extend({
 
 		$.get('templates/incident-types-select-template.html', function (data) {
 			var template =_.template(data, {types: types});
-			that.$el.append(template);
+			that.$el.html(template);
 		}, 'html');
-	},
-	showLoader: function() {
-
 	},
 	selectOption: function(ev) {
 		this.$('#optionsIncidentType').toggle();
@@ -38,5 +34,10 @@ UT.IncidentTypesSelectView = Backbone.View.extend({
 		this.$('#selectedValue').text($(ev.target).text()).removeClass('placeholder');
 		this.$('#optionsIncidentType').toggle();
 		$('#hiddenIncidentType').attr('value', $(ev.target).text());
+	},
+	destroy: function() {
+		this.$el.remove();
+		this.model.destroy();
+		this.remove();
 	}
 });

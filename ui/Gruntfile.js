@@ -65,14 +65,14 @@ module.exports = function (grunt) {
                 options: {
                     spawn: false
                 }
+            },
+            sprites: {
+				files: ['timeLine/images/sprite/*.{png,jpg,jpeg}'],
+				task: ['sprite:all'],
+				options: {
+                    spawn: false
+                }
             }
-    //         sprites: {
-				// files: ['timeLine/images/sprite/*.{png,jpg,jpeg}'],
-				// task: ['sprite:all'],
-				// options: {
-    //                 spawn: false
-    //             }
-    //         }
 		},
 		jshint: {
 			options: {
@@ -92,7 +92,6 @@ module.exports = function (grunt) {
 					sourceMappingURL: 'main.js.map',
 					sourceMapPrefix: 1,
 					semicolons: true,
-					// report: 'gzip',
 					beautify: true
 				},
 				files: {
@@ -173,6 +172,6 @@ module.exports = function (grunt) {
         }
 	});
 
-	grunt.registerTask('default', ['sass', 'uglify', 'watch']);
+	grunt.registerTask('default', ['jshint:files', 'sass', 'uglify', 'watch']);
 	grunt.registerTask('timeLine', ['jshint:files', 'uglify:buildTL', 'imagemin', 'sprite', 'sass', 'watch']);
 };
