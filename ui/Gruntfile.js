@@ -26,9 +26,11 @@ module.exports = function (grunt) {
 		'js/model/article.js',
 		'js/model/date.js',
 		'js/collection/incident-collection.js',
+		'js/collection/incident-types-collection.js',
 		'js/view/incident-map-view.js',
 		'js/view/incident-list-view.js',
 		'js/view/article-modal-view.js',
+		'js/view/incident-types-select-view.js',
 		'js/view/create-article-view.js',
 		'js/view/incident-collection-view.js',
 		'js/view/date-view.js',
@@ -90,7 +92,6 @@ module.exports = function (grunt) {
 					sourceMappingURL: 'main.js.map',
 					sourceMapPrefix: 1,
 					semicolons: true,
-					report: 'gzip',
 					beautify: true
 				},
 				files: {
@@ -171,6 +172,6 @@ module.exports = function (grunt) {
         }
 	});
 
-	grunt.registerTask('default', ['sass', 'uglify', 'watch']);
+	grunt.registerTask('default', ['jshint:files', 'sass', 'uglify', 'watch']);
 	grunt.registerTask('timeLine', ['jshint:files', 'uglify:buildTL', 'imagemin', 'sprite', 'sass', 'watch']);
 };

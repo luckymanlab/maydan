@@ -11,8 +11,8 @@ UT.CreateArticleView = Backbone.View.extend({
             var template=_.template(data);
             that.$el.append(template); //adding the template content to the main template.
             that.popupFormInitialize();
+            that.createIncidentTypesView();
         }, 'html');
-        //this.setUpListeners();
         this.showModal();
     },
     events: {
@@ -20,6 +20,9 @@ UT.CreateArticleView = Backbone.View.extend({
         'click #close-modal,#close-article-modal': 'closeArticleModal',
         'click #close-confirm,#close-confirm-default': 'closeModalConfirm',
         'click #close-return': 'cancelModalConfirm'
+    },
+    createIncidentTypesView: function() {
+        this.incidentTypesView = new UT.IncidentTypesSelectView({ el: $('#incident-type-select-container') });
     },
     showModal: function () {
         this.$el.modal('show');
@@ -48,9 +51,6 @@ UT.CreateArticleView = Backbone.View.extend({
         });
         return isValid;
     },
-    //setUpListeners: function(){
-    //    $('#article-form input').on('keydown', function(e){console.log(e,e.target(),this)});
-    //},
     removeError: function(input){
         $(input).tooltip('destroy');
     },
@@ -58,11 +58,11 @@ UT.CreateArticleView = Backbone.View.extend({
         var that = this,
             timeValue = new Date(incidentDate.value).getTime(),
             lat = hiddenMapCoordinateLat.value,
-            lng = hiddenMapCoordinateLng.value,
+            lon = hiddenMapCoordinateLng.value,
             incident = this.model.get('incident'),
             media = this.model.get('media');
         e.preventDefault();
-        incident.set({coordinates: {lat:lat , lng:lng }});
+        incident.set({coordinates: {lat:parseFloat(lat) , lon:parseFloat(lon)}});
         incident.set({time: timeValue , title: incidentTitle.value});
         media.set({content: mediaContent.value});
         if (!this.validateForm()){
@@ -111,6 +111,7 @@ UT.CreateArticleView = Backbone.View.extend({
         $('#article-content').css('opacity', 1);
     },
     destroyView: function () {
+        this.incidentTypesView.destroy();
         $('.modal-backdrop').remove();
         $('.pac-container').remove();
         $('.datetimepicker').remove();
@@ -164,20 +165,6 @@ UT.CreateArticleView = Backbone.View.extend({
             forceParse: 0,
             showMeridian: 1,
             format: 'yyyy/mm/dd hh:mm'
-        });
-
-        //select marker
-        $('#mainSelectIncidentType').on('click', function() {
-            if ( $('#optionsIncidentType').css('display') === 'none' ) {
-                $('#optionsIncidentType').css('display', 'block');
-            } else {
-                $('#optionsIncidentType').css('display', 'none');
-            }
-        });
-        $('#optionsIncidentType > .select-option').on('click', function() {
-            $('#mainSelectIncidentType > span').text($(this).text()).removeClass('placeholder');
-            $('#optionsIncidentType').css('display', 'none');
-            $('#hiddenIncidentType').attr('value', $(this).text());
         });
     }
 });

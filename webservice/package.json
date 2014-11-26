@@ -18,8 +18,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run mongodb | npm run server",
     "server": "nodemon ./bin/www",
-    "mongodb": "start cmd.exe @cmd /k C:\\mongo\\bin\\mongod --auth --config .\\db\\mongodb.conf",
-    "create-user": "start cmd.exe @cmd /k C:\\mongo\\bin\\mongod --config .\\db\\mongodb.conf | start .\\db\\create-user.bat"
+    "mongodb": "start cmd.exe @cmd /k C:\\mongo\\bin\\mongod --auth --config .\\db\\mongodb.conf"
   },
   "author": "",
   "license": "ISC"
