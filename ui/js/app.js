@@ -60,7 +60,9 @@ UT.ApplicationView = Backbone.View.extend({
 		'click #createArticle': 'createArticle'
 	},
 	createArticle: function(){
+		/* jslint nonew: false */
 		new UT.CreateArticleView();
+		/* jslint nonew: true */
 	},
 
 	updateArticle: function(id){
