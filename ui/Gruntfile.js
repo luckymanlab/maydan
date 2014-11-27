@@ -132,7 +132,8 @@ module.exports = function (grunt) {
 					style: 'compressed'
 				},
 				files: {
-					'public/css/timeLine.css': 'timeLine/scss/timeLine.scss'
+					'public/css/timeLine.css': 'timeLine/scss/timeLine.scss',
+					'public/css/style.css': 'sass/style.scss'
                 }
             }
         },

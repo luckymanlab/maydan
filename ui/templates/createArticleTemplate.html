@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" aria-hidden="true" id="close-modal">&times;</button>
-                <h4 class="modal-title" id="article-modal-title">Create article</h4>
+                <h3 class="modal-title" id="article-modal-title">Create article</h3>
             </div>
             <div class="modal-body">
 
@@ -16,51 +16,42 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="col-sm-10">
-                            <input class="form-control inputData" type="text" placeholder="Please, enter title" id="incidentTitle" data-label ="title"
-                                   required>
-                        </div>
+                        <input class="form-control inputData" type="text" placeholder="Please, enter title" id="incidentTitle" data-label ="title"
+                               required>
                     </div>
 
                     <div class="form-group">
-                        <div class="input-group date form_datetime col-sm-10" data-date="2013-10-16T05:25:07Z"
-                             data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                        <div class="input-group date form_datetime" data-date="2013-10-16T05:25:07Z"
+                             data-date-format="dd MM yyyy - HH:ii p" data-link-field="date-time-picker-input">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                             <input class="form-control inputData" size="16" type="text" value="" readonly
                                    placeholder="Please, enter date" id="incidentDate" data-label ="date">
-
                         </div>
-                        <input type="hidden" id="dtp_input1" value=""/><br/>
+                        <input id="date-time-picker-input" value="" type="hidden"/>
                     </div>
 
                     <input id="placepicker" class="form-control hiddenPlacepicker" />
-                    <input id="hiddenMapCoordinateLat" hidden/>
-                    <input id="hiddenMapCoordinateLng" hidden/>
+                    <input id="hiddenMapCoordinateLat" type="hidden"/>
+                    <input id="hiddenMapCoordinateLng" type="hidden"/>
 
                     <div data-example>
                         <div class="form-group">
-                            <div class="col-sm-10">
-                                <div class="input-group">
-                                    <span class="input-group-btn">
-                                        <button data-toggle="collapse" href="#collapseOne" class="btn btn-default">
-                                            <i class="glyphicon glyphicon-globe"></i>
-                                        </button>
-                                    </span>
-                                    <input id="placepicker" class="placepicker form-control inputData"
-                                           placeholder="Please, switch coordinate" data-label ="coordinates" />
-                                </div>
+                            <div class="input-group">
+                                <span data-toggle="collapse" href="#collapseOne" class="input-group-addon"><span class="glyphicon glyphicon-globe"></span></span>
+                                <input id="placepicker" class="placepicker form-control inputData"
+                                       placeholder="Please, switch coordinate" data-label ="coordinates" />
                             </div>
+
                         </div>
-                        <div id="collapseOne" class="collapse col-sm-10">
-                            <div class="placepicker-map thumbnail"></div>
+                        <div id="collapseOne" class="collapse form-group">
+                            <div class="placepicker-map"></div>
                         </div>
                     </div>
 
                     <div class="incident-type">
                         <input type="text" id="hiddenIncidentType" hidden/>
-
                         <div class="form-group">
-                            <div class="col-sm-10" id="incident-type-select-container">
+                            <div id="incident-type-select-container">
                                 <img src="./public/img/preloader.gif" alt="loading..." class="load-indicator">
                             </div>
                         </div>
@@ -68,17 +59,13 @@
 
 
                     <div class="form-group">
-                        <div class="col-sm-10">
                             <textarea class="form-control inputData" rows="5" placeholder="Please, enter description of incident"
                                       id="mediaContent" data-label ="description"></textarea>
-                        </div>
                     </div>
 
                     <div class="form-group">
-                        <div class="col-sm-10">
-                            <button type="button" class="btn btn-default" id="close-article-modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="save-article">Save changes</button>
-                        </div>
+                        <button type="button" class="btn btn-default" id="close-article-modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="save-article">Save changes</button>
                     </div>
                 </form>
 
@@ -88,23 +75,10 @@
 
     <div id="confirm-modal" class="modal fade" data-backdrop-limit="1" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                            id="close-confirm-default">&times;</button>
-                    <h4 class="modal-title">Confirmation</h4>
-                </div>
-                <div class="modal-body">
-                    <p>You have unsaved changes, are you sure?</p>
-
-                    <p class="text-warning">
-                        <small>If you don't save, your changes will be lost.</small>
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="close-confirm">Ok</button>
-                    <button type="button" class="btn btn-default " id="close-return">Cancel</button>
-                </div>
+            <div class="modal-content alert-info confirm-modal-body">
+                <h3>You have unsaved changes, are you sure?</h3>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="close-confirm">Ok</button>
+                <button type="button" class="btn btn-default " id="close-return">Cancel</button>
             </div>
         </div>
     </div>

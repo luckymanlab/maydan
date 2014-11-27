@@ -1,0 +1,17 @@
+/* Bootstrap alert*/
+.alert-success, .alert-danger{
+    display: none;
+}
+.confirm-modal-body {
+    margin: 25% 20%;
+    padding: 0 20px 20px 20px;
+}
+#article-modal {
+    display: block;
+}
+#article-form {
+    padding: 0 10px;
+}
+.input-group-addon {
+    cursor: pointer;
+}
