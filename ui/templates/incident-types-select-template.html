@@ -1,4 +1,4 @@
-<div id="mainSelectIncidentType" class="form-control col-sm-10">
+<div id="mainSelectIncidentType" class="form-control inputData col-sm-10 " data-label="type">
 	<i class="glyphicon glyphicon-chevron-down"></i>
 	<span id="selectedValue" class="placeholder">Please, select mark</span>
 </div>
@@ -7,7 +7,7 @@
 	<% _.each(types, function(element, index, list) { %>
 		<div class="col-sm-10 select-option" id="<%= element.id %>">
 			<img src="<%= element.imageSrc %>">
-			<span><%= element.name %></span>
+			<span class="incident-type-name"><%= element.name %></span>
 		</div>
 	<% }); %>
 </div>

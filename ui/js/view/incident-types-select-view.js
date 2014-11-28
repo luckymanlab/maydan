@@ -31,9 +31,10 @@ UT.IncidentTypesSelectView = Backbone.View.extend({
 		this.$('#optionsIncidentType').toggle();
 	},
 	showOptions: function(ev) {
-		this.$('#selectedValue').text($(ev.target).text()).removeClass('placeholder');
+		var typeName = $(ev.currentTarget).find('.incident-type-name').text();
+		this.$('#selectedValue').text(typeName).removeClass('placeholder');
 		this.$('#optionsIncidentType').toggle();
-		$('#hiddenIncidentType').attr('value', $(ev.target).text());
+		$('#hiddenIncidentType').attr('value', typeName);
 	},
 	destroy: function() {
 		this.$el.remove();

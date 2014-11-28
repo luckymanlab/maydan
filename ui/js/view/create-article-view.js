@@ -36,7 +36,7 @@ UT.CreateArticleView = Backbone.View.extend({
                 label = $(input).attr('data-label'),
                 formGroup = input.parentNode.parentNode,
                 textError = 'Enter ' + label;
-            if (inputValue.length === 0){
+            if (inputValue !== undefined && inputValue.length === 0){
                 $(formGroup).addClass('has-error').removeClass('has-success');
                 $(input).tooltip({
                     trigger: 'manual',
@@ -56,18 +56,24 @@ UT.CreateArticleView = Backbone.View.extend({
     },
     saveArticle: function(e){
         var that = this,
-            timeValue = new Date(incidentDate.value).getTime(),
-            lat = hiddenMapCoordinateLat.value,
-            lon = hiddenMapCoordinateLng.value,
+            obj = {
+                time: new Date(incidentDate.value).getTime(),
+                type: hiddenIncidentType.value,
+                coordinates: {
+                    lat: parseFloat(hiddenMapCoordinateLat.value),
+                    lon: parseFloat(hiddenMapCoordinateLng.value)
+                },
+                title: incidentTitle.value
+            },
             incident = this.model.get('incident'),
             media = this.model.get('media');
         e.preventDefault();
-        incident.set({coordinates: {lat:parseFloat(lat) , lon:parseFloat(lon)}});
-        incident.set({time: timeValue , title: incidentTitle.value});
+        incident.set(obj);
         media.set({content: mediaContent.value});
         if (!this.validateForm()){
             return;
         };
+        console.log(this.model);
         this.model.save({}, {
             dataType: 'text',
             success: function (model, response, options) {
@@ -95,7 +101,7 @@ UT.CreateArticleView = Backbone.View.extend({
             inputs =  $('#article-form').find('.inputData');
         _.forEach(inputs,function(input){
             var inputValue = input.value;
-            if(inputValue.length !== 0){
+            if(inputValue !== undefined && inputValue.length !== 0){
                 isFilled = true;
                 return isFilled;
             }
