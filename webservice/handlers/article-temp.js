@@ -57,3 +57,7 @@ exports.getAll = function(req, res) {
         res.send(data);
     })
 }
+
+exports.removeById = function(req, res) {
+    
+};
