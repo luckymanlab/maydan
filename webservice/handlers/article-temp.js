@@ -63,5 +63,6 @@ exports.removeById = function(req, res) {
     ArticleTemp.remove({ _id: id }, function (err) {
         if (err) return handleError(err);
         console.log('Deleting article: ' + id);
+        res.send('Success');
     });
 };

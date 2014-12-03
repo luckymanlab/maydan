@@ -17,8 +17,8 @@ router.route('/temp/articles')
     .post(article.temp.addArticle);
 //  .delete(article.temp.removeAll)
 
-// router.route('/temp/article/:id')
-//  .delete(article.temp.removeById);
-//  .put(article.temp.refreshById);
+router.route('/temp/article/:id')
+  .delete(article.temp.removeById);
+  //.put(article.temp.refreshById);
 
 module.exports = router;
