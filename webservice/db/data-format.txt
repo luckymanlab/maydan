@@ -19,6 +19,7 @@ media
 article
 {
 	id: string (some unique id) ex: '454545456',
-	media: media
+	creationDate: number,
+	media: media,
 	incident: incident
 }
