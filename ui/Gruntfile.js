@@ -13,17 +13,25 @@ module.exports = function (grunt) {
 		'js/vendor/backbone-min.js',
 		'js/vendor/infobubble.js',
 		'js/vendor/bootstrap.min.js',
-		'js/vendor/bootstrap-datepicker.js'
+		'js/vendor/bootstrap-datepicker.js',
+		'js/vendor/jquery.placepicker.js',
+		'js/vendor/bootstrap-datetimepicker.js',
+		'js/vendor/calendarLanguage/*.js'
 	];
 
 	var base = [
+		'js/config.js',
 		'js/model/incident.js',
+		'js/model/media.js',
 		'js/model/article.js',
 		'js/model/date.js',
 		'js/collection/incident-collection.js',
+		'js/collection/incident-types-collection.js',
 		'js/view/incident-map-view.js',
 		'js/view/incident-list-view.js',
 		'js/view/article-modal-view.js',
+		'js/view/incident-types-select-view.js',
+		'js/view/create-article-view.js',
 		'js/view/incident-collection-view.js',
 		'js/view/date-view.js',
 		'js/router.js',
@@ -84,7 +92,6 @@ module.exports = function (grunt) {
 					sourceMappingURL: 'main.js.map',
 					sourceMapPrefix: 1,
 					semicolons: true,
-					report: 'gzip',
 					beautify: true
 				},
 				files: {
@@ -125,7 +132,8 @@ module.exports = function (grunt) {
 					style: 'compressed'
 				},
 				files: {
-					'public/css/timeLine.css': 'timeLine/scss/timeLine.scss'
+					'public/css/timeLine.css': 'timeLine/scss/timeLine.scss',
+					'public/css/style.css': 'sass/style.scss'
                 }
             }
         },
@@ -165,6 +173,6 @@ module.exports = function (grunt) {
         }
 	});
 
-	grunt.registerTask('default', ['jshint:files', 'uglify', 'watch']);
+	grunt.registerTask('default', ['jshint:files', 'sass', 'uglify', 'watch']);
 	grunt.registerTask('timeLine', ['jshint:files', 'uglify:buildTL', 'imagemin', 'sprite', 'sass', 'watch']);
 };

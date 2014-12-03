@@ -1,0 +1,22 @@
+[
+	{
+		"id": "1",
+		"imageSrc": "img/markers/fire.png",
+		"name": "name1"
+	},
+	{
+		"id": "2",
+		"imageSrc": "img/markers/fire.png",
+		"name": "name2"
+	},
+	{
+		"id": "3",
+		"imageSrc": "img/markers/fire.png",
+		"name": "name3"
+	},
+	{
+	    "id": "4",
+		"imageSrc": "img/markers/fire.png",
+	    "name": "name4"
+	}
+]

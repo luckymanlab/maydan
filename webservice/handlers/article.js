@@ -1,4 +1,4 @@
-var mongoose = require('../db/db-configs'),
+var mongoose = require('../db/connect'),
     temp = require('./article-temp'),
     schemas = require('../db/schemas');
 
@@ -8,7 +8,7 @@ exports.getAll = function(req, res) {
     Article.find(function(err, data) {
         if(err) throw err
         res.send(data);
-    })
+    });
 };
 
 exports.getById = function(req, res) {

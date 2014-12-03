@@ -2,6 +2,7 @@ var UT = window.UT || {};
 
 UT.ApplicationView = Backbone.View.extend({
 	initialize: function() {
+
 		var self = this;
 		self.map = $('#map');
 
@@ -35,37 +36,43 @@ UT.ApplicationView = Backbone.View.extend({
 		};
 		this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-		// self.currentIncidentCollection = new UT.IncidentCollection();
+		self.currentIncidentCollection = new UT.IncidentCollection();
 
-		// setInterval((function(self) {
-		//	return function() {
-		//		self.currentIncidentCollection.addNew(
-		//			{
-		//				id : (new Date()).getTime(),
-		//				title : 'На Грушевського продовжуються протести',
-		//				marker: 'fire',
-		//				pos: {lat: 50.450201 + Math.random() / 1000, lon: 30.524021 + Math.random() / 1000}
-		//			}
-		//		);
-		//	};
-		//})(self), 5000);
+		setInterval((function(self) {
+			return function() {
+				self.currentIncidentCollection.addNew(
+					{
+						id : (new Date()).getTime(),
+						title : 'На Грушевського продовжуються протести',
+						marker: 'fire',
+						pos: {lat: 50.450201 + Math.random() / 1000, lon: 30.524021 + Math.random() / 1000}
+					}
+				);
+			};
+		})(self), 5000);
 
-		// self.currentIncidentCollectionView = new UT.IncidentCollectionView({model: self.currentIncidentCollection,
-		//	map: self.map, vent: self.vent, el:$('#incident-panel')});
+		self.currentIncidentCollectionView = new UT.IncidentCollectionView({model: self.currentIncidentCollection,
+			map: self.map, vent: self.vent, el:$('#incident-panel')});
 
-		//self.articleModel = new UT.Article();
-		//self.articleModalView = new UT.ArticleModalView({model: self.articleModel, el:$('#article-modal')});
-
-		//self.dateModel = new UT.Date();
-		//self.dateView = new UT.DateView({model: self.dateModel, el:$('#date-component')});
 	},
-	//updateArticle: function(id){
-	//	this.articleModalView.showModal();
-	//	this.articleModel.set('id', id);
-	//	this.articleModel.fetch();
-	//}
+
+	events:{
+		'click #createArticle': 'createArticle'
+	},
+	createArticle: function(){
+		/* jslint nonew: false */
+		new UT.CreateArticleView();
+		/* jslint nonew: true */
+	},
+
+	updateArticle: function(id){
+		this.articleModalView.showModal();
+		this.articleModel.set('id', id);
+		this.articleModel.fetch();
+	}
 });
 
+
 $(function(){
-	UT.app = new UT.ApplicationView();
+	UT.app = new UT.ApplicationView({el: $('body')});
 });

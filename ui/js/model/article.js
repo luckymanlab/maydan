@@ -1,10 +1,21 @@
 var UT = window.UT || {};
 
 UT.Article = Backbone.Model.extend({
-	initialize: function() {},
-	//sync: function () { return false;},
-	urlRoot: '/article',
-	clear: function() {
-		this.destroy();
-	}
+    urlRoot: UT.Config.saveArticlePath,
+    defaults:{
+        incident: new UT.Incident(),
+        media: new UT.Media()
+    },
+    validate: function( attributes ) {
+        this.validationEmptyField(attributes.incident.attributes);
+        this.validationEmptyField(attributes.media.attributes);
+    },
+    validationEmptyField: function(model){
+        for(var attr in model){
+            var attrValue = model[attr];
+            if(attrValue == ''){
+                return false;
+            }
+        }
+    }
 });

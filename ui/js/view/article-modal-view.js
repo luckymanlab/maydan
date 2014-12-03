@@ -3,7 +3,6 @@ var UT = window.UT || {};
 UT.ArticleModalView = Backbone.View.extend({
 	initialize: function(options) {
 		var self = this;
-
 		self.model = options.model;
 		self.model.on('request', function () {
 			self.showPreloader();
