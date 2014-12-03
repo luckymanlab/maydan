@@ -41,14 +41,14 @@ exports.addArticle = function(req, res) {
         }
         res.send('Success');
     });
-}
+};
 
 exports.getAll = function(req, res) {
     ArticleTemp.find(function(err, data) {
-        if(err) throw err
+        if(err) throw err;
         res.send(data);
     })
-}
+};
 
 exports.removeById = function(req, res) {
     var id = req.params.id;
