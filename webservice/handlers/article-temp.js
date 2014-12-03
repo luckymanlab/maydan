@@ -59,5 +59,9 @@ exports.getAll = function(req, res) {
 }
 
 exports.removeById = function(req, res) {
-    
+    var id = req.params.id;
+    ArticleTemp.remove({ _id: id }, function (err) {
+        if (err) return handleError(err);
+        console.log('Deleting article: ' + id);
+    });
 };
