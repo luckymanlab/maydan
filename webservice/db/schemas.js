@@ -15,6 +15,10 @@ exports.articleSchema = mongoose.Schema({
 });
 
 exports.articleTempSchema = mongoose.Schema({
+    criationDate: {
+        type: Number,
+        default: date.getTime()
+    },
     media: {
         content: { type: String, required: true }
     },

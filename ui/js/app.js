@@ -1,7 +1,9 @@
 var UT = window.UT || {};
 
 UT.ApplicationView = Backbone.View.extend({
-	initialize: function() {
+    /*jshint nonew: true */
+
+    initialize: function() {
 
 		var self = this;
 		self.map = $('#map');
