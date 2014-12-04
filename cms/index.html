@@ -7,8 +7,7 @@
     <link rel="stylesheet" href="src/css/style.css">
 </head>
 <body>
-<h4>List of unconfirmed articles</h4>
-<div id="content"></div>
+<div id="content" class="col-sm-10"></div>
 
 <script src="src/vendor/jquery-1.11.0.min.js"></script>
 <script src="src/vendor/json2.min.js"></script>
@@ -24,11 +23,24 @@
 <script src="src/js/model/article.js"></script>
 <script src="src/js/collection/article-list-collection.js"></script>
 <script src="src/js/view/article-list-view.js"></script>
-
-<script type="text/template" id="item-template">
-    <span class="col-sm-2"><%= incident.title %></span>
-    <span class="col-sm-3"> <%= new Date(incident.time).toLocaleDateString() %></span>
+<script type="text/template" id="row-template">
+    <td class="col-sm-4"><%= incident.title %></td>
+    <td class="col-sm-4"> <%= new Date(incident.time).toLocaleDateString() %></td>
+    <td class="col-sm-4"> <%= new Date(criationDate).toLocaleDateString() %></td>
 </script>
-
+<script type="text/template" id="table-template">
+   <h4 id="table-title">List of unconfirmed articles</h4>
+   <table class="table table-striped">
+       <thead>
+       <tr>
+           <th>Title</th>
+           <th>Date</th>
+           <th>Creation Date</th>
+       </tr>
+       </thead>
+       <tbody>
+       </tbody>
+   </table>
+</script>
 </body>
 </html>

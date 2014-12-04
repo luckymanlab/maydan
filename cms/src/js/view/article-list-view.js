@@ -7,24 +7,24 @@ myApp.addRegions({
 myApp.start = function(){
     var that = this,
         articles = new UT.ArticleListCollection();
-    console.log(articles);
     articles.fetch({
         success: function(articles,data){
-            var articleListView = new myApp.ArticleListView({
+            var articleListView = new myApp.ArticleTableView({
                 collection: articles
             });
-            console.log("Success", data);
             myApp.mainRegion.show(articleListView);
         }
     })
 };
 
 myApp.ArticleItemView = Marionette.ItemView.extend({
-    template: "#item-template",
-    tagName: "li"
+    tagName: "tr",
+    template: "#row-template"
 });
-myApp.ArticleListView = Marionette.CollectionView.extend({
-    tagName: 'ul',
-    childView: myApp.ArticleItemView
+
+myApp.ArticleTableView = Marionette.CompositeView.extend({
+    template: "#table-template",
+    childView: myApp.ArticleItemView,
+    childViewContainer: "tbody"
 });
 myApp.start();
