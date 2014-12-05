@@ -34,11 +34,16 @@ exports.articleTempSchema = mongoose.Schema({
 });
 
 exports.incidentSchema = mongoose.Schema({
+    _id: String,
     time: Number,
-    type: String,
+    incidentType: String,
     coordinates: {
         lat: Number,
         lon: Number
     }, 
     title: String
+});
+
+exports.mediaSchema = mongoose.Schema({
+    content: {type: String, required: true}
 });

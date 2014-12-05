@@ -1,6 +1,7 @@
 var mongoose = require('../db/connect'),
-    schemas = require('../db/schemas');
-
+    schemas = require('../db/schemas'),
+    media = require('./media'),
+    incident = require('./incident');
 var ArticleTemp = mongoose.model('ArticleTemp', schemas.articleTempSchema);
 
 exports.addArticle = function(req, res) {
@@ -41,14 +42,14 @@ exports.addArticle = function(req, res) {
         }
         res.send('Success');
     });
-};
+}
 
 exports.getAll = function(req, res) {
     ArticleTemp.find(function(err, data) {
         if(err) throw err;
         res.send(data);
     })
-};
+}
 
 exports.removeById = function(req, res) {
     var id = req.params.id;
@@ -57,4 +58,21 @@ exports.removeById = function(req, res) {
         console.log('Deleting article: ' + id);
         res.send('Success');
     });
-};
+}
+
+exports.confirm = function(req, res) {
+    var id = req.params.id;
+    console.log('Confirm: ' + id);
+    ArticleTemp.find({_id: id}, function(err, data) {
+        if(err) console.log(err);
+        var id = media.confirm(data[0].media, function(id) {
+            incident.confirm(id, data[0].incident);
+        });
+    });
+    ArticleTemp.remove({_id: id}, function(err) {
+        if(err) console.log(err);
+        res.send('success');
+    });
+}
+
+exports.update = function(req, res) {}
