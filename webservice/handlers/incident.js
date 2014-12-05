@@ -8,7 +8,7 @@ exports.getAll = function(req, res) {
         if(err) throw err
         res.send(data);
     });
-};
+}
 
 exports.getById = function(req, res) {
     var id = req.params.id;
@@ -18,7 +18,7 @@ exports.getById = function(req, res) {
         if(data) res.send(data)
         if(!data) res.send(false)
     })
-};
+}
 
 exports.addIncident = function(req, res) {
     var incident = req.body;
@@ -66,37 +66,25 @@ exports.updateIncident = function(req, res) {
 exports.deleteIncident = function(req, res) {
     var id = req.params.id;
     console.log('Deleting incident: ' + id);
-    db.collection('incidents', function(err, collection) {
-        collection.remove({'_id':new BSON.ObjectID(id)}, {safe:true}, function(err, result) {
-            if (err) {
-                res.send({'error':'An error has occurred - ' + err});
-            } else {
-                console.log('' + result + ' document(s) deleted');
-                res.send(req.body);
-            }
-        });
+    Incident.remove({_id: id}, function(err) {
+        if(err) console.log(err);
     });
 }
 
-/*--------------------------------------------------------------------------------------------------------------------*/
-//Populate database with sample data -- Only used once: the first time the application is started.
-//You'd typically not find this code in a real-life app, since the database would already exist.
-//var populateDB = function() {
-//
-// var newIncident = new Incident({
-//  time: 0,
-//  type: 'fire',
-//  coordinates: {
-//    lat: 50.450201,
-//    lon: 50.450201
-//  },
-//  title: ''
-// });
-// 
-// newIncident.save(function(err, newIncident) {
-//  if(err) throw err
-//  console.log('Saved');
-// })
-//
-//
-//};
+exports.confirm = function(id, data) {
+    var newIncident = new Incident({
+        _id: id,
+        coordinates: {
+            lat: data.coordinates.lat,
+            lon: data.coordinates.lon
+        },
+        title: data.title,
+        incidentType: data.incidentType,
+        time: data.time
+    });
+
+    newIncident.save(function(err, data) {
+        if(err) console.log(err);
+        console.log('Incident successfull saved');
+    });
+}
