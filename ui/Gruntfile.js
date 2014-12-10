@@ -1,6 +1,6 @@
 module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-imagemin');
@@ -8,15 +8,15 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-spritesmith');
 	var libs = [
-		'js/vendor/jquery-1.11.0.min.js',
-		'js/vendor/underscore-min.js',
-		'js/vendor/backbone-min.js',
-		'js/vendor/infobubble.js',
-		'js/vendor/bootstrap.min.js',
-		'js/vendor/bootstrap-datepicker.js',
-		'js/vendor/jquery.placepicker.js',
-		'js/vendor/bootstrap-datetimepicker.js',
-		'js/vendor/calendarLanguage/*.js'
+		'vendor/jquery-1.11.0.min.js',
+		'vendor/underscore-min.js',
+		'vendor/backbone-min.js',
+		'vendor/infobubble.js',
+		'vendor/bootstrap.min.js',
+		'vendor/bootstrap-datepicker.js',
+		'vendor/jquery.placepicker.js',
+		'vendor/bootstrap-datetimepicker.js',
+		'vendor/calendarLanguage/*.js'
 	];
 
 	var base = [
@@ -38,51 +38,40 @@ module.exports = function (grunt) {
 		'js/app.js'
 	];
 
-	var timeLine = [
-		'timeLine/js/jquery-ui.min.js',
-		'timeLine/js/timeLineTemplateObj.js',
-		'timeLine/js/timeLineDateUtil.js',
-		'timeLine/js/timeLine.js'
+	var timeline = [
+		'timeline/js/jquery-ui.min.js',
+		'timeline/js/timelineTemplateObj.js',
+		'timeline/js/timelineDateUtil.js',
+		'timeline/js/timeline.js'
 	];
 
 	grunt.initConfig({
 
 		watch: {
 			options: {
-				livereload: true
+				livereload: false
 			},
 			js: {
 				files: [base],
-				tasks: ['jshint:files', 'uglify']
-			},
-			timeLineJS: {
-				files: [timeLine],
-				tasks: ['jshint:files', 'uglify:buildTL']
+				tasks: ['jshint:files', 'uglify:app']
 			},
             style: {
-                files: ['timeLine/scss/*.scss'],
+                files: ['sass/*.scss'],
                 tasks: ['sass'],
                 options: {
                     spawn: false
                 }
             },
-            sprites: {
-				files: ['timeLine/images/sprite/*.{png,jpg,jpeg}'],
-				task: ['sprite:all'],
-				options: {
-                    spawn: false
-                }
-            }
 		},
 		jshint: {
 			options: {
 				jshintrc: '.jshintrc'
 			},
 			grunt: 'Gruntfile.js',
-			files: ['js/*.js', 'Gruntfile.js', 'timeLine/js/timeLine.js', 'timeLine/js/timeLineTemplateObj.js', 'timeLine/js/timeLineDateUtil.js']
+			files: ['js/*.js', 'js/**/*.js']
 		},
 		uglify: {
-			default: {
+			app: {
 				options: {
 					mangle: {
 						except: ['js/**/*.js']
@@ -98,33 +87,23 @@ module.exports = function (grunt) {
 					'public/js/main.js': [libs, base]
 				}
 			},
-			buildTL: {
+			timeline: {
 				options: {
 					mangle: {
-						except: ['timeLine/js/*.js']
+						except: ['timeline/js/*.js']
 					},
-					sourceMap: 'public/js/timeLine.js.map',
-					sourceMapRoot: '../../timeLine/js/',
-					sourceMappingURL: 'timeLine.js.map',
+					sourceMap: 'public/js/timeline.js.map',
+					sourceMapRoot: '../../timeline/js/',
+					sourceMappingURL: 'timeline.js.map',
 					sourceMapPrefix: 2,
 					semicolons: true,
 					// report: 'gzip',
 					beautify: true
 				},
                 files: {
-					'public/js/timeLine.js': [timeLine]
+					'public/js/timeline.js': [timeline]
 				}
             }
-		},
-		imagemin: {
-			static: {
-				files: [{
-					expand: true,
-					cwd: 'timeLine/images/',
-					src: ['**/*.{png,jpg,gif}'],
-                    dest: 'public/img'
-                }]
-			}
 		},
 		sass: {
 			dist: {
@@ -132,47 +111,15 @@ module.exports = function (grunt) {
 					style: 'compressed'
 				},
 				files: {
-					'public/css/timeLine.css': 'timeLine/scss/timeLine.scss',
+					'public/css/timeline.css': 'timeline/scss/timeline.scss',
 					'public/css/style.css': 'sass/style.scss'
                 }
             }
         },
-		sprite: {
-            all: {
-                src: ['timeLine/images/sprite/*.{png,jpg,jpeg}'],
-                destImg: 'public/img/sprite.png',
-                destCSS: 'timeLine/scss/_sprite.scss',
-                imgPath: '../img/sprite.png',
-                // OPTIONAL: Specify algorithm (top-down, left-right, diagonal [\ format],
-                // alt-diagonal [/ format], binary-tree [best packing])
-                // Visual representations can be found below
-                algorithm: 'binary-tree',
-                // algorithm: 'left-right',
-                // OPTIONAL: Specify padding between images
-                padding: 5,
-                // OPTIONAL: Specify engine (auto, phantomjs, canvas, gm)
-                engine: 'gm',
-                cssFormat: 'scss',
-                cssVarMap: function (sprite) {
-                    sprite.name = 'sprite-' + sprite.name;
-                },
-                engineOpts: {
-                    imagemagick: false
-                },
-                imgOpts: {
-                    format: 'png',
-                    quality: 100
-                },
-                cssOpts: {
-                    functions: false,
-                    cssClass: function (item) {
-                        return '.sprite-' + item.name;
-                    }
-                }
-            }
-        }
 	});
 
-	grunt.registerTask('default', ['jshint:files', 'sass', 'uglify', 'watch']);
-	grunt.registerTask('timeLine', ['jshint:files', 'uglify:buildTL', 'imagemin', 'sprite', 'sass', 'watch']);
+	grunt.registerTask('compile', ['jshint:files', 'sass', 'uglify:app']);
+    grunt.registerTask('watcher', ['jshint:files', 'sass', 'uglify:app', 'watch']);
+
+	grunt.registerTask('timeline', ['jshint:files', 'uglify:timeline', 'sass']);
 };

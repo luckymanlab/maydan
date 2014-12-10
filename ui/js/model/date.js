@@ -12,7 +12,7 @@ UT.Date = Backbone.Model.extend({
 		return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
 	},
 	setDate: function (d) {
-		this.set('date', d.getTime())
+		this.set('date', d.getTime());
 	},
 	getDate: function () {
 		return new Date(this.get('date'));

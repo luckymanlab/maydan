@@ -19,7 +19,7 @@ UT.IncidentCollectionView = Backbone.View.extend({
 	},
 
 	incidentAddHandler : function (incident){
-		var marker_view = new UT.IncidentMapView({model: incident, map: this.map, vent: this.vent});
+//		var marker_view = new UT.IncidentMapView({model: incident, map: this.map, vent: this.vent});
 		var item_view = new UT.IncidentListView({model: incident});
 		this.$el.append(item_view.render().el);
 	},

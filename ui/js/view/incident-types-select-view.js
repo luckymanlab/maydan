@@ -19,7 +19,7 @@ UT.IncidentTypesSelectView = Backbone.View.extend({
 			types = [];
 
 		_.map(this.model.models, function(model){
-			types.push(model.attributes)
+			types.push(model.attributes);
 		});
 
 		$.get('templates/incident-types-select-template.html', function (data) {

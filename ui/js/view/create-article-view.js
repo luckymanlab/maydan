@@ -1,9 +1,11 @@
 var UT = window.UT || {};
 
 UT.CreateArticleView = Backbone.View.extend({
+    /*jshint undef:false */
+
     initialize: function(){
         this.model = new UT.Article();
-        this.render();
+        this.render();//
     },
     render: function(){
         var that = this;
@@ -55,8 +57,7 @@ UT.CreateArticleView = Backbone.View.extend({
         $(input).tooltip('destroy');
     },
     saveArticle: function(e){
-        var that = this,
-            obj = {
+        var obj = {
                 time: new Date(incidentDate.value).getTime(),
                 type: hiddenIncidentType.value,
                 coordinates: {
@@ -67,22 +68,23 @@ UT.CreateArticleView = Backbone.View.extend({
             },
             incident = this.model.get('incident'),
             media = this.model.get('media');
+
         e.preventDefault();
         incident.set(obj);
         media.set({content: mediaContent.value});
         if (!this.validateForm()){
             return;
-        };
+        }
         console.log(this.model);
         this.model.save({}, {
             dataType: 'text',
             success: function (model, response, options) {
-                console.log("The model has been saved to the server" , response, model, options);
+                console.log('The model has been saved to the server' ,response, model, options);
                 $('#article-form')[0].reset();
                 $('.alert-success').toggle();
             },
             error: function (model, response, options) {
-                console.log("Something went wrong while saving the model",response);
+                console.log('Something went wrong while saving the model', response);
                 $('#article-form')[0].reset();
                 $('.alert-danger').toggle();
             }
@@ -91,7 +93,7 @@ UT.CreateArticleView = Backbone.View.extend({
     closeArticleModal: function(){
         if(this.filledFields()){
             $('#confirm-modal').modal('show');
-            $('#article-content').css('opacity', .5);
+            $('#article-content').css('opacity', 0.5);
         } else{
             this.destroyView();
         }

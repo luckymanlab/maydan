@@ -12,8 +12,7 @@ UT.Article = Backbone.Model.extend({
     },
     validationEmptyField: function(model){
         for(var attr in model){
-            var attrValue = model[attr];
-            if(attrValue == ''){
+            if(model.hasOwnProperty(attr) && model[attr] === ''){
                 return false;
             }
         }

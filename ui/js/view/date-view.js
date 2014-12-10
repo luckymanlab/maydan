@@ -10,7 +10,7 @@ UT.DateView = Backbone.View.extend({
 		self.progressBar = self.$el.find('.progress-bar');
 		self.progress = self.$el.find('.progress');
 		self.datepicker = self.date.datepicker().on('changeDate', function(e) {
-			var d = new Date(e.date)
+			var d = new Date(e.date);
 			//d.setMonth(d.getMonth() + 1);
 			self.model.setDate(d);
 			self.datepicker.hide();

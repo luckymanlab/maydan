@@ -7,7 +7,6 @@ UT.ApplicationView = Backbone.View.extend({
 
 		var self = this;
 		self.map = $('#map');
-
 		//initialize route
 		self.router = new UT.Router();
 		self.router.on('route:editor', function(id) {

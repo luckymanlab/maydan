@@ -20,13 +20,13 @@ UT.IncidentMapView = Backbone.View.extend({
 			id : self.model.get('id')
 		});
 
-		self.content = $('<div><h6>' + self.model.getTitle() + '</h6><img style="width:100%" src="http://images7.unian.net/photos/2014_01/1390164176-7127.jpeg" /></div>')
+		self.content = $('<div><h6>' + self.model.getTitle() + '</h6><img style="width:100%" src="http://images7.unian.net/photos/2014_01/1390164176-7127.jpeg" /></div>');
 
-		self.infoBubble = new InfoBubble({
-			maxWidth: 150,
-			minHeight: 20,
-			content: self.content[0]
-		});
+//		self.infoBubble = new InfoBubble({
+//			maxWidth: 150,
+//			minHeight: 20,
+//			content: self.content[0]
+//		});
 
 		google.maps.event.addListener(self.marker, 'click', function(){
 			self.markerClick(self);
