@@ -1,10 +1,9 @@
 var UT = window.UT || {};
 
 UT.ApplicationView = Backbone.View.extend({
-    /*jshint nonew: true */
+	/*jshint nonew: true */
 
-    initialize: function() {
-
+	initialize: function() {
 		var self = this;
 		self.map = $('#map');
 		//initialize route
@@ -13,7 +12,6 @@ UT.ApplicationView = Backbone.View.extend({
 			alert(id);
 		});
 		Backbone.history.start();
-
 		self.vent = _.extend({}, Backbone.Events);
 
 		self.vent.on('incidentSelected', self.updateArticle, self);
@@ -36,7 +34,6 @@ UT.ApplicationView = Backbone.View.extend({
 			styles: styles
 		};
 		this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
 		self.currentIncidentCollection = new UT.IncidentCollection();
 
 		setInterval((function(self) {
@@ -58,18 +55,40 @@ UT.ApplicationView = Backbone.View.extend({
 	},
 
 	events:{
-		'click #createArticle': 'createArticle'
+		'click #createArticle': 'createArticle',
+		'click #authorization-btn': 'authorization'
 	},
 	createArticle: function(){
 		/* jslint nonew: false */
-		new UT.CreateArticleView();
+		if(this.getAccessToken()) {
+			console.log(this.getAccessToken());
+			new UT.CreateArticleView();
+		} else {
+			this.authorization();
+		}
 		/* jslint nonew: true */
 	},
-
+	authorization: function() {
+		window.open('http://localhost:3000/auth/facebook', '_blank', 'width=600, height=500');
+	},
 	updateArticle: function(id){
 		this.articleModalView.showModal();
 		this.articleModel.set('id', id);
 		this.articleModel.fetch();
+	},
+	getAccessToken: function() {
+		var key = 'accessToken=';
+		var ca = document.cookie.split(';');
+		for(var i = 0; i < ca.length; i ++) {
+			var c = ca[i];
+			while (c.charAt(0) === ' ') {
+				c = c.substring(1);
+			}
+			if (c.indexOf(key) !== -1) {
+				return c.substring(key.length, c.length);
+			}
+		}
+		return '';
 	}
 });
 
