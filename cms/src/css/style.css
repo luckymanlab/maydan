@@ -1,12 +1,12 @@
-#content ul{
-    list-style:none;
+#content ul {
+    list-style: none;
 }
-.table-title{
+.table-title {
     text-align: center;
 }
 #map {
-	height: 200px;
+    height: 200px;
 }
 .modal-header .close {
-	margin-top: -10px;
+    margin-top: -10px;
 }
