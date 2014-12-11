@@ -7,10 +7,10 @@ UT.ArticleItemView = Marionette.ItemView.extend({
         'click .delete-item': 'destroyItem',
         'click .confirm-item': 'confirmItem'
     },
-    destroyItem: function(ev) {
+    destroyItem: function(event) {
         this.model.destroy();
     },
-    confirmItem: function(ev) {
+    confirmItem: function(event) {
         this.model.confirm();
     }
 });
