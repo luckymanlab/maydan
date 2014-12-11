@@ -55,13 +55,11 @@ UT.ApplicationView = Backbone.View.extend({
 	},
 
 	events:{
-		'click #createArticle': 'createArticle',
-		'click #authorization-btn': 'authorization'
+		'click #create-article-btn': 'createArticle'
 	},
 	createArticle: function(){
 		/* jslint nonew: false */
 		if(this.getAccessToken()) {
-			console.log(this.getAccessToken());
 			new UT.CreateArticleView();
 		} else {
 			this.authorization();
