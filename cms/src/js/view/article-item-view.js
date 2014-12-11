@@ -7,6 +7,8 @@ UT.ArticleItemView = Marionette.ItemView.extend({
         'click': 'createArticlePreview'
     },
     createArticlePreview: function() {
-        new UT.ArticlePreviewView(this.model);              
-    },    
+        /* jslint nonew: false */
+        new UT.ArticlePreviewView(this.model);
+        /* jslint nonew: true */
+    },
 });
