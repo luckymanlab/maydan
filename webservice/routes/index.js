@@ -22,7 +22,7 @@ router.route('/temp/articles')
     .post(article.temp.addArticle);
 //  .delete(article.temp.removeAll)
 
-router.route('/temp/article/:id')
+router.route('/temp/articles/:id')
     .delete(article.temp.removeById)
     .put(function(req, res) {
         if(req.body.type) {
@@ -31,6 +31,8 @@ router.route('/temp/article/:id')
             } else if (req.body.type === 'update') {
                 article.temp.update(req, res);
             }
+        } else {
+            res.status(403).send('err');
         }
     });
 
