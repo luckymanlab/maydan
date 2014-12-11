@@ -4,3 +4,9 @@
 .table-title{
     text-align: center;
 }
+#map {
+	height: 200px;
+}
+.modal-header .close {
+	margin-top: -10px;
+}

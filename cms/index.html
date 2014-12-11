@@ -5,6 +5,7 @@
     <title>Admin page</title>
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="src/css/style.css">
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=places"></script>
 </head>
 <body>
 <div id="content" class="col-sm-12"></div>
@@ -24,15 +25,12 @@
 <script src="src/js/collection/article-list-collection.js"></script>
 <script src="src/js/view/article-item-view.js"></script>
 <script src="src/js/view/article-table-view.js"></script>
+<script src="src/js/view/preview-article-view.js"></script>
 <script src="src/js/app.js"></script>
 <script type="text/template" id="row-template">
     <td class="col-sm-4"><%= incident.title %></td>
     <td class="col-sm-3"><%= new Date(incident.time).toLocaleDateString() %></td>
-    <td class="col-sm-3"><%= new Date(criationDate).toLocaleDateString() %></td>
-    <td class="col-sm-2 text-center">
-        <button type="button" class="btn btn-danger delete-item">Delete</button>
-        <button type="button" class="btn btn-success confirm-item">Confirm</button>
-    </td>
+    <td class="col-sm-3"><%= new Date(criationDate).toLocaleDateString() %></td>   
 </script>
 <script type="text/template" id="table-template">
    <h4 class="table-title">List of unconfirmed articles</h4>
@@ -42,12 +40,34 @@
            <th>Title</th>
            <th>Date</th>
            <th>Creation Date</th>
-           <th class="text-center">Action</th>
        </tr>
        </thead>
        <tbody>
        </tbody>
    </table>
+</script>
+<script type="text/template" id="article-preview-modal">
+<div class="modal article-modal" id="article-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div id="article-content" class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-hidden="true" id="close-modal">&times;</button>
+            </div>                
+            <ul class="list-group">
+                <li class="list-group-item"><span class="lead">Title:</span> <%= incident.title %></li>
+                <li class="list-group-item"><span class="lead">Date:</span> <%= new Date(incident.time).toLocaleDateString() %></li>
+                <li class="list-group-item"><span class="lead">Creation Date:</span> <%= new Date(criationDate).toLocaleDateString() %></li>
+                <li class="list-group-item"><span class="lead">Type:</span> <%= incident.incidentType %></li>
+                <li class="list-group-item"><span class="lead">Description:</span> <%= media.content %></li>
+                <li class="list-group-item map-coordinate" id="map"></li>  
+            </ul>                
+            <div class="form-group col-sm-12">                        
+                <button type="button" class="btn btn-primary confirm-item" id="close-article-modal">Aprove</button>
+                <button type="button" class="btn btn-default delete-item" id="save-article">Delete</button>           
+            </div>
+        </div>
+    </div>
+</div>
 </script>
 </body>
 </html>
