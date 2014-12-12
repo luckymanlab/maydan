@@ -117,7 +117,7 @@ module.exports = function(grunt) {
             }
         },
         copy: {
-            main: {
+            css: {
                 expand: true,
                 cwd: 'sass/vendor',
                 src: '**',
@@ -128,7 +128,7 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('compile', ['jshint:files', 'sass', 'uglify:app', 'copy']);
+    grunt.registerTask('compile', ['jshint:files', 'sass', 'uglify:app', 'copy:css']);
     grunt.registerTask('watcher', ['jshint:files', 'sass', 'uglify:app', 'watch']);
 
     grunt.registerTask('timeline', ['jshint:files', 'uglify:timeline', 'sass']);
