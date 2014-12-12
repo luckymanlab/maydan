@@ -12,5 +12,10 @@ UT.ArticleTableView = Marionette.CompositeView.extend({
             that.render();
         });
         this.collection.fetch();
+    },
+    addChild: function(item, ItemView, index) {
+        if (!this.children.findByModel(item)) {
+            return Backbone.Marionette.CompositeView.prototype.addChild.apply(this, arguments);
+        }
     }
 });
