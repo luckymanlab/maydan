@@ -1,8 +1,6 @@
 var UT = window.UT || {};
 
 UT.CreateArticleView = Backbone.View.extend({
-    /*jshint undef:false */
-
     initialize: function(){
         this.model = new UT.Article();
         this.render();//
@@ -21,7 +19,9 @@ UT.CreateArticleView = Backbone.View.extend({
         'click #save-article': 'saveArticle',
         'click #close-modal,#close-article-modal': 'closeArticleModal',
         'click #close-confirm,#close-confirm-default': 'closeModalConfirm',
-        'click #close-return': 'cancelModalConfirm'
+        'click #close-return': 'cancelModalConfirm',
+        'change #incidentTitle, #mediaContent, #incidentDate': 'validateInput',
+        'click #optionsIncidentType': 'validateSelect'
     },
     createIncidentTypesView: function() {
         this.incidentTypesView = new UT.IncidentTypesSelectView({ el: $('#incident-type-select-container') });
@@ -29,34 +29,61 @@ UT.CreateArticleView = Backbone.View.extend({
     showModal: function () {
         this.$el.modal('show');
     },
-    validateForm: function(){
+    validate: function(input, that) {
+        var inputValue = input.value,
+            label = $(input).attr('data-label'),
+            formGroup = input.parentNode.parentNode,
+            textError = 'Enter ' + label,
+            isValid = true;
+        if (input.id === 'mainSelectIncidentType') {
+            inputValue = $('#selectedValue')[0].innerText;
+        }
+
+        if (inputValue === undefined || inputValue.length === 0 || inputValue === 'Please, select mark') {
+            $(formGroup).addClass('has-error').removeClass('has-success');
+            $(input).tooltip({
+                trigger: 'manual',
+                placement: 'right',
+                title: textError
+            }).tooltip('show');
+            isValid = false;
+        } else {
+            $(formGroup).addClass('has-success').removeClass('has-error');
+            that.removeError(input);
+        }
+        return isValid;
+    },
+    validateForm: function() {
         var isValid = true,
             that = this,
             inputs =  $('#article-form').find('.inputData');
-        _.forEach(inputs,function(input){
-            var inputValue = input.value,
-                label = $(input).attr('data-label'),
-                formGroup = input.parentNode.parentNode,
-                textError = 'Enter ' + label;
-            if (inputValue !== undefined && inputValue.length === 0){
-                $(formGroup).addClass('has-error').removeClass('has-success');
-                $(input).tooltip({
-                    trigger: 'manual',
-                    placement: 'right',
-                    title: textError
-                }).tooltip('show');
-                isValid =false;
-            } else {
-                $(formGroup).addClass('has-success').removeClass('has-error');
-                that.removeError(input);
+        _.forEach(inputs,function(input) {
+            if (that.validate(input, that) === false) {
+                isValid = false;
             }
         });
         return isValid;
+    },
+    validateInput: function(e) {
+        var that = this,
+            input =  e.target;
+        return that.validate(input, that);
+    },
+    validateSelect: function() {
+        var that = this,
+            input = $('#mainSelectIncidentType')[0];
+        return that.validate(input, that);
     },
     removeError: function(input){
         $(input).tooltip('destroy');
     },
     saveArticle: function(e){
+        var incidentDate = $('#incidentDate')[0],
+            hiddenIncidentType = $('#hiddenIncidentType')[0],
+            hiddenMapCoordinateLat = $('#hiddenMapCoordinateLat')[0],
+            hiddenMapCoordinateLng = $('#hiddenMapCoordinateLng')[0],
+            mediaContent = $('#mediaContent')[0],
+            incidentTitle = $('#incidentTitle')[0];
         var obj = {
                 time: new Date(incidentDate.value).getTime(),
                 type: hiddenIncidentType.value,
@@ -68,7 +95,6 @@ UT.CreateArticleView = Backbone.View.extend({
             },
             incident = this.model.get('incident'),
             media = this.model.get('media');
-
         e.preventDefault();
         incident.set(obj);
         media.set({content: mediaContent.value});
@@ -79,12 +105,12 @@ UT.CreateArticleView = Backbone.View.extend({
         this.model.save({}, {
             dataType: 'text',
             success: function (model, response, options) {
-                console.log('The model has been saved to the server' ,response, model, options);
+                console.log('The model has been saved to the server' , response, model, options);
                 $('#article-form')[0].reset();
                 $('.alert-success').toggle();
             },
             error: function (model, response, options) {
-                console.log('Something went wrong while saving the model', response);
+                console.log('Something went wrong while saving the model',response);
                 $('#article-form')[0].reset();
                 $('.alert-danger').toggle();
             }
