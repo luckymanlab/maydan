@@ -25,16 +25,11 @@ module.exports = function (grunt) {
 		'js/model/incident.js',
 		'js/model/media.js',
 		'js/model/article.js',
-		'js/model/date.js',
 		'js/collection/incident-collection.js',
 		'js/collection/incident-types-collection.js',
-		'js/view/incident-map-view.js',
-		'js/view/incident-list-view.js',
 		'js/view/article-modal-view.js',
 		'js/view/incident-types-select-view.js',
 		'js/view/create-article-view.js',
-		'js/view/incident-collection-view.js',
-		'js/view/date-view.js',
 		'js/router.js',
 		'js/app.js'
 	];
