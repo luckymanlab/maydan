@@ -7,36 +7,33 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-spritesmith');
-    var libs = [
-        'vendor/jquery-1.11.0.min.js',
-        'vendor/underscore-min.js',
-        'vendor/backbone-min.js',
-        'vendor/infobubble.js',
-        'vendor/bootstrap.min.js',
-        'vendor/bootstrap-datepicker.js',
-        'vendor/jquery.placepicker.js',
-        'vendor/bootstrap-datetimepicker.js',
-        'vendor/calendarLanguage/*.js'
-    ];
 
-    var base = [
-        'js/config.js',
-        'js/model/incident.js',
-        'js/model/media.js',
-        'js/model/article.js',
-        'js/model/date.js',
-        'js/collection/incident-collection.js',
-        'js/collection/incident-types-collection.js',
-        'js/view/incident-map-view.js',
-        'js/view/incident-list-view.js',
-        'js/view/article-modal-view.js',
-        'js/view/incident-types-select-view.js',
-        'js/view/create-article-view.js',
-        'js/view/incident-collection-view.js',
-        'js/view/date-view.js',
-        'js/router.js',
-        'js/app.js'
-    ];
+	var libs = [
+		'vendor/jquery-1.11.0.min.js',
+		'vendor/jquery.cookie.js',
+		'vendor/underscore-min.js',
+		'vendor/backbone-min.js',
+		'vendor/infobubble.js',
+		'vendor/bootstrap.min.js',
+		'vendor/bootstrap-datepicker.js',
+		'vendor/jquery.placepicker.js',
+		'vendor/bootstrap-datetimepicker.js',
+		'vendor/calendarLanguage/*.js'
+	];
+
+	var base = [
+		'js/config.js',
+		'js/model/incident.js',
+		'js/model/media.js',
+		'js/model/article.js',
+		'js/collection/incident-collection.js',
+		'js/collection/incident-types-collection.js',
+		'js/view/article-modal-view.js',
+		'js/view/incident-types-select-view.js',
+		'js/view/create-article-view.js',
+		'js/router.js',
+		'js/app.js'
+	];
 
     var timeline = [
         'timeline/js/jquery-ui.min.js',
