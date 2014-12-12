@@ -9,6 +9,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-spritesmith');
 	var libs = [
 		'vendor/jquery-1.11.0.min.js',
+		'vendor/jquery.cookie.js',
 		'vendor/underscore-min.js',
 		'vendor/backbone-min.js',
 		'vendor/infobubble.js',
