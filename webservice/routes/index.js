@@ -4,7 +4,6 @@ var express = require('express'),
     media = require('../handlers/media'),
     article = require('../handlers/article'),
     incidentTypes = require('../handlers/incident-types');
-
 router.route('/articles')
     .get(article.getAll);
 // .put(incident.updateWine)
