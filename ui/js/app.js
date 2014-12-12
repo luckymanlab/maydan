@@ -34,24 +34,6 @@ UT.ApplicationView = Backbone.View.extend({
 			styles: styles
 		};
 		this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
-		self.currentIncidentCollection = new UT.IncidentCollection();
-
-		setInterval((function(self) {
-			return function() {
-				self.currentIncidentCollection.addNew(
-					{
-						id : (new Date()).getTime(),
-						title : 'На Грушевського продовжуються протести',
-						marker: 'fire',
-						pos: {lat: 50.450201 + Math.random() / 1000, lon: 30.524021 + Math.random() / 1000}
-					}
-				);
-			};
-		})(self), 5000);
-
-		self.currentIncidentCollectionView = new UT.IncidentCollectionView({model: self.currentIncidentCollection,
-			map: self.map, vent: self.vent, el:$('#incident-panel')});
-
 	},
 
 	events:{
