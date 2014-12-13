@@ -4,13 +4,11 @@ UT.ArticleItemView = Marionette.ItemView.extend({
     tagName: 'tr',
     template: '#row-template',
     events: {
-        'click .delete-item': 'destroyItem',
-        'click .confirm-item': 'confirmItem'
+        'click': 'createArticlePreview'
     },
-    destroyItem: function(event) {
-        this.model.destroy();
+    createArticlePreview: function() {
+        /* jslint nonew: false */
+        new UT.ArticlePreviewView(this.model);
+        /* jslint nonew: true */
     },
-    confirmItem: function(event) {
-        this.model.confirm();
-    }
 });
