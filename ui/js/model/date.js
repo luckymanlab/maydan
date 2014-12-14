@@ -1,7 +1,9 @@
 var UT = window.UT || {};
 
 UT.Date = Backbone.Model.extend({
-	initialize: function(options) {},
+	initialize: function(options) {
+
+    },
 	defaults: {
 		'date': new Date(2013, 10, 21, 23, 30).getTime()
 	},

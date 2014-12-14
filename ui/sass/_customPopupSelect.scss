@@ -1,4 +1,4 @@
-#optionsIncidentType {
+#optionsUnitType {
     border: 1px $form-border-color solid;
     border-top: none;
     font-size: 14px;
@@ -19,8 +19,7 @@
         }
 }
 
-
-#mainSelectIncidentType {
+#mainSelectUnitType {
     cursor: pointer;
 
     .placeholder {

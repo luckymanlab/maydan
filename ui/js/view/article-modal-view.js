@@ -2,13 +2,13 @@ var UT = window.UT || {};
 
 UT.ArticleModalView = Backbone.View.extend({
 	initialize: function(options) {
-		var self = this;
-		self.model = options.model;
-		self.model.on('request', function () {
-			self.showPreloader();
+		var that = this;
+		this.model = options.model;
+        this.model.on('request', function () {
+            that.showPreloader();
 		});
-		self.model.on('sync error', function () {
-			self.showContent();
+        this.model.on('sync error', function () {
+            that.showContent();
 		});
 	},
 	showModal: function () {

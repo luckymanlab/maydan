@@ -22,7 +22,7 @@ UT.IncidentTypesSelectView = Backbone.View.extend({
 			types.push(model.attributes);
 		});
 
-		$.get('templates/incident-types-select-template.html', function (data) {
+		$.get('templates/unit-types-select-template.html', function (data) {
 			var template =_.template(data, {types: types});
 			that.$el.html(template);
 		}, 'html');
@@ -31,7 +31,7 @@ UT.IncidentTypesSelectView = Backbone.View.extend({
 		this.$('#optionsIncidentType').toggle();
 	},
 	showOptions: function(ev) {
-		var typeName = $(ev.currentTarget).find('.incident-type-name').text();
+		var typeName = $(ev.currentTarget).find('.unit-type-name').text();
 		this.$('#selectedValue').text(typeName).removeClass('placeholder');
 		this.$('#optionsIncidentType').toggle();
 		$('#hiddenIncidentType').attr('value', typeName);

@@ -1,6 +1,6 @@
 var UT = window.UT || {};
 
-UT.Incident = Backbone.Model.extend({
+UT.Unit = Backbone.Model.extend({
 	defaults: {
 		time: '',
 		type: '',

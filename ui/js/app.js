@@ -4,17 +4,17 @@ UT.ApplicationView = Backbone.View.extend({
 	/*jshint nonew: true */
 
 	initialize: function() {
-		var self = this;
-		self.map = $('#map');
+		var that = this;
+		this.map = $('#map');
 		//initialize route
-		self.router = new UT.Router();
-		self.router.on('route:editor', function(id) {
+        this.router = new UT.Router();
+        this.router.on('route:editor', function(id) {
 			alert(id);
 		});
 		Backbone.history.start();
-		self.vent = _.extend({}, Backbone.Events);
+        this.vent = _.extend({}, Backbone.Events);
 
-		self.vent.on('incidentSelected', self.updateArticle, self);
+        this.vent.on('unitSelected', that.updateArticle, that);
 
 		//initialize map
 		var center = new google.maps.LatLng(50.450201, 30.524021);
@@ -42,7 +42,7 @@ UT.ApplicationView = Backbone.View.extend({
 	createArticle: function(){
 		/* jslint nonew: false */
 		if(this.getAccessToken()) {
-			new UT.CreateArticleView();
+            new UT.CreateArticleView();
 		} else {
 			this.authorization();
 		}

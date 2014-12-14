@@ -5,5 +5,5 @@ var UT = window.UT || {},
 UT.Config = {
 	//Path for saving articles
 	saveArticlePath: host + 'temp/articles',
-	getAllIncidentTypes: host + 'incident-types'
+	getAllUnitTypes: host + 'unit-types'
 };

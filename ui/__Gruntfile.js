@@ -21,28 +21,28 @@ module.exports = function (grunt) {
 
 	var base = [
 		'js/config.js',
-		'js/model/incident.js',
+		'js/model/unit.js',
 		'js/model/media.js',
 		'js/model/article.js',
 		'js/model/date.js',
-		'js/collection/incident-collection.js',
-		'js/collection/incident-types-collection.js',
-		'js/view/incident-map-view.js',
-		'js/view/incident-list-view.js',
+		'js/collection/unit-collection.js',
+		'js/collection/unit-types-collection.js',
+		'js/view/unit-map-view.js',
+		'js/view/unit-list-view.js',
 		'js/view/article-modal-view.js',
-		'js/view/incident-types-select-view.js',
+		'js/view/unit-types-select-view.js',
 		'js/view/create-article-view.js',
-		'js/view/incident-collection-view.js',
+		'js/view/unit-collection-view.js',
 		'js/view/date-view.js',
 		'js/router.js',
 		'js/app.js'
 	];
 
-	var timeLine = [
-		'timeLine/js/jquery-ui.min.js',
-		'timeLine/js/timeLineTemplateObj.js',
-		'timeLine/js/timeLineDateUtil.js',
-		'timeLine/js/timeLine.js'
+	var timeline = [
+		'timeline/js/jquery-ui.min.js',
+		'timeline/js/timelineTemplateObj.js',
+		'timeline/js/timelineDateUtil.js',
+		'timeline/js/timeline.js'
 	];
 
 	grunt.initConfig({
@@ -55,19 +55,19 @@ module.exports = function (grunt) {
 				files: [base],
 				tasks: ['jshint:files', 'uglify']
 			},
-			timeLineJS: {
-				files: [timeLine],
+			timelineJS: {
+				files: [timeline],
 				tasks: ['jshint:files', 'uglify:buildTL']
 			},
             style: {
-                files: ['timeLine/scss/*.scss'],
+                files: ['timeline/scss/*.scss'],
                 tasks: ['sass'],
                 options: {
                     spawn: false
                 }
             },
 //            sprites: {
-//				files: ['timeLine/images/sprite/*.{png,jpg,jpeg}'],
+//				files: ['timeline/images/sprite/*.{png,jpg,jpeg}'],
 //				task: ['sprite:all'],
 //				options: {
 //                    spawn: false
@@ -79,7 +79,7 @@ module.exports = function (grunt) {
 				jshintrc: '.jshintrc'
 			},
 			grunt: 'Gruntfile.js',
-			files: ['js/*.js', 'Gruntfile.js', 'timeLine/js/timeLine.js', 'timeLine/js/timeLineTemplateObj.js', 'timeLine/js/timeLineDateUtil.js']
+			files: ['js/*.js', 'Gruntfile.js', 'timeline/js/timeline.js', 'timeline/js/timelineTemplateObj.js', 'timeline/js/timelineDateUtil.js']
 		},
 		uglify: {
 			default: {
@@ -101,18 +101,18 @@ module.exports = function (grunt) {
 			buildTL: {
 				options: {
 					mangle: {
-						except: ['timeLine/js/*.js']
+						except: ['timeline/js/*.js']
 					},
-					sourceMap: 'public/js/timeLine.js.map',
-					sourceMapRoot: '../../timeLine/js/',
-					sourceMappingURL: 'timeLine.js.map',
+					sourceMap: 'public/js/timeline.js.map',
+					sourceMapRoot: '../../timeline/js/',
+					sourceMappingURL: 'timeline.js.map',
 					sourceMapPrefix: 2,
 					semicolons: true,
 					// report: 'gzip',
 					beautify: true
 				},
                 files: {
-					'public/js/timeLine.js': [timeLine]
+					'public/js/timeline.js': [timeline]
 				}
             }
 		},
@@ -120,7 +120,7 @@ module.exports = function (grunt) {
 			static: {
 				files: [{
 					expand: true,
-					cwd: 'timeLine/images/',
+					cwd: 'timeline/images/',
 					src: ['**/*.{png,jpg,gif}'],
                     dest: 'public/img'
                 }]
@@ -132,16 +132,16 @@ module.exports = function (grunt) {
 					style: 'compressed'
 				},
 				files: {
-					'public/css/timeLine.css': 'timeLine/scss/timeLine.scss',
+					'public/css/timeline.css': 'timeline/scss/timeline.scss',
 					'public/css/style.css': 'sass/style.scss'
                 }
             }
         },
 		sprite: {
             all: {
-                src: ['timeLine/images/sprite/*.{png,jpg,jpeg}'],
+                src: ['timeline/images/sprite/*.{png,jpg,jpeg}'],
                 destImg: 'public/img/sprite.png',
-                destCSS: 'timeLine/scss/_sprite.scss',
+                destCSS: 'timeline/scss/_sprite.scss',
                 imgPath: '../img/sprite.png',
                 // OPTIONAL: Specify algorithm (top-down, left-right, diagonal [\ format],
                 // alt-diagonal [/ format], binary-tree [best packing])
@@ -176,5 +176,5 @@ module.exports = function (grunt) {
 	grunt.registerTask('compile', ['jshint:files', 'sass', 'uglify', 'watch']);
     grunt.registerTask('watcher', ['jshint:files', 'sass', 'uglify', 'watch']);
 
-	grunt.registerTask('timeLine', ['jshint:files', 'uglify:buildTL', 'imagemin', 'sprite', 'sass', 'watch']);
+	grunt.registerTask('timeline', ['jshint:files', 'uglify:buildTL', 'imagemin', 'sprite', 'sass', 'watch']);
 };

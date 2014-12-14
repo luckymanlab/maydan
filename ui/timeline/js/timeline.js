@@ -1,4 +1,4 @@
-var timeLineTemplateObj;
+var timelineTemplateObj;
 var tlDateUtil;
 var TimeLine = (function () {
 	var process = {
@@ -29,14 +29,14 @@ var TimeLine = (function () {
 		zoom: 7,
 		currentDate: '',
 		currentDatePos: null,
-		timeLineStartMs: 0,
-		timeLineEndMs: 0,
-		timeLineActive: true,
+		timelineStartMs: 0,
+		timelineEndMs: 0,
+		timelineActive: true,
 		timeOut: null,
 		setDateInterval: null,
 		$timeBlockEl: null,
-		$timeLineContainerEl: null,
-		$timeLineContentEl: null,
+		$timelineContainerEl: null,
+		$timelineContentEl: null,
 		$zoomPlusEl: null,
 		$zoomMinusEl: null,
 		$startTimeLine: null,
@@ -51,7 +51,7 @@ var TimeLine = (function () {
 			that.createBlockMarkup(selector);
 			that.activateDraggable();
 			that.createTimeLine(config);
-			that.timeLineEventHandler();
+			that.timelineEventHandler();
 		},
 		setDate: function (date) {
 			var oldDate = tlDateUtil.timeStamp(that.currentDate);
@@ -69,15 +69,15 @@ var TimeLine = (function () {
 			}
 			var changeTime = oldDate - newDate;
 			var changePx = parseInt(changeTime * that.zoomPxValue / that.zoomTimeValue, 10);
-			var dragBlockMovePart = that.$timeLineContainerEl.width() / 14 *5;
+			var dragBlockMovePart = that.$timelineContainerEl.width() / 14 *5;
 			if ((dragBlockMovePart - Math.abs(changePx)) > 0) {
 				that.repaintElementAfterDrag(changePx, '+=', changePx, changePx);
 			}
 			else {
 				that.currentDate = newDate;
-				var timeLineRange = tlDateUtil.newCurrentRange(that.currentDate,
+				var timelineRange = tlDateUtil.newCurrentRange(that.currentDate,
 					that.zoomPxValue, that.zoomTimeValue, that.currentDatePos);
-				that.repaintElementInTimeLine(that.currentDate, timeLineRange);
+				that.repaintElementInTimeLine(that.currentDate, timelineRange);
 			}
 		},
 		startDateTimer: function () {
@@ -92,11 +92,11 @@ var TimeLine = (function () {
 		startTimeLine: function () {
 			clearInterval(that.setDateInterval);
 			that.startDateTimer();
-			that.timeLineActive = true;
+			that.timelineActive = true;
 		},
 		stopTimeLine: function () {
 			clearInterval(that.setDateInterval);
-			that.timeLineActive = false;
+			that.timelineActive = false;
 		},
 		getCurrentDateObj: function () {
 			var currentDateObj = {};
@@ -105,13 +105,13 @@ var TimeLine = (function () {
 			return currentDateObj;
 		},
 		startTimeOut: function () {
-			if (that.setDateInterval && that.timeLineActive) {
+			if (that.setDateInterval && that.timelineActive) {
 				clearInterval(that.setDateInterval);
 				that.startDateTimer();
 			}
 		},
 		createBlockMarkup: function (selector) {
-			selector.append(timeLineTemplateObj.markupMain);
+			selector.append(timelineTemplateObj.markupMain);
 		},
 		activateDraggable: function () {
 			$('#tl-container').draggable({
@@ -127,13 +127,13 @@ var TimeLine = (function () {
 			};
 			that.currentDate = new Date(config.dateStart).getTime();
 
-			that.$timeLineContainerEl = $('#tl-container');
-			that.$timeLineContentEl = $('#content');
-			that.currentDatePos = that.$timeLineContainerEl.width() / 2;
+			that.$timelineContainerEl = $('#tl-container');
+			that.$timelineContentEl = $('#content');
+			that.currentDatePos = that.$timelineContainerEl.width() / 2;
 			console.log('that.currentDatePos - ' + that.currentDatePos);
 			that.createTimeLineCurrentElement();
 
-			that.timeLineZoom();
+			that.timelineZoom();
 			that.$timeBlockEl = $('#time');
 			that.$zoomPlusEl = $('.zoom-plus');
 			that.$zoomMinusEl = $('.zoom-minus');
@@ -266,7 +266,7 @@ var TimeLine = (function () {
 					bufOffsetInPixelBack -= zoomPxValue;
 				}
 			}
-			that.$timeLineContainerEl.css('left', '0');
+			that.$timelineContainerEl.css('left', '0');
 		},
 		removeElementOutTimeStamp: function (timeStampStart, timeStampEnd) {
 			that.ArrayOfElementInTimeLine = $('.date-day-element, .date-element, .date-year-element, .date-month-element');
@@ -277,7 +277,7 @@ var TimeLine = (function () {
 				}
 			});
 		},
-		timeLineEventHandler: function () {
+		timelineEventHandler: function () {
 			
 			// drag
 			var bufPosPx;
@@ -286,21 +286,21 @@ var TimeLine = (function () {
 			var interval;
 			var parentOffsetLeft;
 			// var needRepaint = false;
-			that.$timeLineContainerEl.on( 'dragstart', function( event, ui ) {
+			that.$timelineContainerEl.on( 'dragstart', function( event, ui ) {
 				parentOffsetLeft = $('.tl-container-wrap').offset();
 				parentOffsetLeft = parseInt(parentOffsetLeft.left, 10);
-				lastPxPosition =  parseInt(that.$timeLineContainerEl.css('left'), 10);
-				that.$timeLineContainerEl.stop();
+				lastPxPosition =  parseInt(that.$timelineContainerEl.css('left'), 10);
+				that.$timelineContainerEl.stop();
 				interval = setInterval(function () {
-					lastPxPosition = parseInt(that.$timeLineContainerEl.css('left'), 10);
+					lastPxPosition = parseInt(that.$timelineContainerEl.css('left'), 10);
 				}, 200);
 				clearInterval(that.setDateInterval);
 			} );
-			that.$timeLineContainerEl.on( 'dragstop', function( event, ui ) {
+			that.$timelineContainerEl.on( 'dragstop', function( event, ui ) {
 				event.stopPropagation();
 				clearInterval(interval);
-				bufPosPxEnd = parseInt(that.$timeLineContainerEl.css('left'), 10);
-				var part14OfDragBlock = parseInt(that.$timeLineContainerEl.width() / 14, 10);
+				bufPosPxEnd = parseInt(that.$timelineContainerEl.css('left'), 10);
+				var part14OfDragBlock = parseInt(that.$timelineContainerEl.width() / 14, 10);
 				var leftAction = '';
 				var leftValue = '';
 				var leftMSValue = 100;
@@ -319,11 +319,11 @@ var TimeLine = (function () {
 					leftAction = '';
 				}
 
-				that.$timeLineContainerEl.css('left', 0 + 'px');
+				that.$timelineContainerEl.css('left', 0 + 'px');
 				that.repaintElementAfterDrag(bufPosPx, leftAction, bufPosPx, leftMSValue, bufPosPxEnd, parentOffsetLeft);
 			} );
 
-			that.$timeLineContainerEl.click(function (event){
+			that.$timelineContainerEl.click(function (event){
 				event.preventDefault();
 				$('.tl-container-wrap').offset({left: parentOffsetLeft});
 				return false;
@@ -331,7 +331,7 @@ var TimeLine = (function () {
 
 			// resize
 			$(window).resize(function () {
-				var currentDatePos = that.$timeLineContainerEl.width() / 2;
+				var currentDatePos = that.$timelineContainerEl.width() / 2;
 				that.currentDatePos = currentDatePos;
 				that.repaintContentAndTimeBlock(true, false);
 			});
@@ -350,7 +350,7 @@ var TimeLine = (function () {
 				}
 			});
 
-			// play or stop timeLine
+			// play or stop timeline
 			that.$startTimeLine.click(function () {
 				that.startTimeLine();
 				that.$startTimeLine.addClass('active');
@@ -364,39 +364,39 @@ var TimeLine = (function () {
 			var newCurrentDate;
 			that.startTimeOut();
 			if (bufPosPxEnd) {
-				that.$timeLineContainerEl.css('left', bufPosPxEnd + 'px');
+				that.$timelineContainerEl.css('left', bufPosPxEnd + 'px');
 			}
 			if (parentOffsetLeft) {
 				$('.tl-container-wrap').offset({left: parentOffsetLeft});
 			}
-			that.$timeLineContainerEl.animate({
+			that.$timelineContainerEl.animate({
 				left: leftAction + leftValue + 'px'
 			}, 100 + Math.abs(leftMSValue), 'easeOutCubic', function() {
 				newCurrentDate = tlDateUtil.newCurrentDateTimeStamp(that.currentDate,
 					that.zoomPxValue, that.zoomTimeValue, bufPosPx);
 				that.currentDate = newCurrentDate;
 				that.repaintContentAndTimeBlock(true, false);
-				that.$timeLineContainerEl.css('left', 0 + 'px');
+				that.$timelineContainerEl.css('left', 0 + 'px');
 			});
 		},
 		zoomElementClickHandler: function () {
 			that.ArrayOfElementInTimeLine = $('.date-day-element, .date-element, .date-year-element, .date-month-element');
 			that.ArrayOfElementInTimeLine.remove();
-			that.timeLineZoom();
+			that.timelineZoom();
 		},
 		repaintElementInTimeLine: function (currentDate, rangeTimeLineObj) {
-			that.removeElementOutTimeStamp(rangeTimeLineObj.timeLineStartMs,
-				rangeTimeLineObj.timeLineEndMs);
+			that.removeElementOutTimeStamp(rangeTimeLineObj.timelineStartMs,
+				rangeTimeLineObj.timelineEndMs);
 			that.renderTimeLineDateLabel(that.zoomTimeValue, that.zoomPxValue);
 			$('.current-date').html(tlDateUtil.dateLiteral(that.currentDate));
-			that.timeLineStartMs = rangeTimeLineObj.timeLineStartMs;
-			that.timeLineEndMs = rangeTimeLineObj.timeLineEndMs;
+			that.timelineStartMs = rangeTimeLineObj.timelineStartMs;
+			that.timelineEndMs = rangeTimeLineObj.timelineEndMs;
 		},
 		repaintElementAfterZoom: function (zoomTimeValue) {
 			that.zoomTimeValue = zoomTimeValue;
 			that.repaintContentAndTimeBlock(true, true);
 		},
-		timeLineZoom: function () {
+		timelineZoom: function () {
 			switch (that.zoom) {
 			case 1:
 				that.repaintElementAfterZoom(that.ZOOM_1_5_MINUTE);
@@ -453,10 +453,10 @@ var TimeLine = (function () {
 			var animateTime = 200;
 			if (!$el.length) {
 				dateLiteral = tlDateUtil.dateLiteral(dataElement.startDate);
-				$el = timeLineTemplateObj.timeBlockElement(dataElement.id,
+				$el = timelineTemplateObj.timeBlockElement(dataElement.id,
 					dataElement.title, dataElement.img, dataElement.startDate,
 					dataElement.endDate, positionOfElement, dateLiteral);
-				that.$timeLineContentEl.append($el);
+				that.$timelineContentEl.append($el);
 				$el = $('[data-start-date="' + dataElement.startDate + '"]');
 				$el.click(that.newsElementClickHandler);
 				if (parseInt(dataElement.startDate, 10) === that.currentDate) {
@@ -497,8 +497,8 @@ var TimeLine = (function () {
 			var bufArrayofNews = [];
 			if (array instanceof Array) {
 				for (var i = 0; i < k; i++) {
-					if (array[i].startDate > that.timeLineStartMs &&
-						array[i].startDate < that.timeLineEndMs) {
+					if (array[i].startDate > that.timelineStartMs &&
+						array[i].startDate < that.timelineEndMs) {
 						bufArrayofNews.push(array[i]);
 					}
 				}
@@ -511,15 +511,15 @@ var TimeLine = (function () {
 			}
 		},
 		renderTimeLineNewsElement: function (bufArrayofNews, animateTop, animateLeft) {
-			that.removeNewsElement(that.timeLineStartMs, that.timeLineEndMs);
+			that.removeNewsElement(that.timelineStartMs, that.timelineEndMs);
 			that.arrayNewsElementInTimeLine = $('.time-block-element');
 			that.arrayNewsElementInTimeLine.removeClass('current-news');
 			if (that.activeNewsElementTimeStamp) {
 				$('[data-start-date="' + that.activeNewsElementTimeStamp + '"]').addClass('current-news');
 			}
-			var startTime = that.timeLineStartMs;
-			var endTime = that.timeLineEndMs;
-			var bufTime = that.timeLineStartMs + (that.zoomTimeValue * 2);
+			var startTime = that.timelineStartMs;
+			var endTime = that.timelineEndMs;
+			var bufTime = that.timelineStartMs + (that.zoomTimeValue * 2);
 			while (bufTime < endTime) {
 				var topPosPx = 15;
 				var zIndex = 1;
@@ -557,9 +557,9 @@ var TimeLine = (function () {
 			that.setDate(that.activeNewsElementTimeStamp);
 		},
 		repaintContentAndTimeBlock: function (animateTop, animateLeft) {
-			var timeLineRange = tlDateUtil.newCurrentRange(that.currentDate,
+			var timelineRange = tlDateUtil.newCurrentRange(that.currentDate,
 				that.zoomPxValue, that.zoomTimeValue, that.currentDatePos);
-			that.repaintElementInTimeLine(that.currentDate, timeLineRange);
+			that.repaintElementInTimeLine(that.currentDate, timelineRange);
 			that.datesBetweenRange(that.arrayNewsElements, animateTop, animateLeft);
 			that.startTimeOut();
 		}
@@ -585,7 +585,7 @@ TimeLine.init($('.time-block'), config);
 var news1 = {
 	id: 'n1',
 	title: 'Захід введе "смертельні" для РФ санкцій, якщо Путін не зупиниться - Турчинов',
-	img: 'timeLine/images/newsPhoto/1.jpg',
+	img: 'timeline/images/newsPhoto/1.jpg',
 	startDate: '1400573054000',
 	endDate: '1400587454000'
 };
@@ -593,7 +593,7 @@ var news1 = {
 var news2 = {
 	id: 'n2',
 	title: 'Російські війська відводять з Донбасу, але кадрові офіцери-інструктори лишаються - Тимчук',
-	img: 'timeLine/images/newsPhoto/2.jpg',
+	img: 'timeline/images/newsPhoto/2.jpg',
 	startDate: '1400227454000',
 	endDate: '1400245454000'
 };
@@ -601,7 +601,7 @@ var news2 = {
 var news3 = {
 	id: 'n3',
 	title: 'На міжбанку долар і євро "поповзли" вгору, а гривня втрачає свої позиції',
-	img: 'timeLine/images/newsPhoto/3.png',
+	img: 'timeline/images/newsPhoto/3.png',
 	startDate: '1400331854000',
 	endDate: '1400353454000'
 };
@@ -609,7 +609,7 @@ var news3 = {
 var news4 = {
 	id: 'n4',
 	title: 'Маріуполь готується до можливої атаки бойовиків, а РНБО повідомляє про колони російських танків',
-	img: 'timeLine/images/newsPhoto/4.png',
+	img: 'timeline/images/newsPhoto/4.png',
 	startDate: '1400468654000',
 	endDate: '1400472254000'
 };
@@ -617,7 +617,7 @@ var news4 = {
 var news5 = {
 	id: 'n5',
 	title: 'Порошенко і Меркель обговорили ситуацію на Донбасі в режимі припинення вогню',
-	img: 'timeLine/images/newsPhoto/5.jpg',
+	img: 'timeline/images/newsPhoto/5.jpg',
 	startDate: '1430579854000',
 	endDate: '1432584254000'
 };

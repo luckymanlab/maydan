@@ -7,11 +7,11 @@ UT.CreateArticleView = Backbone.View.extend({
     },
     render: function(){
         var that = this;
-        $.get('templates/createArticleTemplate.html', function (data) {
+        $.get('templates/create-article-template.html', function (data) {
             var template=_.template(data);
             that.$el.append(template); //adding the template content to the main template.
             that.popupFormInitialize();
-            that.createIncidentTypesView();
+            that.createUnitTypesView();
         }, 'html');
         this.showModal();
     },
@@ -20,11 +20,11 @@ UT.CreateArticleView = Backbone.View.extend({
         'click #close-modal,#close-article-modal': 'closeArticleModal',
         'click #close-confirm,#close-confirm-default': 'closeModalConfirm',
         'click #close-return': 'cancelModalConfirm',
-        'change #incidentTitle, #mediaContent, #incidentDate': 'validateInput',
-        'click #optionsIncidentType': 'validateSelect'
+        'change #unitTitle, #mediaContent, #unitDate': 'validateInput',
+        'click #optionsUnitType': 'validateSelect'
     },
-    createIncidentTypesView: function() {
-        this.incidentTypesView = new UT.IncidentTypesSelectView({ el: $('#incident-type-select-container') });
+    createUnitTypesView: function() {
+        this.unitTypesView = new UT.UnitTypesSelectView({ el: $('#unit-type-select-container') });
     },
     showModal: function () {
         this.$el.modal('show');
@@ -35,7 +35,7 @@ UT.CreateArticleView = Backbone.View.extend({
             formGroup = input.parentNode.parentNode,
             textError = 'Enter ' + label,
             isValid = true;
-        if (input.id === 'mainSelectIncidentType') {
+        if (input.id === 'mainSelectUnitType') {
             inputValue = $('#selectedValue')[0].innerText;
         }
 
@@ -71,32 +71,32 @@ UT.CreateArticleView = Backbone.View.extend({
     },
     validateSelect: function() {
         var that = this,
-            input = $('#mainSelectIncidentType')[0];
+            input = $('#mainSelectUnitType')[0];
         return that.validate(input, that);
     },
     removeError: function(input){
         $(input).tooltip('destroy');
     },
     saveArticle: function(e){
-        var incidentDate = $('#incidentDate')[0],
-            hiddenIncidentType = $('#hiddenIncidentType')[0],
+        var unitDate = $('#unitDate')[0],
+            hiddenUnitType = $('#hiddenUnitType')[0],
             hiddenMapCoordinateLat = $('#hiddenMapCoordinateLat')[0],
             hiddenMapCoordinateLng = $('#hiddenMapCoordinateLng')[0],
             mediaContent = $('#mediaContent')[0],
-            incidentTitle = $('#incidentTitle')[0];
+            unitTitle = $('#unitTitle')[0];
         var obj = {
-                time: new Date(incidentDate.value).getTime(),
-                type: hiddenIncidentType.value,
+                time: new Date(unitDate.value).getTime(),
+                type: hiddenUnitType.value,
                 coordinates: {
                     lat: parseFloat(hiddenMapCoordinateLat.value),
                     lon: parseFloat(hiddenMapCoordinateLng.value)
                 },
-                title: incidentTitle.value
+                title: unitTitle.value
             },
-            incident = this.model.get('incident'),
+            unit = this.model.get('unit'),
             media = this.model.get('media');
         e.preventDefault();
-        incident.set(obj);
+        unit.set(obj);
         media.set({content: mediaContent.value});
         if (!this.validateForm()){
             return;
@@ -145,7 +145,7 @@ UT.CreateArticleView = Backbone.View.extend({
         $('#article-content').css('opacity', 1);
     },
     destroyView: function () {
-        this.incidentTypesView.destroy();
+        this.unitTypesView.destroy();
         $('.modal-backdrop').remove();
         $('.pac-container').remove();
         $('.datetimepicker').remove();

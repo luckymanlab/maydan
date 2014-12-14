@@ -1,13 +1,13 @@
-<div id="mainSelectIncidentType" class="form-control inputData col-sm-10 " data-label="type">
+<div id="mainSelectUnitType" class="form-control inputData col-sm-10 " data-label="type">
 	<i class="glyphicon glyphicon-chevron-down"></i>
 	<span id="selectedValue" class="placeholder">Please, select mark</span>
 </div>
 
-<div id="optionsIncidentType" class="col-sm-10">
+<div id="optionsUnitType" class="col-sm-10">
 	<% _.each(types, function(element, index, list) { %>
 		<div class="col-sm-10 select-option" id="<%= element.id %>">
 			<img src="<%= element.imageSrc %>">
-			<span class="incident-type-name"><%= element.name %></span>
+			<span class="unit-type-name"><%= element.name %></span>
 		</div>
 	<% }); %>
 </div>

@@ -76,15 +76,15 @@ tlDateUtil = (function () {
 			var currentDateTimeMs = tlDateUtil.timeStamp(currentDate);
 			var msMiddleTimeLine = curentDatePosPx / zoomPx * zoomSec;
 			var timeStampObj = {};
-			timeStampObj.timeLineStartMs = currentDateTimeMs - msMiddleTimeLine + zoomSec;
-			timeStampObj.timeLineEndMs = currentDateTimeMs + msMiddleTimeLine - zoomSec;
+			timeStampObj.timelineStartMs = currentDateTimeMs - msMiddleTimeLine + zoomSec;
+			timeStampObj.timelineEndMs = currentDateTimeMs + msMiddleTimeLine - zoomSec;
 			return timeStampObj;
 		},
 		newTimeLineRange: function (currentDate, zoomPx, zoomSec, curentDatePosPx) {
 			var msMiddleTimeLine = curentDatePosPx / zoomPx * zoomSec;
 			var timeStampObj = {};
-			timeStampObj.timeLineStartMs = tlDateUtil.timeStamp(currentDate) - msMiddleTimeLine;
-			timeStampObj.timeLineEndMs = tlDateUtil.timeStamp(currentDate) + msMiddleTimeLine;
+			timeStampObj.timelineStartMs = tlDateUtil.timeStamp(currentDate) - msMiddleTimeLine;
+			timeStampObj.timelineEndMs = tlDateUtil.timeStamp(currentDate) + msMiddleTimeLine;
 			return timeStampObj;
 		}
 	};

@@ -1,5 +1,5 @@
-var timeLineTemplateObj;
-timeLineTemplateObj = {
+var timelineTemplateObj;
+timelineTemplateObj = {
 	markupMain: '' +
 	'<div class="tl-wraper">' +
 		'<div class="tl-container-wrap">' +
