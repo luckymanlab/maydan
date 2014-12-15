@@ -30,7 +30,8 @@ exports.articleTempSchema = mongoose.Schema({
             lon: {type: Number, min: 0}
         }, 
         title: String
-    }
+    },
+    user_id: Number
 });
 
 exports.incidentSchema = mongoose.Schema({

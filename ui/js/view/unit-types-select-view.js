@@ -1,13 +1,13 @@
 var UT = window.UT || {};
 
-UT.IncidentTypesSelectView = Backbone.View.extend({
+UT.UnitTypesSelectView = Backbone.View.extend({
 	events: {
 		'click #mainSelectIncidentType': 'selectOption',
 		'click .select-option': 'showOptions'
 	},
 	initialize: function(){
 		var that = this;
-		this.model = new UT.IncidentTypesCollection();
+		this.model = new UT.UnitTypesCollection();
 		this.model.fetch({
 			success: function() {
 				that.render();
@@ -28,13 +28,13 @@ UT.IncidentTypesSelectView = Backbone.View.extend({
 		}, 'html');
 	},
 	selectOption: function(ev) {
-		this.$('#optionsIncidentType').toggle();
+		this.$('#optionsUnitType').toggle();
 	},
 	showOptions: function(ev) {
 		var typeName = $(ev.currentTarget).find('.unit-type-name').text();
 		this.$('#selectedValue').text(typeName).removeClass('placeholder');
-		this.$('#optionsIncidentType').toggle();
-		$('#hiddenIncidentType').attr('value', typeName);
+		this.$('#optionsUnitType').toggle();
+		$('#hiddenUnitType').attr('value', typeName);
 	},
 	destroy: function() {
 		this.$el.remove();

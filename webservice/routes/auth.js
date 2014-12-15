@@ -5,7 +5,8 @@ var passport = require('../configs/passport'),
 router.get('/facebook', passport.authenticate('facebook'));
 
 router.get('/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/error' }), function(req, res) {
-	var popUpScript = function(accessToken) {
+  console.log("Response is very nice answer", res);
+  var popUpScript = function(accessToken) {
 		 if (window.opener != null && !window.opener.closed) {
 			window.opener.document.cookie = 'accessToken=' + accessToken;
 		}

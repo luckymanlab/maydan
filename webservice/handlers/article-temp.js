@@ -10,28 +10,30 @@ exports.addArticle = function(req, res) {
 
     if(
         typeof article.media.content === undefined
-        || typeof article.incident.time === undefined
-        || typeof article.incident.type === undefined
-        || typeof article.incident.coordinates.lat === undefined
-        || typeof article.incident.coordinates.lon === undefined
-        || typeof article.incident.title === undefined
+        || typeof article.unit.time === undefined
+        || typeof article.unit.type === undefined
+        || typeof article.unit.coordinates.lat === undefined
+        || typeof article.unit.coordinates.lon === undefined
+        || typeof article.unit.title === undefined
+        || typeof article.user_id === undefined
     ) {
         res.status(400).res('Requested data is invalid');
         throw "Bad request"
     }
 
     var newArticle = new ArticleTemp({
+        user_id: article.user_id,
         media: {
             content: article.media.content
         },
         incident: {
-            time: article.incident.time,
-            incidentType: article.incident.type,
+            time: article.unit.time,
+            incidentType: article.unit.type,
             coordinates: {
-                lat: article.incident.coordinates.lat,
-                lon: article.incident.coordinates.lon
+                lat: article.unit.coordinates.lat,
+                lon: article.unit.coordinates.lon
             },
-            title: article.incident.title
+            title: article.unit.title
         }
     });
 

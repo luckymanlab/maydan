@@ -30,14 +30,17 @@
     <script src="src/js/view/preview-article-view.js"></script>
     <script src="src/js/app.js"></script>
     <script type="text/template" id="row-template">
-        <td class="col-sm-4">
-            <%=i ncident.title %>
+        <td class="col-sm-3">
+            <%=incident.title %>
         </td>
         <td class="col-sm-3">
-            <%=n ew Date(incident.time).toLocaleDateString() %>
+            <%=new Date(incident.time).toLocaleDateString() %>
         </td>
         <td class="col-sm-3">
-            <%=n ew Date(criationDate).toLocaleDateString() %>
+            <%=new Date(criationDate).toLocaleDateString() %>
+        </td>
+        <td class="col-sm-3">
+            <%=user_id %>
         </td>
     </script>
     <script type="text/template" id="table-template">
@@ -48,6 +51,7 @@
                     <th>Title</th>
                     <th>Date</th>
                     <th>Creation Date</th>
+                    <th>User</th>
                 </tr>
             </thead>
             <tbody>
@@ -63,19 +67,19 @@
                     </div>
                     <ul class="list-group">
                         <li class="list-group-item"><span class="lead">Title:</span>
-                            <%=i ncident.title %>
+                            <%=incident.title %>
                         </li>
                         <li class="list-group-item"><span class="lead">Date:</span>
-                            <%=n ew Date(incident.time).toLocaleDateString() %>
+                            <%=new Date(incident.time).toLocaleDateString() %>
                         </li>
                         <li class="list-group-item"><span class="lead">Creation Date:</span>
-                            <%=n ew Date(criationDate).toLocaleDateString() %>
+                            <%=new Date(criationDate).toLocaleDateString() %>
                         </li>
                         <li class="list-group-item"><span class="lead">Type:</span>
-                            <%=i ncident.incidentType %>
+                            <%=incident.incidentType %>
                         </li>
                         <li class="list-group-item"><span class="lead">Description:</span>
-                            <%=m edia.content %>
+                            <%=media.content %>
                         </li>
                         <li class="list-group-item map-coordinate" id="map"></li>
                     </ul>

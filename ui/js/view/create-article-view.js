@@ -20,8 +20,8 @@ UT.CreateArticleView = Backbone.View.extend({
         'click #close-modal,#close-article-modal': 'closeArticleModal',
         'click #close-confirm,#close-confirm-default': 'closeModalConfirm',
         'click #close-return': 'cancelModalConfirm',
-        'change #unitTitle, #mediaContent, #unitDate': 'validateInput',
-        'click #optionsUnitType': 'validateSelect'
+        // 'change #unitTitle, #mediaContent, #unitDate': 'validateInput',
+        // 'click #optionsUnitType': 'validateSelect'
     },
     createUnitTypesView: function() {
         this.unitTypesView = new UT.UnitTypesSelectView({ el: $('#unit-type-select-container') });
@@ -29,51 +29,51 @@ UT.CreateArticleView = Backbone.View.extend({
     showModal: function () {
         this.$el.modal('show');
     },
-    validate: function(input, that) {
-        var inputValue = input.value,
-            label = $(input).attr('data-label'),
-            formGroup = input.parentNode.parentNode,
-            textError = 'Enter ' + label,
-            isValid = true;
-        if (input.id === 'mainSelectUnitType') {
-            inputValue = $('#selectedValue')[0].innerText;
-        }
+    // validate: function(input, that) {
+    //     var inputValue = input.value,
+    //         label = $(input).attr('data-label'),
+    //         formGroup = input.parentNode.parentNode,
+    //         textError = 'Enter ' + label,
+    //         isValid = true;
+    //     if (input.id === 'mainSelectUnitType') {
+    //         inputValue = $('#selectedValue')[0].innerText;
+    //     }
 
-        if (inputValue === undefined || inputValue.length === 0 || inputValue === 'Please, select mark') {
-            $(formGroup).addClass('has-error').removeClass('has-success');
-            $(input).tooltip({
-                trigger: 'manual',
-                placement: 'right',
-                title: textError
-            }).tooltip('show');
-            isValid = false;
-        } else {
-            $(formGroup).addClass('has-success').removeClass('has-error');
-            that.removeError(input);
-        }
-        return isValid;
-    },
-    validateForm: function() {
-        var isValid = true,
-            that = this,
-            inputs =  $('#article-form').find('.inputData');
-        _.forEach(inputs,function(input) {
-            if (that.validate(input, that) === false) {
-                isValid = false;
-            }
-        });
-        return isValid;
-    },
-    validateInput: function(e) {
-        var that = this,
-            input =  e.target;
-        return that.validate(input, that);
-    },
-    validateSelect: function() {
-        var that = this,
-            input = $('#mainSelectUnitType')[0];
-        return that.validate(input, that);
-    },
+    //     if (inputValue === undefined || inputValue.length === 0 || inputValue === 'Please, select mark') {
+    //         $(formGroup).addClass('has-error').removeClass('has-success');
+    //         $(input).tooltip({
+    //             trigger: 'manual',
+    //             placement: 'right',
+    //             title: textError
+    //         }).tooltip('show');
+    //         isValid = false;
+    //     } else {
+    //         $(formGroup).addClass('has-success').removeClass('has-error');
+    //         that.removeError(input);
+    //     }
+    //     return isValid;
+    // },
+    // validateForm: function() {
+    //     var isValid = true,
+    //         that = this,
+    //         inputs =  $('#article-form').find('.inputData');
+    //     _.forEach(inputs,function(input) {
+    //         if (that.validate(input, that) === false) {
+    //             isValid = false;
+    //         }
+    //     });
+    //     return isValid;
+    // },
+    // validateInput: function(e) {
+    //     var that = this,
+    //         input =  e.target;
+    //     return that.validate(input, that);
+    // },
+    // validateSelect: function() {
+    //     var that = this,
+    //         input = $('#mainSelectUnitType')[0];
+    //     return that.validate(input, that);
+    // },
     removeError: function(input){
         $(input).tooltip('destroy');
     },
@@ -98,9 +98,10 @@ UT.CreateArticleView = Backbone.View.extend({
         e.preventDefault();
         unit.set(obj);
         media.set({content: mediaContent.value});
-        if (!this.validateForm()){
-            return;
-        }
+        this.model.set({user_id: $.cookie('user_id')});
+        // if (!this.validateForm()){
+        //     return;
+        // }
         console.log(this.model);
         this.model.save({}, {
             dataType: 'text',
