@@ -16,7 +16,7 @@ exports.addArticle = function(req, res) {
         || typeof article.unit.title === undefined
     ) {
         res.status(400).res('Requested data is invalid');
-        throw "Bad request"
+        console.log('Bad request');
     }
 
     var newArticle = new models.articleTemp({
@@ -37,40 +37,57 @@ exports.addArticle = function(req, res) {
     newArticle.save(function(err, data) {
         if(err) {
             res.status(400).send(err);
-            throw err
+            console.log(err);
+        } else {
+            res.send('Success');
         }
-        res.send('Success');
     });
 }
 
 exports.getAll = function(req, res) {
     models.articleTemp.find(function(err, data) {
-        if(err) throw err;
-        res.send(data);
-    })
+        if(err) {
+             console.log(err);
+             res.send(err);
+        } else {
+            res.send(data);
+        }
+    });
 }
 
 exports.removeById = function(req, res) {
     var id = req.params.id;
     models.articleTemp.remove({ _id: id }, function (err) {
-        if (err) return handleError(err);
-        console.log('Deleting article: ' + id);
-        res.send('Success');
+        if(err) {
+            console.log(err);
+            res.send(err);
+        } else {
+            console.log('Deleting article: ' + id);
+            res.send('Success');
+        }
     });
 }
 
 exports.confirm = function(req, res) {
     var id = req.params.id;
     console.log('Confirm: ' + id);
-    models.articleTemp.find({_id: id}, function(err, data) {
-        if(err) console.log(err);
-        var id = media.confirm(data[0].media, function(id) {
-            unit.confirm(id, data[0].unit);
-        });
+    models.articleTemp.find({ _id: id }, function(err, data) {
+        if(err) {
+            console.log(err);
+            res.send(err);
+        } else {
+            var id = media.confirm(data[0].media, function(id) {
+                unit.confirm(id, data[0].unit);
+            });
+        }
     });
     models.articleTemp.remove({_id: id}, function(err) {
-        if(err) console.log(err);
-        res.send('success');
+        if(err) {
+            console.log(err);
+            res.send(err);
+        } else {
+            res.send('success');
+        }
     });
 }
 

@@ -6,8 +6,10 @@ exports.getAll = function(req, res) {
     models.article.find(function(err, data) {
         if(err) {
             console.log(err);
+            res.send(err);
+        } else {
+            res.send(data);
         }
-        res.send(data);
     });
 };
 
@@ -16,10 +18,12 @@ exports.getById = function(req, res) {
     console.log('Retrieving article: ' + id);
     models.article.find({_id: id}, function(err, data) {
         if(err) {
+            console.log(err);
             res.send(err);
+        } else {
+            res.send(data);
         }
-        res.send(data);
-    })
+    });
 };
 
 exports.temp = temp;

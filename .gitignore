@@ -40,3 +40,4 @@ main.js
 # db #
 webservice/data/local.0
 webservice/data/local.ns
+webservice/data/mongod.lock

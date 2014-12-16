@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
 var options = {
     user: 'padawan',
     pass: '123123'
-}
+};
 
 mongoose.connect(url, options, function(err) {
     if(err) {

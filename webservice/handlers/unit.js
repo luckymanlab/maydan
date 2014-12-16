@@ -4,16 +4,17 @@ var mongoose = require('../configs/connect'),
 exports.getAll = function(req, res) {
     models.unit.find(function(err, data) {
         if(err) {
-            console.log(err);
             res.send(err);
+            console.log(err);
+        } else {
+            res.send(data);
         }
-        res.send(data);
     });
 }
 
 exports.getById = function(req, res) {
     var id = req.params.id;
-    models.unit.find({_id: id}, function(err, data) {
+    models.unit.find({ _id: id }, function(err, data) {
         if(err) {
             console.log(err);
         } else if(data) {
@@ -47,7 +48,7 @@ exports.addUnit = function(req, res) {
             res.send(true);
         });
     } else {
-        res.send({res: false, err: 'invalid parameters'});
+        res.send({ res: false, err: 'invalid parameters' });
     }
 }
 
@@ -58,7 +59,10 @@ exports.deleteUnit = function(req, res) {
     console.log('Deleting unit: ' + id);
     models.unit.remove({_id: id}, function(err) {
         if(err) {
+            res.send(err);
             console.log(err);
+        } else {
+            res.send('success');
         }
     });
 }
@@ -77,8 +81,10 @@ exports.confirm = function(id, data) {
 
     newUnit.save(function(err, data) {
         if(err) {
+            res.send(err);
             console.log(err);
+        } else {
+            console.log('Incident successfull saved');
         }
-        console.log('Incident successfull saved');
     });
 }

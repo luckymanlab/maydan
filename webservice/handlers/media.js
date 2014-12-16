@@ -7,9 +7,11 @@ exports.confirm = function(data, callback) {
     });
     newMedia.save(function(err, data) {
         if(err) {
+            res.send(err);
             console.log(err);
+        } else {
+            console.log('Media successfull saved');
         }
-        console.log('Media successfull saved');
     });
     callback(newMedia._id);
 }
@@ -17,6 +19,7 @@ exports.confirm = function(data, callback) {
 exports.getAll = function(req, res) {
     models.media.find(function(err, data) {
         if(err) {
+            res.send(err);
             console.log(err);
         } else {
             res.send(data);
