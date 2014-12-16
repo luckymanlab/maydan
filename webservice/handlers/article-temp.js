@@ -1,8 +1,7 @@
-var mongoose = require('../db/connect'),
-    schemas = require('../db/schemas'),
+var mongoose = require('../configs/connect'),
+    models = require('../configs/models'),
     media = require('./media'),
-    incident = require('./incident');
-var ArticleTemp = mongoose.model('ArticleTemp', schemas.articleTempSchema);
+    unit = require('./unit');
 
 exports.addArticle = function(req, res) {
     var article = req.body;
@@ -10,28 +9,28 @@ exports.addArticle = function(req, res) {
 
     if(
         typeof article.media.content === undefined
-        || typeof article.incident.time === undefined
-        || typeof article.incident.type === undefined
-        || typeof article.incident.coordinates.lat === undefined
-        || typeof article.incident.coordinates.lon === undefined
-        || typeof article.incident.title === undefined
+        || typeof article.unit.time === undefined
+        || typeof article.unit.type === undefined
+        || typeof article.unit.coordinates.lat === undefined
+        || typeof article.unit.coordinates.lon === undefined
+        || typeof article.unit.title === undefined
     ) {
         res.status(400).res('Requested data is invalid');
         throw "Bad request"
     }
 
-    var newArticle = new ArticleTemp({
+    var newArticle = new models.articleTemp({
         media: {
             content: article.media.content
         },
-        incident: {
-            time: article.incident.time,
-            incidentType: article.incident.type,
+        unit: {
+            time: article.unit.time,
+            unitType: article.unit.type,
             coordinates: {
-                lat: article.incident.coordinates.lat,
-                lon: article.incident.coordinates.lon
+                lat: article.unit.coordinates.lat,
+                lon: article.unit.coordinates.lon
             },
-            title: article.incident.title
+            title: article.unit.title
         }
     });
 
@@ -45,7 +44,7 @@ exports.addArticle = function(req, res) {
 }
 
 exports.getAll = function(req, res) {
-    ArticleTemp.find(function(err, data) {
+    models.articleTemp.find(function(err, data) {
         if(err) throw err;
         res.send(data);
     })
@@ -53,7 +52,7 @@ exports.getAll = function(req, res) {
 
 exports.removeById = function(req, res) {
     var id = req.params.id;
-    ArticleTemp.remove({ _id: id }, function (err) {
+    models.articleTemp.remove({ _id: id }, function (err) {
         if (err) return handleError(err);
         console.log('Deleting article: ' + id);
         res.send('Success');
@@ -63,13 +62,13 @@ exports.removeById = function(req, res) {
 exports.confirm = function(req, res) {
     var id = req.params.id;
     console.log('Confirm: ' + id);
-    ArticleTemp.find({_id: id}, function(err, data) {
+    models.articleTemp.find({_id: id}, function(err, data) {
         if(err) console.log(err);
         var id = media.confirm(data[0].media, function(id) {
-            incident.confirm(id, data[0].incident);
+            unit.confirm(id, data[0].unit);
         });
     });
-    ArticleTemp.remove({_id: id}, function(err) {
+    models.articleTemp.remove({_id: id}, function(err) {
         if(err) console.log(err);
         res.send('success');
     });

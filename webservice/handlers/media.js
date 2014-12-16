@@ -1,20 +1,21 @@
-var mongoose = require('../db/connect'),
-    schemas = require('../db/schemas');
-var Media = mongoose.model('Media', schemas.mediaSchema);
+var mongoose = require('../configs/connect'),
+    models = require('../configs/models');
 
 exports.confirm = function(data, callback) {
-    var newMedia = Media({
+    var newMedia = models.media({
         content: data.content
     });
     newMedia.save(function(err, data) {
-        if(err) console.log(err);
+        if(err) {
+            console.log(err);
+        }
         console.log('Media successfull saved');
     });
     callback(newMedia._id);
 }
 
 exports.getAll = function(req, res) {
-    Media.find(function(err, data) {
+    models.media.find(function(err, data) {
         if(err) {
             console.log(err);
         } else {

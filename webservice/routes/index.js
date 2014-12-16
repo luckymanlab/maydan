@@ -1,17 +1,18 @@
 var express = require('express'),
     router = express.Router(),
-    incident = require('../handlers/incident'),
+    unit = require('../handlers/unit'),
     media = require('../handlers/media'),
     article = require('../handlers/article'),
-    incidentTypes = require('../handlers/incident-types');
+    unitTypes = require('../handlers/unit-types');
+
 router.route('/articles')
     .get(article.getAll);
-// .put(incident.updateWine)
-// .delete(incident.deleteWine)
+// .put(unit.updateWine)
+// .delete(unit.deleteWine)
 
-router.route('/incident')
-    .get(incident.getAll)
-    .post(incident.addIncident);
+router.route('/unit')
+    .get(unit.getAll)
+    .post(unit.addUnit);
 
 router.route('/media')
     .get(media.getAll);
@@ -36,6 +37,6 @@ router.route('/temp/articles/:id')
     });
 
 router.route('/unit-types')
-    .get(incidentTypes.getTypes);
+    .get(unitTypes.getTypes);
 
 module.exports = router;
