@@ -1,13 +1,13 @@
 var UT = window.UT || {};
 
-UT.IncidentTypesSelectView = Backbone.View.extend({
+UT.UnitTypesSelectView = Backbone.View.extend({
 	events: {
 		'click #mainSelectIncidentType': 'selectOption',
 		'click .select-option': 'showOptions'
 	},
 	initialize: function(){
 		var that = this;
-		this.model = new UT.IncidentTypesCollection();
+		this.model = new UT.UnitTypesCollection();
 		this.model.fetch({
 			success: function() {
 				that.render();

@@ -35,7 +35,7 @@ router.route('/temp/articles/:id')
         }
     });
 
-router.route('/incident-types')
+router.route('/unit-types')
     .get(incidentTypes.getTypes);
 
 module.exports = router;
