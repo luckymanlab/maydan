@@ -7,8 +7,6 @@ var express = require('express'),
 
 router.route('/articles')
     .get(article.getAll);
-// .put(unit.updateWine)
-// .delete(unit.deleteWine)
 
 router.route('/unit')
     .get(unit.getAll)
@@ -20,7 +18,6 @@ router.route('/media')
 router.route('/temp/articles')
     .get(article.temp.getAll)
     .post(article.temp.addArticle);
-//  .delete(article.temp.removeAll)
 
 router.route('/temp/articles/:id')
     .delete(article.temp.removeById)
