@@ -39,11 +39,11 @@ var articleTempSchema = mongoose.Schema({
         content: { type: String, required: true }
     },
     unit: {
-        time: {type: Number, min: 0, max: date.getTime()},
-        unitType: {type: String, enum: '' },
+        time: { type: Number, min: 0, max: date.getTime() },
+        unitType: { type: String, enum: typeNames },
         coordinates: {
-            lat: {type: Number, min: 0},
-            lon: {type: Number, min: 0}
+            lat: { type: Number, min: 0 },
+            lon: { type: Number, min: 0 }
         }, 
         title: String
     }
