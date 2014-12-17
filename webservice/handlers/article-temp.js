@@ -1,8 +1,7 @@
-var mongoose = require('../db/connect'),
-    schemas = require('../db/schemas'),
+var mongoose = require('../configs/connect'),
+    models = require('../configs/models'),
     media = require('./media'),
-    incident = require('./incident');
-var ArticleTemp = mongoose.model('ArticleTemp', schemas.articleTempSchema);
+    unit = require('./unit');
 
 exports.addArticle = function(req, res) {
     var article = req.body;
@@ -15,20 +14,20 @@ exports.addArticle = function(req, res) {
         || typeof article.unit.coordinates.lat === undefined
         || typeof article.unit.coordinates.lon === undefined
         || typeof article.unit.title === undefined
-        || typeof article.user_id === undefined
+        || typeof article.creator_id === undefined
     ) {
         res.status(400).res('Requested data is invalid');
-        throw "Bad request"
+        console.log('Bad request');
     }
 
-    var newArticle = new ArticleTemp({
-        user_id: article.user_id,
+    var newArticle = new models.articleTemp({
+        creator_id: article.creator_id,
         media: {
             content: article.media.content
         },
-        incident: {
+        unit: {
             time: article.unit.time,
-            incidentType: article.unit.type,
+            unitType: article.unit.type,
             coordinates: {
                 lat: article.unit.coordinates.lat,
                 lon: article.unit.coordinates.lon
@@ -40,40 +39,57 @@ exports.addArticle = function(req, res) {
     newArticle.save(function(err, data) {
         if(err) {
             res.status(400).send(err);
-            throw err
+            console.log(err);
+        } else {
+            res.send('Success');
         }
-        res.send('Success');
     });
-}
+},
 
 exports.getAll = function(req, res) {
-    ArticleTemp.find(function(err, data) {
-        if(err) throw err;
-        res.send(data);
-    })
-}
+    models.articleTemp.find(function(err, data) {
+        if(err) {
+             console.log(err);
+             res.send(err);
+        } else {
+            res.send(data);
+        }
+    });
+},
 
 exports.removeById = function(req, res) {
     var id = req.params.id;
-    ArticleTemp.remove({ _id: id }, function (err) {
-        if (err) return handleError(err);
-        console.log('Deleting article: ' + id);
-        res.send('Success');
+    models.articleTemp.remove({ _id: id }, function (err) {
+        if(err) {
+            console.log(err);
+            res.send(err);
+        } else {
+            console.log('Deleting article: ' + id);
+            res.send('Success');
+        }
     });
-}
+},
 
 exports.confirm = function(req, res) {
     var id = req.params.id;
     console.log('Confirm: ' + id);
-    ArticleTemp.find({_id: id}, function(err, data) {
-        if(err) console.log(err);
-        var id = media.confirm(data[0].media, function(id) {
-            incident.confirm(id, data[0].incident);
-        });
+    models.articleTemp.find({ _id: id }, function(err, data) {
+        if(err) {
+            console.log(err);
+            res.send(err);
+        } else {
+            var id = media.confirm(data[0].media, function(id) {
+                unit.confirm(id, data[0].unit);
+            });
+        }
     });
-    ArticleTemp.remove({_id: id}, function(err) {
-        if(err) console.log(err);
-        res.send('success');
+    models.articleTemp.remove({_id: id}, function(err) {
+        if(err) {
+            console.log(err);
+            res.send(err);
+        } else {
+            res.send('success');
+        }
     });
 }
 

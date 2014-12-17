@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(logger('dev'));
-app.use(session({secret: 'a4f8071f-c873-4447-8ee2'}));
+app.use(session({ secret: 'a4f8071f-c873-4447-8ee2' }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, '../ui')));
