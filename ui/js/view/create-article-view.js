@@ -3,7 +3,7 @@ var UT = window.UT || {};
 UT.CreateArticleView = Backbone.View.extend({
     initialize: function(){
         this.model = new UT.Article();
-        this.render();//
+        this.render();
     },
     render: function(){
         var that = this;
@@ -20,8 +20,8 @@ UT.CreateArticleView = Backbone.View.extend({
         'click #close-modal,#close-article-modal': 'closeArticleModal',
         'click #close-confirm,#close-confirm-default': 'closeModalConfirm',
         'click #close-return': 'cancelModalConfirm',
-        // 'change #unitTitle, #mediaContent, #unitDate': 'validateInput',
-        // 'click #optionsUnitType': 'validateSelect'
+        'change #unitTitle, #mediaContent, #unitDate': 'validateInput',
+        'click #optionsUnitType': 'validateSelect'
     },
     createUnitTypesView: function() {
         this.unitTypesView = new UT.UnitTypesSelectView({ el: $('#unit-type-select-container') });
@@ -95,13 +95,12 @@ UT.CreateArticleView = Backbone.View.extend({
             },
             unit = this.model.get('unit'),
             media = this.model.get('media');
-        e.preventDefault();
         unit.set(obj);
         media.set({content: mediaContent.value});
-        this.model.set({user_id: $.cookie('user_id')});
         // if (!this.validateForm()){
         //     return;
         // }
+        this.model.set('accessToken', $.cookie('accessToken'));
         console.log(this.model);
         this.model.save({}, {
             dataType: 'text',

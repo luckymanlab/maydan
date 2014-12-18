@@ -43,7 +43,7 @@ UT.ApplicationView = Backbone.View.extend({
 		/* jslint nonew: false */
 		if(this.getAccessToken()) {
             new UT.CreateArticleView();
-            this.getUserId();
+    
 		} else {
 			this.authorization();
 		}
@@ -59,19 +59,6 @@ UT.ApplicationView = Backbone.View.extend({
 	},
 	getAccessToken: function() {
 		return $.cookie('accessToken');
-	},
-	getUserId: function(){
-		$.ajax({
-			url: 'https://graph.facebook.com/me?access_token='+$.cookie('accessToken'),
-			type: 'GET'
-		})
-		.done(function(data) {
-			console.log(data.id);
-			$.cookie('user_id', data.id);
-		})
-		.fail(function() {
-			console.log('error');
-		});
 	}
 });
 

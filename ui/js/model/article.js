@@ -3,7 +3,6 @@ var UT = window.UT || {};
 UT.Article = Backbone.Model.extend({
     urlRoot: UT.Config.saveArticlePath,
     defaults:{
-        user_id: '',
         unit: new UT.Unit(),
         media: new UT.Media()
     },

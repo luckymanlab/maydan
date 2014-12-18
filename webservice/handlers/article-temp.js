@@ -1,7 +1,8 @@
 var mongoose = require('../configs/connect'),
     models = require('../configs/models'),
     media = require('./media'),
-    unit = require('./unit');
+    unit = require('./unit'),
+    https = require('https');
 
 exports.addArticle = function(req, res) {
     var article = req.body;
@@ -14,35 +15,46 @@ exports.addArticle = function(req, res) {
         || typeof article.unit.coordinates.lat === undefined
         || typeof article.unit.coordinates.lon === undefined
         || typeof article.unit.title === undefined
-        || typeof article.creator_id === undefined
+        || typeof article.creatorId === undefined
     ) {
         res.status(400).res('Requested data is invalid');
         console.log('Bad request');
     }
+    var access_token = article.accessToken;
+    var buffer = '';
+    var request = https.get("https://graph.facebook.com/me?access_token=" + access_token,
+        function(result){
+            result.setEncoding('utf8');
+            result.on('data', function(chunk){
+                buffer += chunk;
+            });
+            
+            result.on('end', function(){
+                var newArticle = new models.articleTemp({
+                    media: {
+                        content: article.media.content
+                    },
+                    unit: {
+                        time: article.unit.time,
+                        unitType: article.unit.type,
+                        coordinates: {
+                            lat: article.unit.coordinates.lat,
+                            lon: article.unit.coordinates.lon
+                        },
+                        title: article.unit.title
+                    },
+                    creatorId: JSON.parse(buffer).id
+                });
 
-    var newArticle = new models.articleTemp({
-        creator_id: article.creator_id,
-        media: {
-            content: article.media.content
-        },
-        unit: {
-            time: article.unit.time,
-            unitType: article.unit.type,
-            coordinates: {
-                lat: article.unit.coordinates.lat,
-                lon: article.unit.coordinates.lon
-            },
-            title: article.unit.title
-        }
-    });
-
-    newArticle.save(function(err, data) {
-        if(err) {
-            res.status(400).send(err);
-            console.log(err);
-        } else {
-            res.send('Success');
-        }
+                newArticle.save(function(err, data) {
+                    if(err) {
+                        res.status(400).send(err);
+                        console.log(err);
+                    } else {
+                        res.send('Success');
+                    }
+                });
+            });
     });
 },
 
