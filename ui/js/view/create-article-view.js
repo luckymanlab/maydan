@@ -11,7 +11,7 @@ UT.CreateArticleView = Backbone.View.extend({
             var template=_.template(UT.i18n.processTemplate(data));
             that.$el.append(template); //adding the template content to the main template.
             that.popupFormInitialize();
-            // that.createUnitTypesView();
+            that.createUnitTypesView();
         }, 'html');
         this.showModal();
     },

@@ -23,7 +23,7 @@ UT.UnitTypesSelectView = Backbone.View.extend({
 		});
 
 		$.get('templates/unit-types-select-template.html', function (data) {
-			var template =_.template(data, {types: types});
+			var template =_.template(UT.i18n.processTemplate(data), {types: types});
 			that.$el.html(template);
 		}, 'html');
 	},
