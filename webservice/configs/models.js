@@ -22,7 +22,7 @@ var unitSchema = mongoose.Schema({
     coordinates: {
         lat: Number,
         lon: Number
-    }, 
+    },
     title: String
 });
 
@@ -44,9 +44,10 @@ var articleTempSchema = mongoose.Schema({
         coordinates: {
             lat: { type: Number, min: 0 },
             lon: { type: Number, min: 0 }
-        }, 
+        },
         title: String
-    }
+    },
+    creatorId: {type: String}
 });
 
 exports.article = mongoose.model('article', articleSchema);

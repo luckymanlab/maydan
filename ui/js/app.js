@@ -43,6 +43,7 @@ UT.ApplicationView = Backbone.View.extend({
 		/* jslint nonew: false */
 		if(this.getAccessToken()) {
             new UT.CreateArticleView();
+    
 		} else {
 			this.authorization();
 		}
