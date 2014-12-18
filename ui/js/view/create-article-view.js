@@ -3,7 +3,7 @@ var UT = window.UT || {};
 UT.CreateArticleView = Backbone.View.extend({
     initialize: function(){
         this.model = new UT.Article();
-        this.render();//
+        this.render();
     },
     render: function(){
         var that = this;
@@ -95,12 +95,12 @@ UT.CreateArticleView = Backbone.View.extend({
             },
             unit = this.model.get('unit'),
             media = this.model.get('media');
-        e.preventDefault();
         unit.set(obj);
         media.set({content: mediaContent.value});
-        if (!this.validateForm()){
-            return;
-        }
+        // if (!this.validateForm()){
+        //     return;
+        // }
+        this.model.set('accessToken', $.cookie('accessToken'));
         console.log(this.model);
         this.model.save({}, {
             dataType: 'text',
