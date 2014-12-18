@@ -8,10 +8,10 @@ UT.CreateArticleView = Backbone.View.extend({
     render: function(){
         var that = this;
         $.get('templates/create-article-template.html', function (data) {
-            var template=_.template(data);
+            var template=_.template(UT.i18n.processTemplate(data));
             that.$el.append(template); //adding the template content to the main template.
             that.popupFormInitialize();
-            that.createUnitTypesView();
+            // that.createUnitTypesView();
         }, 'html');
         this.showModal();
     },
