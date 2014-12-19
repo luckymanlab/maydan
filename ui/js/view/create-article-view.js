@@ -1,4 +1,5 @@
 var UT = window.UT || {};
+/*jshint -W015 */
 
 UT.CreateArticleView = Backbone.View.extend({
     initialize: function(){
@@ -38,8 +39,7 @@ UT.CreateArticleView = Backbone.View.extend({
         if (input.id === 'mainSelectUnitType') {
             inputValue = $('#selectedValue')[0].innerText;
         }
-
-        if (inputValue === undefined || inputValue.length === 0 || inputValue === 'Please, select mark') {
+        if (inputValue === undefined || inputValue.length === 0 || inputValue === UT.i18n.attributes.SELECT_TYPE) {
             $(formGroup).addClass('has-error').removeClass('has-success');
             $(input).tooltip({
                 trigger: 'manual',
@@ -97,9 +97,9 @@ UT.CreateArticleView = Backbone.View.extend({
             media = this.model.get('media');
         unit.set(obj);
         media.set({content: mediaContent.value});
-        // if (!this.validateForm()){
-        //     return;
-        // }
+        if (!this.validateForm()){
+             return;
+        }
         this.model.set('accessToken', $.cookie('accessToken'));
         console.log(this.model);
         this.model.save({}, {

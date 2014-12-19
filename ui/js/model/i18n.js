@@ -1,4 +1,5 @@
 /*global UT, Backbone */
+/*jshint -W079 */
 var UT = window.UT || {};
 
 /**
