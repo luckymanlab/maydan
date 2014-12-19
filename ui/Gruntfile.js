@@ -12,6 +12,7 @@ module.exports = function(grunt) {
 		'vendor/jquery.cookie.js',
 		'vendor/underscore-min.js',
 		'vendor/backbone-min.js',
+        'vendor/backbone.marionette.min.js',
 		'vendor/infobubble.js',
 		'vendor/bootstrap.min.js',
 		'vendor/bootstrap-datepicker.js',
