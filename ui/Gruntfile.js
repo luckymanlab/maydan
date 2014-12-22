@@ -9,7 +9,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-spritesmith');
 
 	var libs = [
-		'vendor/jquery-1.11.0.min.js',
 		'vendor/jquery.cookie.js',
 		'vendor/underscore-min.js',
 		'vendor/backbone-min.js',
@@ -25,6 +24,7 @@ module.exports = function(grunt) {
 		'js/model/unit.js',
 		'js/model/media.js',
 		'js/model/article.js',
+        'js/model/i18n.js',
 		'js/collection/unit-collection.js',
 		'js/collection/unit-types-collection.js',
 		'js/view/article-modal-view.js',
@@ -35,7 +35,6 @@ module.exports = function(grunt) {
 	];
 
     var timeline = [
-        'timeline/js/jquery-ui.min.js',
         'timeline/js/timelineTemplateObj.js',
         'timeline/js/timelineDateUtil.js',
         'timeline/js/timeline.js'

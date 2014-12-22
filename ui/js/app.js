@@ -34,6 +34,7 @@ UT.ApplicationView = Backbone.View.extend({
 			styles: styles
 		};
 		this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+		UT.i18n = new UT.I18n();
 	},
 
 	events:{
@@ -43,6 +44,7 @@ UT.ApplicationView = Backbone.View.extend({
 		/* jslint nonew: false */
 		if(this.getAccessToken()) {
             new UT.CreateArticleView();
+    
 		} else {
 			this.authorization();
 		}

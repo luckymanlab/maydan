@@ -3,21 +3,21 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" aria-hidden="true" id="close-modal">&times;</button>
-                <h3 class="modal-title" id="article-modal-title">Create article</h3>
+                <h3 class="modal-title" id="article-modal-title">{i18n.GREATE_ARTICLE}</h3>
             </div>
             <div class="modal-body">
 
                 <form class="form-horizontal" role="form" id="article-form">
                     <div class="form-group">
                         <div class="col-sm-12">
-                            <div class="alert alert-success" role="alert">The model has been saved to the server</div>
-                            <div class="alert alert-danger" role="alert">Something went wrong while saving the model</div>
+                            <div class="alert alert-success" role="alert">{i18n.MODEL_SAVED_TO_SERVER}</div>
+                            <div class="alert alert-danger" role="alert">{i18n.MODEL_DOESNT_SAVED}</div>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-sm-12">
-                            <input class="form-control inputData" type="text" placeholder="Please, enter title" id="unitTitle" data-label ="title" required>
+                            <input class="form-control inputData" type="text" placeholder="{i18n.ENTER_TITLE}" id="unitTitle" data-label ="title" required>
                         </div>
                     </div>
 
@@ -26,7 +26,7 @@
                             <div class="input-group date form_datetime" data-date="2013-10-16T05:25:07Z"
                                  data-date-format="dd MM yyyy - HH:ii p" data-link-field="date-time-picker-input">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-                                <input class="form-control inputData" size="16" type="text" value="" readonly placeholder="Please, enter date" id="unitDate" data-label ="date">
+                                <input class="form-control inputData" size="16" type="text" value="" readonly placeholder="{i18n.SWITCH_DATE}" id="unitDate" data-label ="date">
                             </div>
                         </div>
                         <input id="date-time-picker-input" value="" type="hidden"/>
@@ -41,7 +41,7 @@
                             <div class="col-sm-12">
                                 <div class="input-group">
                                     <span data-toggle="collapse" href="#collapseOne" class="input-group-addon"><span class="glyphicon glyphicon-globe"></span></span>
-                                    <input id="placepicker" class="placepicker form-control inputData" readonly placeholder="Please, switch coordinate" data-label ="coordinates" />
+                                    <input id="placepicker" class="placepicker form-control inputData" readonly placeholder="{i18n.SWITCH_COORDINATE}" data-label ="coordinates" />
                                 </div>
                             </div>
                         </div>
@@ -66,13 +66,13 @@
 
                     <div class="form-group">
                         <div class="col-sm-12">
-                            <textarea class="form-control inputData" rows="5" placeholder="Please, enter description of unit" id="mediaContent" data-label ="description"></textarea>
+                            <textarea class="form-control inputData" rows="5" placeholder="{i18n.ENTER_DESCRIPTION}" id="mediaContent" data-label ="description"></textarea>
                         </div>
                     </div>
 
                     <div class="form-group col-sm-12">
-                        <button type="button" class="btn btn-default" id="close-article-modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="save-article">Save changes</button>
+                        <button type="button" class="btn btn-default" id="close-article-modal">{i18n.BUTTON_CANCEL}</button>
+                        <button type="button" class="btn btn-primary" id="save-article">{i18n.BUTTON_SAVE}</button>
                     </div>
                 </form>
 
@@ -83,9 +83,9 @@
     <div id="confirm-modal" class="modal fade" data-backdrop-limit="1" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content alert-info confirm-modal-body">
-                <h3>You have unsaved changes, are you sure?</h3>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" id="close-confirm">Ok</button>
-                <button type="button" class="btn btn-default " id="close-return">Cancel</button>
+                <h3>{i18n.UNSAVED_DATA}</h3>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="close-confirm">{i18n.BUTTON_OK}</button>
+                <button type="button" class="btn btn-default " id="close-return">{i18n.BUTTON_CANCEL}</button>
             </div>
         </div>
     </div>

@@ -1,14 +1,15 @@
 var UT = window.UT || {};
+/*jshint -W015 */
 
 UT.CreateArticleView = Backbone.View.extend({
     initialize: function(){
         this.model = new UT.Article();
-        this.render();//
+        this.render();
     },
     render: function(){
         var that = this;
         $.get('templates/create-article-template.html', function (data) {
-            var template=_.template(data);
+            var template=_.template(UT.i18n.processTemplate(data));
             that.$el.append(template); //adding the template content to the main template.
             that.popupFormInitialize();
             that.createUnitTypesView();
@@ -38,8 +39,7 @@ UT.CreateArticleView = Backbone.View.extend({
         if (input.id === 'mainSelectUnitType') {
             inputValue = $('#selectedValue')[0].innerText;
         }
-
-        if (inputValue === undefined || inputValue.length === 0 || inputValue === 'Please, select mark') {
+        if (inputValue === undefined || inputValue.length === 0 || inputValue === UT.i18n.attributes.SELECT_TYPE) {
             $(formGroup).addClass('has-error').removeClass('has-success');
             $(input).tooltip({
                 trigger: 'manual',
@@ -95,12 +95,12 @@ UT.CreateArticleView = Backbone.View.extend({
             },
             unit = this.model.get('unit'),
             media = this.model.get('media');
-        e.preventDefault();
         unit.set(obj);
         media.set({content: mediaContent.value});
         if (!this.validateForm()){
-            return;
+             return;
         }
+        this.model.set('accessToken', $.cookie('accessToken'));
         console.log(this.model);
         this.model.save({}, {
             dataType: 'text',

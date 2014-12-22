@@ -1,0 +1,15 @@
+{
+	"GREATE_ARTICLE": "Create article",
+	"MODEL_SAVED_TO_SERVER": "The model has been saved to the server",
+	"MODEL_DOESNT_SAVED": "Something went wrong while saving the model",
+	"ENTER_TITLE": "Please, enter title",
+	"SWITCH_DATE": "Please, switch date",
+	"SWITCH_COORDINATE": "Please, switch coordinate",
+	"SELECT_TYPE": "Please, select type of unit",
+	"ENTER_DESCRIPTION": "Please, enter description of unit",
+	"UNSAVED_DATA": "You have unsaved changes, are you sure?",
+	"BUTTON_SAVE": "Save",
+	"BUTTON_CANCEL": "Cancel",
+	"BUTTON_OK": "OK"
+
+}
