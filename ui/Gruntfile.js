@@ -22,7 +22,6 @@ module.exports = function(grunt) {
 	];
 
 	var base = [
-		'js/config.js',
 		'js/model/unit.js',
 		'js/model/media.js',
 		'js/model/article.js',
@@ -122,11 +121,28 @@ module.exports = function(grunt) {
                 flatten: true,
                 filter: 'isFile',
             }
-        }
+        },
+        concat: {
+            local: {
+                src: ['js/configs/local.js', 'public/js/main.js'],
+                dest: 'public/js/main.js',
+            },
+            dev: {
+                src: ['js/configs/dev.js', 'public/js/main.js'],
+                dest: 'public/js/main.js',
+            },
+            prod: {
+                src: ['js/configs/prod.js', 'public/js/main.js'],
+                dest: 'public/js/main.js',
+            }
+        },
     });
 
-    grunt.registerTask('compile', ['jshint:files', 'sass', 'uglify:app', 'copy:css']);
-    grunt.registerTask('watcher', ['jshint:files', 'sass', 'uglify:app', 'watch']);
+    grunt.registerTask('compile', ['jshint:files', 'sass', 'uglify:app', 'concat:local', 'copy:css']);
+    grunt.registerTask('compile:dev', ['jshint:files', 'sass', 'uglify:app', 'concat:dev', 'copy:css']);
+    grunt.registerTask('compile:prod', ['jshint:files', 'sass', 'uglify:app', 'concat:prod', 'copy:css']);
+
+    grunt.registerTask('watcher', ['jshint:files', 'sass', 'uglify:app', 'concat:local', 'watch']);
 
     grunt.registerTask('timeline', ['jshint:files', 'uglify:timeline', 'sass']);
 };
