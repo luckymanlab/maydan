@@ -19,7 +19,7 @@ timelineTemplateObj = {
 		'</div>' +
 		'<div class="tl-sep-line"></div>' +
 	'</div>',
-	timeBlockElement: function (id, title, img, startDate, endDate, positionOfElement, dateLiteral) {
+	timeBlockElement: function (id, title, img, startDate, positionOfElement, dateLiteral) {
 		var element;
 		var image = '';
 		if (img) {
@@ -27,7 +27,7 @@ timelineTemplateObj = {
 		}
 		element = '' +
 		'<div class="time-block-element" id="' + id + '" data-start-date="' + startDate + '"' +
-		'data-end-date="' + endDate + '" style="left: ' + positionOfElement + 'px">' +
+		 '" style="left: ' + positionOfElement + 'px">' +
 			image +
 			'<p class="time-of-news">' + dateLiteral + '<p>' +
 			'<p class="time-block-title">' + title + '</p>' +

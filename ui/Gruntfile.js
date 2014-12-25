@@ -135,6 +135,34 @@ module.exports = function(grunt) {
                 dest: 'public/js/main.js',
             }
         },
+        sprite: {
+            all: {
+                src: ['timeline/images/sprite/*.{png,jpg,jpeg}'],
+                destImg: 'public/img/sprite.png',
+                destCSS: 'timeline/scss/_sprite.scss',
+                imgPath: '../img/sprite.png',
+                algorithm: 'binary-tree',
+                padding: 5,
+                engine: 'gm',
+                cssFormat: 'scss',
+                cssVarMap: function (sprite) {
+                    sprite.name = 'sprite-' + sprite.name;
+                },
+                engineOpts: {
+                    imagemagick: false
+                },
+                imgOpts: {
+                    format: 'png',
+                    quality: 100
+                },
+                cssOpts: {
+                    functions: false,
+                    cssClass: function (item) {
+                        return '.sprite-' + item.name;
+                    }
+                }
+            }
+        }
     });
 
     grunt.registerTask('compile', ['jshint:files', 'sass', 'uglify:app', 'concat:local', 'copy:css']);
@@ -143,5 +171,5 @@ module.exports = function(grunt) {
 
     grunt.registerTask('watcher', ['jshint:files', 'sass', 'uglify:app', 'concat:local', 'watch']);
 
-    grunt.registerTask('timeline', ['jshint:files', 'uglify:timeline', 'sass']);
+    grunt.registerTask('timeline', ['jshint:files', 'uglify:timeline', 'sprite', 'sass']);
 };

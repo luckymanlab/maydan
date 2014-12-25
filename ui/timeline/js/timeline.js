@@ -123,7 +123,7 @@ var TimeLine = (function () {
 			var config;
 	
 			config = configObj || {
-				dateStart: '2014-01-01',
+				dateStart: '2014-01-01'
 			};
 			that.currentDate = new Date(config.dateStart).getTime();
 
@@ -447,22 +447,22 @@ var TimeLine = (function () {
 			}
 		},
 		createNewsElement: function (dataElement, topPosPx, zIndex, animateTop, animateLeft) {
-			var $el = $('[data-start-date="' + dataElement.startDate + '"]');
+			var $el = $('[data-start-date="' + dataElement.time + '"]');
 			var dateLiteral = '';
-			var positionOfElement = that.positionOfContentElement(dataElement.startDate);
+			var positionOfElement = that.positionOfContentElement(dataElement.time);
 			var animateTime = 200;
 			if (!$el.length) {
-				dateLiteral = tlDateUtil.dateLiteral(dataElement.startDate);
+				dateLiteral = tlDateUtil.dateLiteral(dataElement.time);
 				$el = timelineTemplateObj.timeBlockElement(dataElement.id,
-					dataElement.title, dataElement.img, dataElement.startDate,
-					dataElement.endDate, positionOfElement, dateLiteral);
+					dataElement.title, dataElement.img, dataElement.time,
+					positionOfElement, dateLiteral);
 				that.$timelineContentEl.append($el);
-				$el = $('[data-start-date="' + dataElement.startDate + '"]');
+				$el = $('[data-start-date="' + dataElement.time + '"]');
 				$el.click(that.newsElementClickHandler);
-				if (parseInt(dataElement.startDate, 10) === that.currentDate) {
+				if (parseInt(dataElement.time, 10) === that.currentDate) {
 					that.arrayNewsElementInTimeLine.removeClass('current-news');
 					$el.addClass('current-news');
-					that.activeNewsElementTimeStamp = parseInt(dataElement.startDate, 10);
+					that.activeNewsElementTimeStamp = parseInt(dataElement.time, 10);
 				}
 			}
 			var animate = {};
@@ -497,8 +497,8 @@ var TimeLine = (function () {
 			var bufArrayofNews = [];
 			if (array instanceof Array) {
 				for (var i = 0; i < k; i++) {
-					if (array[i].startDate > that.timelineStartMs &&
-						array[i].startDate < that.timelineEndMs) {
+					if (array[i].time > that.timelineStartMs &&
+						array[i].time < that.timelineEndMs) {
 						bufArrayofNews.push(array[i]);
 					}
 				}
@@ -528,7 +528,7 @@ var TimeLine = (function () {
 						topPosPx = 15;
 						zIndex = 1;
 					}
-					if (bufArrayofNews[j].startDate > startTime && bufArrayofNews[j].startDate < bufTime) {
+					if (bufArrayofNews[j].time > startTime && bufArrayofNews[j].time < bufTime) {
 						that.createNewsElement(bufArrayofNews[j], topPosPx, zIndex, animateTop, animateLeft);
 						topPosPx += 20;
 						zIndex += 1;
@@ -569,60 +569,25 @@ var TimeLine = (function () {
 		init: that.init,
 		setNews: that.setNews,
 		setDate: that.setDate,
-		startTimeLine: that.atsrtTimeLine,
+		startTimeLine: that.startTimeLine,
 		stopTimeLine: that.stopTimeLine
 	};
 })();
 
-var config = {
-	dateStart: new Date(1400529754000)
+
+var host = 'http://localhost:3000/';
+var Config = {
+	dateStart: new Date(1400529754000),
+	getApprovedUnits: host + 'unit'
 };
 
+TimeLine.init($('.time-block'), Config);
+getUnits();
 
-
-TimeLine.init($('.time-block'), config);
-
-var news1 = {
-	id: 'n1',
-	title: 'Захід введе "смертельні" для РФ санкцій, якщо Путін не зупиниться - Турчинов',
-	img: 'timeline/images/newsPhoto/1.jpg',
-	startDate: '1400573054000',
-	endDate: '1400587454000'
-};
-
-var news2 = {
-	id: 'n2',
-	title: 'Російські війська відводять з Донбасу, але кадрові офіцери-інструктори лишаються - Тимчук',
-	img: 'timeline/images/newsPhoto/2.jpg',
-	startDate: '1400227454000',
-	endDate: '1400245454000'
-};
-
-var news3 = {
-	id: 'n3',
-	title: 'На міжбанку долар і євро "поповзли" вгору, а гривня втрачає свої позиції',
-	img: 'timeline/images/newsPhoto/3.png',
-	startDate: '1400331854000',
-	endDate: '1400353454000'
-};
-
-var news4 = {
-	id: 'n4',
-	title: 'Маріуполь готується до можливої атаки бойовиків, а РНБО повідомляє про колони російських танків',
-	img: 'timeline/images/newsPhoto/4.png',
-	startDate: '1400468654000',
-	endDate: '1400472254000'
-};
-
-var news5 = {
-	id: 'n5',
-	title: 'Порошенко і Меркель обговорили ситуацію на Донбасі в режимі припинення вогню',
-	img: 'timeline/images/newsPhoto/5.jpg',
-	startDate: '1430579854000',
-	endDate: '1432584254000'
-};
-
-var allNews = [news1, news2, news3, news4, news5];
-
-
-TimeLine.setNews(allNews);
+function getUnits(){
+	$.ajax({
+		url: Config.getApprovedUnits
+	}).done(function(data) {
+		TimeLine.setNews(data);
+	});
+}
