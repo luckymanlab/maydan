@@ -88,3 +88,20 @@ exports.confirm = function(id, data) {
         }
     });
 }
+
+exports.getRangeUnits = function(req,res){
+    var startDate = req.params.startDate,
+        endDate = req.params.endDate,
+        start = new Date(startDate).getTime(),
+        end = new Date(endDate).getTime();
+    console.log("Time start is ",start);
+    console.log("Time end is ",end);
+    models.unit.find({ time: { $gte: start, $lte: end } }, function(err, data) {
+        if(err) {
+            res.send(err);
+            console.log(err);
+        } else {
+            res.send(data);
+        }
+    });
+}
