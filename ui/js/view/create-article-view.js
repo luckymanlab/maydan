@@ -2,6 +2,7 @@ var UT = window.UT || {};
 /*jshint -W015 */
 
 UT.CreateArticleView = Backbone.View.extend({
+
     initialize: function(){
         this.model = new UT.Article();
         this.render();
@@ -25,7 +26,8 @@ UT.CreateArticleView = Backbone.View.extend({
         'click #optionsUnitType': 'validateSelect'
     },
     createUnitTypesView: function() {
-        this.unitTypesView = new UT.UnitTypesSelectView({ el: $('#unit-type-select-container') });
+        /* jslint nonew: false */
+        new UT.UnitTypeSelectItemView();
     },
     showModal: function () {
         this.$el.modal('show');

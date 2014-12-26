@@ -29,8 +29,8 @@ module.exports = function(grunt) {
 		'js/collection/unit-collection.js',
 		'js/collection/unit-types-collection.js',
 		'js/view/article-modal-view.js',
-		'js/view/unit-types-select-view.js',
-		'js/view/create-article-view.js',
+		'js/view/unit-types-select-item-view.js',
+		'js/view/create-article-composite-view.js',
 		'js/router.js',
 		'js/app.js'
 	];

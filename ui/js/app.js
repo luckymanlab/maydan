@@ -1,6 +1,6 @@
 var UT = window.UT || {};
 
-UT.ApplicationView = Backbone.View.extend({
+UT.ApplicationView = Backbone.Marionette.View.extend({
 	/*jshint nonew: true */
 
 	initialize: function() {
@@ -42,12 +42,7 @@ UT.ApplicationView = Backbone.View.extend({
 	},
 	createArticle: function(){
 		/* jslint nonew: false */
-		if(this.getAccessToken()) {
-            new UT.CreateArticleView();
-    
-		} else {
-			this.authorization();
-		}
+		new UT.UnitTypeSelectItemView();
 		/* jslint nonew: true */
 	},
 	authorization: function() {
@@ -64,6 +59,11 @@ UT.ApplicationView = Backbone.View.extend({
 });
 
 /**/
-$(function(){
-	UT.app = new UT.ApplicationView({el: $('body')});
-});
+
+UT.app = new Backbone.Marionette.Application();
+
+UT.app.start = function(){
+	this.applicationView = new UT.ApplicationView({el: $('body')});
+};
+
+UT.app.start();
