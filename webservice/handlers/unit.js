@@ -90,13 +90,19 @@ exports.confirm = function(id, data) {
 }
 
 exports.getRangeUnits = function(req,res){
-    var startDate = req.params.startDate,
-        endDate = req.params.endDate,
-        start = new Date(startDate).getTime(),
-        end = new Date(endDate).getTime();
-    console.log("Time start is ",start);
-    console.log("Time end is ",end);
-    models.unit.find({ time: { $gte: start, $lte: end } }, function(err, data) {
+	var query = {};
+	if (req.query.startDate || req.query.endDate){
+		query.time = {};
+		
+		if (req.query.startDate){
+			query.time.$gte =  new Date(req.query.startDate).getTime();
+		}
+		if (req.query.endDate){
+			query.time.$lte = new Date(req.query.endDate).getTime();
+		}
+	}
+	console.log(JSON.stringify(query));
+    models.unit.find(query, function(err, data) {
         if(err) {
             res.send(err);
             console.log(err);
