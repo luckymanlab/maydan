@@ -21,11 +21,11 @@ UT.I18n = Backbone.Model.extend({
      * @param {string} locale name of json file
      */
     setLan: function(locale) {
-        var language = locale || UT.Config.localeDefault;
-        this.urlRoot = UT.Config.localeBaseURL + language + '.json';
+        var currentLocale = locale || UT.Config.localeDefault;
+        this.urlRoot = UT.Config.localeBaseURL + currentLocale + '.json';
         this.fetch();
     },
-    
+
     /**
      * Replace template data to localized properties of model
      *
