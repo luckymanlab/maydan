@@ -1,7 +1,7 @@
 var UT = window.UT || {};
 
 UT.UnitTypesCollection = Backbone.Collection.extend({
-	url: 'http://localhost:3000/unit-types',
+	url: UT.Config.getAllUnitTypes,
 	destroy: function() {
 		this.remove(this.model);
 	}

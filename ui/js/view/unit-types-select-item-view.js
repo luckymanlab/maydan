@@ -1,4 +1,4 @@
-/*global UT, Backbone */
+/*global UT, Backbone*/
 /*jshint -W079 */
 var UT = window.UT || {};
 
@@ -8,14 +8,13 @@ Constructor of ItemView
 @extends Backbone.Marionette.ItemView
 */
 UT.UnitTypeSelectItemView = Backbone.Marionette.ItemView.extend({
-    el: '#popup-create-article',
+    el: '#unit-type-select-container',
     collection: new UT.UnitTypesCollection(),
     events: {
         'click #mainSelectUnitType': 'showOptions',
         'click .select-option': 'selectOption'
     },
     initialize: function() {
-        //this.collection = new UT.UnitTypesCollection();
         var that = this;
         $.get('templates/unit-types-select-template.html', function(data) {
             that.collection.fetch({

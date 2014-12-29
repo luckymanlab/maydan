@@ -1,8 +1,14 @@
+/*global UT, Backbone*/
+/*jshint -W079 */
 var UT = window.UT || {};
 
+/**
+ Constructor of View
+ @constructor
+ @extends Backbone.Marionette.View
+ */
 UT.ApplicationView = Backbone.Marionette.View.extend({
 	/*jshint nonew: true */
-
 	initialize: function() {
 		var that = this;
 		this.map = $('#map');
@@ -42,7 +48,7 @@ UT.ApplicationView = Backbone.Marionette.View.extend({
 	},
 	createArticle: function(){
 		/* jslint nonew: false */
-		new UT.UnitTypeSelectItemView();
+		new UT.CreateArticleCompositeView();
 		/* jslint nonew: true */
 	},
 	authorization: function() {
@@ -58,12 +64,17 @@ UT.ApplicationView = Backbone.Marionette.View.extend({
 	}
 });
 
-/**/
-
+/**
+ * Create instance of the Backbone.Marionette.Application
+ */
 UT.app = new Backbone.Marionette.Application();
-
+/**
+ * Create instance of the UT.ApplicationView
+ */
 UT.app.start = function(){
 	this.applicationView = new UT.ApplicationView({el: $('body')});
 };
-
+/**
+ * Start Marionette application
+ */
 UT.app.start();
