@@ -66,5 +66,5 @@ UT.ApplicationView = Backbone.View.extend({
 
 $(function(){
 	UT.app = new UT.ApplicationView({el: $('body')});
-	Timeline.main.init($('.time-block'), Timeline.Config);
+	Timeline.core.init($('.time-block'), Timeline.Config);
 });

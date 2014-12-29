@@ -1,6 +1,6 @@
 var Timeline = window.Timeline || {};
 
-Timeline.main = (function () {
+Timeline.core = (function () {
 	var process = {
 		DAY_IN_WEEK: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
 		MONTH_NAME: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
