@@ -35,8 +35,8 @@ UT.I18n = Backbone.Model.extend({
      */
     processTemplate: function(template) {
         var that = this;
-        return template.replace(/{i18n\.(.+?)}/g, function(p1, p2) { // /{i18n\.(.+?)}/ === {i18n.someText}
-            return that.get(p2);
+        return template.replace(/{i18n\.(.+?)}/g, function(foundPhrase, propertyOfFoundPhrase) { // /{i18n\.(.+?)}/ === {i18n.someText}
+            return that.get(propertyOfFoundPhrase);
         });
     }
 });
