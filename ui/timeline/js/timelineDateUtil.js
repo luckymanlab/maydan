@@ -1,5 +1,5 @@
-var UT = window.UT || {};
-UT.tlDateUtil = (function () {
+var Timeline = window.Timeline || {};
+Timeline.tlDateUtil = (function () {
 	var process = {
 		MS_IN_SECOND: 1000,
 		MS_IN_MINUTE: 60 * 1000,
@@ -69,11 +69,11 @@ UT.tlDateUtil = (function () {
 		},
 		newCurrentDateTimeStamp: function (currentDate, zoomPx, zoomSec, pixelChangeWidth) {
 			var change = pixelChangeWidth / zoomPx * zoomSec;
-			var newCurrentDate = UT.tlDateUtil.timeStamp(currentDate) - change;
+			var newCurrentDate = Timeline.tlDateUtil.timeStamp(currentDate) - change;
 			return newCurrentDate;
 		},
 		newCurrentRange: function (currentDate, zoomPx, zoomSec, curentDatePosPx) {
-			var currentDateTimeMs = UT.tlDateUtil.timeStamp(currentDate);
+			var currentDateTimeMs = Timeline.tlDateUtil.timeStamp(currentDate);
 			var msMiddleTimeLine = curentDatePosPx / zoomPx * zoomSec;
 			var timeStampObj = {};
 			timeStampObj.timelineStartMs = currentDateTimeMs - msMiddleTimeLine + zoomSec;
@@ -83,8 +83,8 @@ UT.tlDateUtil = (function () {
 		newTimeLineRange: function (currentDate, zoomPx, zoomSec, curentDatePosPx) {
 			var msMiddleTimeLine = curentDatePosPx / zoomPx * zoomSec;
 			var timeStampObj = {};
-			timeStampObj.timelineStartMs = UT.tlDateUtil.timeStamp(currentDate) - msMiddleTimeLine;
-			timeStampObj.timelineEndMs = UT.tlDateUtil.timeStamp(currentDate) + msMiddleTimeLine;
+			timeStampObj.timelineStartMs = Timeline.tlDateUtil.timeStamp(currentDate) - msMiddleTimeLine;
+			timeStampObj.timelineEndMs = Timeline.tlDateUtil.timeStamp(currentDate) + msMiddleTimeLine;
 			return timeStampObj;
 		}
 	};

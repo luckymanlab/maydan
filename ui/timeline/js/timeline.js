@@ -1,6 +1,6 @@
-var UT = window.UT || {};
+var Timeline = window.Timeline || {};
 
-UT.TimeLine = (function () {
+Timeline.main = (function () {
 	var process = {
 		DAY_IN_WEEK: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
 		MONTH_NAME: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -10,20 +10,20 @@ UT.TimeLine = (function () {
 			dayElement: 'date-day-element',
 			element: 'date-element'
 		},
-		ZOOM_1_5_MINUTE: 5 * UT.tlDateUtil.MS_IN_MINUTE,
-		ZOOM_2_15_MINUTE: 15 * UT.tlDateUtil.MS_IN_MINUTE,
-		ZOOM_3_30_MINUTE: 30 * UT.tlDateUtil.MS_IN_MINUTE,
-		ZOOM_4_1_HOUR: UT.tlDateUtil.MS_IN_HOUR,
-		ZOOM_5_3_HOURS: 3 * UT.tlDateUtil.MS_IN_HOUR,
-		ZOOM_6_6_HOURS: 6 * UT.tlDateUtil.MS_IN_HOUR,
-		ZOOM_7_12_HOURS: 12 * UT.tlDateUtil.MS_IN_HOUR,
-		ZOOM_8_1_DAY: UT.tlDateUtil.MS_IN_DAY,
-		ZOOM_9_7_DAYS: 7 * UT.tlDateUtil.MS_IN_DAY,
-		ZOOM_10_1_MONTH: 30 * UT.tlDateUtil.MS_IN_DAY,
-		ZOOM_11_3_MONTH: 90 * UT.tlDateUtil.MS_IN_DAY,
-		ZOOM_12_6_MONTH: 180 * UT.tlDateUtil.MS_IN_DAY,
-		ZOOM_13_1_YEAR: 365 * UT.tlDateUtil.MS_IN_DAY,
-		zoomTimeValue: 6 * UT.tlDateUtil.MS_IN_HOUR,
+		ZOOM_1_5_MINUTE: 5 * Timeline.tlDateUtil.MS_IN_MINUTE,
+		ZOOM_2_15_MINUTE: 15 * Timeline.tlDateUtil.MS_IN_MINUTE,
+		ZOOM_3_30_MINUTE: 30 * Timeline.tlDateUtil.MS_IN_MINUTE,
+		ZOOM_4_1_HOUR: Timeline.tlDateUtil.MS_IN_HOUR,
+		ZOOM_5_3_HOURS: 3 * Timeline.tlDateUtil.MS_IN_HOUR,
+		ZOOM_6_6_HOURS: 6 * Timeline.tlDateUtil.MS_IN_HOUR,
+		ZOOM_7_12_HOURS: 12 * Timeline.tlDateUtil.MS_IN_HOUR,
+		ZOOM_8_1_DAY: Timeline.tlDateUtil.MS_IN_DAY,
+		ZOOM_9_7_DAYS: 7 * Timeline.tlDateUtil.MS_IN_DAY,
+		ZOOM_10_1_MONTH: 30 * Timeline.tlDateUtil.MS_IN_DAY,
+		ZOOM_11_3_MONTH: 90 * Timeline.tlDateUtil.MS_IN_DAY,
+		ZOOM_12_6_MONTH: 180 * Timeline.tlDateUtil.MS_IN_DAY,
+		ZOOM_13_1_YEAR: 365 * Timeline.tlDateUtil.MS_IN_DAY,
+		zoomTimeValue: 6 * Timeline.tlDateUtil.MS_IN_HOUR,
 		zoomPxValue: 80,
 		zoomXValue: 1,
 		zoom: 7,
@@ -55,7 +55,7 @@ UT.TimeLine = (function () {
 			that.getUnits();
 		},
 		setDate: function (date) {
-			var oldDate = UT.tlDateUtil.timeStamp(that.currentDate);
+			var oldDate = Timeline.tlDateUtil.timeStamp(that.currentDate);
 			var newDate = new Date(date).getTime();
 			that.renderDateLabels(oldDate, newDate);
 			that.datesBetweenRange(that.arrayNewsElements, false, false);
@@ -76,7 +76,7 @@ UT.TimeLine = (function () {
 			}
 			else {
 				that.currentDate = newDate;
-				var timelineRange = UT.tlDateUtil.newCurrentRange(that.currentDate,
+				var timelineRange = Timeline.tlDateUtil.newCurrentRange(that.currentDate,
 					that.zoomPxValue, that.zoomTimeValue, that.currentDatePos);
 				that.repaintElementInTimeLine(that.currentDate, timelineRange);
 			}
@@ -87,7 +87,7 @@ UT.TimeLine = (function () {
 				var oldDate = newDateObj.date;
 				var timeRange = newDateObj.rangeMs;
 				var newDate = new Date(oldDate).getTime() + timeRange;
-				TimeLine.setDate(newDate);
+				Timeline.setDate(newDate);
 			}, that.dateTimerIntervalMS);
 		},
 		startTimeLine: function () {
@@ -112,7 +112,7 @@ UT.TimeLine = (function () {
 			}
 		},
 		createBlockMarkup: function (selector) {
-			selector.append(UT.timelineTemplateObj.markupMain);
+			selector.append(Timeline.TemplateObj.markupMain);
 		},
 		activateDraggable: function () {
 			$('#tl-container').draggable({
@@ -145,20 +145,20 @@ UT.TimeLine = (function () {
 
 		},
 		createTimeLineElement: function (bufTime, bufPos) {
-			var $el = $('[data-time-stamp="' + UT.tlDateUtil.timeStamp(bufTime) + '"]');
+			var $el = $('[data-time-stamp="' + Timeline.tlDateUtil.timeStamp(bufTime) + '"]');
 			var newElementClassName = '';
 			var newElemHTMLValue = '';
-			var minutes = UT.tlDateUtil.minuteReductionToType(UT.tlDateUtil.minutesNumber(bufTime));
-			var monthNumber = UT.tlDateUtil.monthNumber(bufTime);
-			var dateNumber = UT.tlDateUtil.dateNumber(bufTime);
-			var hoursNumber = UT.tlDateUtil.hoursNumber(bufTime);
-			var minutesNumber = UT.tlDateUtil.minutesNumber(bufTime);
-			var monthName = that.MONTH_NAME[UT.tlDateUtil.monthNumber(bufTime)];
+			var minutes = Timeline.tlDateUtil.minuteReductionToType(Timeline.tlDateUtil.minutesNumber(bufTime));
+			var monthNumber = Timeline.tlDateUtil.monthNumber(bufTime);
+			var dateNumber = Timeline.tlDateUtil.dateNumber(bufTime);
+			var hoursNumber = Timeline.tlDateUtil.hoursNumber(bufTime);
+			var minutesNumber = Timeline.tlDateUtil.minutesNumber(bufTime);
+			var monthName = that.MONTH_NAME[Timeline.tlDateUtil.monthNumber(bufTime)];
 			if (!$el.length) {
 				switch (true) {
 				case (monthNumber === 0 && dateNumber === 1 && hoursNumber === 0 && minutesNumber === 0):
 					newElementClassName = that.CLASS_NAME.yearElement;
-					newElemHTMLValue = UT.tlDateUtil.yearNumber(bufTime) + '<br>' + that.MONTH_NAME[0];
+					newElemHTMLValue = Timeline.tlDateUtil.yearNumber(bufTime) + '<br>' + that.MONTH_NAME[0];
 					break;
 				case (dateNumber === 1 && hoursNumber === 0 && minutesNumber === 0):
 					newElementClassName = that.CLASS_NAME.monthElemnt;
@@ -166,15 +166,15 @@ UT.TimeLine = (function () {
 					break;
 				case (hoursNumber === 0  && minutesNumber === 0):
 					newElementClassName = that.CLASS_NAME.dayElement;
-					newElemHTMLValue = UT.tlDateUtil.dateNumber(bufTime) + ' ' +
-						that.DAY_IN_WEEK[UT.tlDateUtil.dayInWeekNumber(bufTime)] + '<br>' + monthName;
+					newElemHTMLValue = Timeline.tlDateUtil.dateNumber(bufTime) + ' ' +
+						that.DAY_IN_WEEK[Timeline.tlDateUtil.dayInWeekNumber(bufTime)] + '<br>' + monthName;
 					break;
 				default :
 					newElementClassName = that.CLASS_NAME.element;
-					newElemHTMLValue =  UT.tlDateUtil.hoursNumber(bufTime) + '.' + minutes;
+					newElemHTMLValue =  Timeline.tlDateUtil.hoursNumber(bufTime) + '.' + minutes;
 					break;
 				}
-				$('<div class="' + newElementClassName + '" data-time-stamp="' + UT.tlDateUtil.timeStamp(bufTime) + '">' +	newElemHTMLValue + '</div>')
+				$('<div class="' + newElementClassName + '" data-time-stamp="' + Timeline.tlDateUtil.timeStamp(bufTime) + '">' +	newElemHTMLValue + '</div>')
 					.css('left', bufPos + 'px')
 					.appendTo('#time');
 			} else {
@@ -182,13 +182,13 @@ UT.TimeLine = (function () {
 			}
 		},
 		createTimeLineCurrentElement: function () {
-			$('<div class="current-date">' + UT.tlDateUtil.dateLiteral(that.currentDate) + '</div>')
+			$('<div class="current-date">' + Timeline.tlDateUtil.dateLiteral(that.currentDate) + '</div>')
 				.appendTo('.tl-wraper');
 		},
 		dataForTimeLine: function (rangeInSec, rangeInPixel) {
 			var offsetFromCurrentDate = {};
 			
-			offsetFromCurrentDate.currentTime = UT.tlDateUtil.currentDayMsOnly(that.currentDate);
+			offsetFromCurrentDate.currentTime = Timeline.tlDateUtil.currentDayMsOnly(that.currentDate);
 			offsetFromCurrentDate.offsetInSecBack = offsetFromCurrentDate.currentTime % rangeInSec;
 			offsetFromCurrentDate.offsetInPixelBack = parseInt(rangeInPixel / rangeInSec *
 				offsetFromCurrentDate.offsetInSecBack, 10);
@@ -199,8 +199,8 @@ UT.TimeLine = (function () {
 			var timeInDay = 0;
 			if (that.zoom === 9) {
 				// zoom for week time interval
-				numberOfDay = UT.tlDateUtil.dayInWeekNumber(that.currentDate);
-				timeInDay = UT.tlDateUtil.currentDayMsOnly(that.currentDate);
+				numberOfDay = Timeline.tlDateUtil.dayInWeekNumber(that.currentDate);
+				timeInDay = Timeline.tlDateUtil.currentDayMsOnly(that.currentDate);
 				offsetFromCurrentDate.offsetInSecBack = timeInDay + (numberOfDay * 24 * 60 * 60 * 1000);
 				offsetFromCurrentDate.offsetInSecForward = rangeInSec - offsetFromCurrentDate.offsetInSecBack;
 				offsetFromCurrentDate.offsetInPixelBack = parseInt(rangeInPixel / rangeInSec *
@@ -213,11 +213,11 @@ UT.TimeLine = (function () {
 				var fullPeriod = parseInt(timeStampStartMonth.getMonth() / that.zoomXValue, 10);
 				timeStampStartMonth.setUTCMonth(fullPeriod * that.zoomXValue);
 				timeStampStartMonth.setUTCDate(1);
-				timeStampStartMonth = timeStampStartMonth - UT.tlDateUtil.currentDayMsOnly(timeStampStartMonth);
+				timeStampStartMonth = timeStampStartMonth - Timeline.tlDateUtil.currentDayMsOnly(timeStampStartMonth);
 				var timeStampEndMonth = new Date(that.currentDate);
 				timeStampEndMonth.setUTCMonth((fullPeriod + 1) * that.zoomXValue);
 				timeStampEndMonth.setUTCDate(1);
-				timeStampEndMonth = timeStampEndMonth - UT.tlDateUtil.currentDayMsOnly(timeStampEndMonth);
+				timeStampEndMonth = timeStampEndMonth - Timeline.tlDateUtil.currentDayMsOnly(timeStampEndMonth);
 
 				offsetFromCurrentDate.offsetInSecBack = that.currentDate - timeStampStartMonth;
 				offsetFromCurrentDate.offsetInSecForward = timeStampEndMonth - that.currentDate;
@@ -236,11 +236,11 @@ UT.TimeLine = (function () {
 			var bufObject = that.dataForTimeLine(zoomTimeValue, zoomPxValue);
 			var bufOffsetInPixelForward = that.currentDatePos + bufObject.offsetInPixelForward;
 				// bufAfterPos - variable with pixel position of element after current date
-			var bufOffsetInSecForward = UT.tlDateUtil.timeStamp(that.currentDate) + bufObject.offsetInSecForward;
+			var bufOffsetInSecForward = Timeline.tlDateUtil.timeStamp(that.currentDate) + bufObject.offsetInSecForward;
 				// bufAfter - variable with time value of element after current date
 			var bufOffsetInPixelBack = that.currentDatePos - bufObject.offsetInPixelBack;
 				// bufAfterPos - variable with pixel position of element before current date
-			var bufOffsetInSecBack = UT.tlDateUtil.timeStamp(that.currentDate) - bufObject.offsetInSecBack;
+			var bufOffsetInSecBack = Timeline.tlDateUtil.timeStamp(that.currentDate) - bufObject.offsetInSecBack;
 
 			if (that.zoom >= 10) {
 				for (var inz = 1, knz = parseInt(that.currentDatePos / zoomPxValue, 10) + 1; inz < knz; inz++) {
@@ -373,7 +373,7 @@ UT.TimeLine = (function () {
 			that.$timelineContainerEl.animate({
 				left: leftAction + leftValue + 'px'
 			}, 100 + Math.abs(leftMSValue), 'easeOutCubic', function() {
-				newCurrentDate = UT.tlDateUtil.newCurrentDateTimeStamp(that.currentDate,
+				newCurrentDate = Timeline.tlDateUtil.newCurrentDateTimeStamp(that.currentDate,
 					that.zoomPxValue, that.zoomTimeValue, bufPosPx);
 				that.currentDate = newCurrentDate;
 				that.repaintContentAndTimeBlock(true, false);
@@ -389,7 +389,7 @@ UT.TimeLine = (function () {
 			that.removeElementOutTimeStamp(rangeTimeLineObj.timelineStartMs,
 				rangeTimeLineObj.timelineEndMs);
 			that.renderTimeLineDateLabel(that.zoomTimeValue, that.zoomPxValue);
-			$('.current-date').html(UT.tlDateUtil.dateLiteral(that.currentDate));
+			$('.current-date').html(Timeline.tlDateUtil.dateLiteral(that.currentDate));
 			that.timelineStartMs = rangeTimeLineObj.timelineStartMs;
 			that.timelineEndMs = rangeTimeLineObj.timelineEndMs;
 		},
@@ -453,8 +453,8 @@ UT.TimeLine = (function () {
 			var positionOfElement = that.positionOfContentElement(dataElement.time);
 			var animateTime = 200;
 			if (!$el.length) {
-				dateLiteral = UT.tlDateUtil.dateLiteral(dataElement.time);
-				$el = UT.timelineTemplateObj.timeBlockElement(dataElement.id,
+				dateLiteral = Timeline.tlDateUtil.dateLiteral(dataElement.time);
+				$el = Timeline.TemplateObj.timeBlockElement(dataElement.id,
 					dataElement.title, dataElement.img, dataElement.time,
 					positionOfElement, dateLiteral);
 				that.$timelineContentEl.append($el);
@@ -558,17 +558,19 @@ UT.TimeLine = (function () {
 			that.setDate(that.activeNewsElementTimeStamp);
 		},
 		repaintContentAndTimeBlock: function (animateTop, animateLeft) {
-			var timelineRange = UT.tlDateUtil.newCurrentRange(that.currentDate,
+			var timelineRange = Timeline.tlDateUtil.newCurrentRange(that.currentDate,
 				that.zoomPxValue, that.zoomTimeValue, that.currentDatePos);
 			that.repaintElementInTimeLine(that.currentDate, timelineRange);
 			that.datesBetweenRange(that.arrayNewsElements, animateTop, animateLeft);
 			that.startTimeOut();
 		},
 		getUnits: function(){
+			var that = this;
 			$.ajax({
-				url: UT.TimelineConfig.getApprovedUnits
+				url: Timeline.Config.getApprovedUnits
 			}).done(function(data) {
-				UT.TimeLine.setNews(data);
+				console.log(data);
+				that.setNews(data);
 			});
 		}
 	};
@@ -584,7 +586,7 @@ UT.TimeLine = (function () {
 
 
 var host = 'http://localhost:3000/';
-UT.TimelineConfig = {
+Timeline.Config = {
 	dateStart: new Date(1400529754000),
 	getApprovedUnits: host + 'unit'
 };

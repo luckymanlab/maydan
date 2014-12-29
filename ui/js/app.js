@@ -1,5 +1,5 @@
 var UT = window.UT || {};
-
+var Timeline = window.Timeline || {};
 UT.ApplicationView = Backbone.View.extend({
 	/*jshint nonew: true */
 
@@ -66,5 +66,5 @@ UT.ApplicationView = Backbone.View.extend({
 
 $(function(){
 	UT.app = new UT.ApplicationView({el: $('body')});
-	UT.TimeLine.init($('.time-block'), UT.TimelineConfig);
+	Timeline.main.init($('.time-block'), Timeline.Config);
 });
