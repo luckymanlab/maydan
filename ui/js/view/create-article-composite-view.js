@@ -6,6 +6,10 @@ var UT = window.UT || {};
  Constructor of CompositeView
  @constructor
  @extends Backbone.Marionette.CompositeView
+ @property {object}  childView                - The child ItemView.
+ @property {string}  childViewContainer       - The id of ItemView parent element.
+ @property {object}  model                    - The model of CompositeView.
+ @property {object}  events                   - The events of CompositeView.
  */
 UT.CreateArticleCompositeView = Backbone.Marionette.CompositeView.extend({
     childView: UT.UnitTypeSelectItemView,
@@ -19,13 +23,21 @@ UT.CreateArticleCompositeView = Backbone.Marionette.CompositeView.extend({
         'change #unitTitle, #mediaContent, #unitDate': 'validateInput',
         'click #optionsUnitType': 'validateSelect'
     },
+
+    /**
+     * Initialize CompositeView, get template & render view
+     */
     initialize: function() {
         var that = this;
-        $.get('templates/create-article-template.html', function(data) {
+        $.get(UT.Config.createArticleTemplate, function(data) {
             that.template = _.template(UT.i18n.processTemplate(data));
             that.render();
         });
     },
+
+    /**
+     * After render show modal window initialize plugins for form & create ItemView
+     */
     onRender: function() {
         this.$el.modal('show');
         this.popupFormInitialize();
@@ -33,6 +45,7 @@ UT.CreateArticleCompositeView = Backbone.Marionette.CompositeView.extend({
         new UT.UnitTypeSelectItemView();
         /* jslint nonew: true */
     },
+
     validate: function(input, that) {
         var inputValue = input.value,
             label = $(input).attr('data-label'),
@@ -56,6 +69,7 @@ UT.CreateArticleCompositeView = Backbone.Marionette.CompositeView.extend({
         }
         return isValid;
     },
+
     validateForm: function() {
         var isValid = true,
             that = this,
@@ -67,19 +81,23 @@ UT.CreateArticleCompositeView = Backbone.Marionette.CompositeView.extend({
         });
         return isValid;
     },
+
     validateInput: function(e) {
         var that = this,
             input =  e.target;
         return that.validate(input, that);
     },
+
     validateSelect: function() {
         var that = this,
             input = $('#mainSelectUnitType')[0];
         return that.validate(input, that);
     },
+
     removeError: function(input){
         $(input).tooltip('destroy');
     },
+
     saveArticle: function(e){
         var unitDate = $('#unitDate')[0],
             hiddenUnitType = $('#hiddenUnitType')[0],
@@ -119,6 +137,7 @@ UT.CreateArticleCompositeView = Backbone.Marionette.CompositeView.extend({
             }
         });
     },
+
     closeArticleModal: function(){
         if(this.filledFields()){
             $('#confirm-modal').modal('show');
@@ -127,6 +146,7 @@ UT.CreateArticleCompositeView = Backbone.Marionette.CompositeView.extend({
             this.destroyView();
         }
     },
+
     filledFields:function(){
         var isFilled = false,
             inputs =  $('#article-form').find('.inputData');
@@ -139,14 +159,17 @@ UT.CreateArticleCompositeView = Backbone.Marionette.CompositeView.extend({
         });
         return isFilled;
     },
+
     closeModalConfirm: function(){
         $('#article-content').css('opacity', 1);
         this.destroyView();
     },
+
     cancelModalConfirm: function(){
         $('#confirm-modal').modal('hide');
         $('#article-content').css('opacity', 1);
     },
+
     /**
      * Destroy view
      */
@@ -159,6 +182,7 @@ UT.CreateArticleCompositeView = Backbone.Marionette.CompositeView.extend({
         this.remove();// Remove view element from Dom
 
     },
+
     /**
      * Initialize placepicker & datetimepacker for form
      */
