@@ -15,6 +15,7 @@ UT.I18n = Backbone.Model.extend({
     initialize: function(locale) {
         this.setLan(locale);
     },
+
     /**
      * Set urlRoot form json file end baseURL
      * @param {string} locale name of json file
@@ -24,6 +25,7 @@ UT.I18n = Backbone.Model.extend({
         this.urlRoot = UT.Config.localeBaseURL + language + '.json';
         this.fetch();
     },
+    
     /**
      * Replace template data to localized properties of model
      *
