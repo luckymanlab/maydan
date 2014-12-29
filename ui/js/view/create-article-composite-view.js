@@ -21,7 +21,6 @@ UT.CreateArticleCompositeView = Backbone.Marionette.CompositeView.extend({
     },
     initialize: function() {
         var that = this;
-
         $.get('templates/create-article-template.html', function(data) {
             that.template = _.template(UT.i18n.processTemplate(data));
             that.render();
