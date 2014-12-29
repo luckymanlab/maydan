@@ -1,5 +1,5 @@
-var timelineTemplateObj;
-timelineTemplateObj = {
+var Timeline = window.Timeline || {};
+Timeline.TemplateObj = {
 	markupMain: '' +
 	'<div class="tl-wraper">' +
 		'<div class="tl-container-wrap">' +
@@ -27,7 +27,7 @@ timelineTemplateObj = {
 		}
 		element = '' +
 		'<div class="time-block-element" id="' + id + '" data-start-date="' + startDate + '"' +
-		 '" style="left: ' + positionOfElement + 'px">' +
+		'" style="left: ' + positionOfElement + 'px">' +
 			image +
 			'<p class="time-of-news">' + dateLiteral + '<p>' +
 			'<p class="time-block-title">' + title + '</p>' +
