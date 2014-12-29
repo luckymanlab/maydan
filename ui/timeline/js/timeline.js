@@ -1,6 +1,6 @@
-var timelineTemplateObj;
-var tlDateUtil;
-var TimeLine = (function () {
+var Timeline = window.Timeline || {};
+
+Timeline.core = (function () {
 	var process = {
 		DAY_IN_WEEK: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
 		MONTH_NAME: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -10,20 +10,20 @@ var TimeLine = (function () {
 			dayElement: 'date-day-element',
 			element: 'date-element'
 		},
-		ZOOM_1_5_MINUTE: 5 * tlDateUtil.MS_IN_MINUTE,
-		ZOOM_2_15_MINUTE: 15 * tlDateUtil.MS_IN_MINUTE,
-		ZOOM_3_30_MINUTE: 30 * tlDateUtil.MS_IN_MINUTE,
-		ZOOM_4_1_HOUR: tlDateUtil.MS_IN_HOUR,
-		ZOOM_5_3_HOURS: 3 * tlDateUtil.MS_IN_HOUR,
-		ZOOM_6_6_HOURS: 6 * tlDateUtil.MS_IN_HOUR,
-		ZOOM_7_12_HOURS: 12 * tlDateUtil.MS_IN_HOUR,
-		ZOOM_8_1_DAY: tlDateUtil.MS_IN_DAY,
-		ZOOM_9_7_DAYS: 7 * tlDateUtil.MS_IN_DAY,
-		ZOOM_10_1_MONTH: 30 * tlDateUtil.MS_IN_DAY,
-		ZOOM_11_3_MONTH: 90 * tlDateUtil.MS_IN_DAY,
-		ZOOM_12_6_MONTH: 180 * tlDateUtil.MS_IN_DAY,
-		ZOOM_13_1_YEAR: 365 * tlDateUtil.MS_IN_DAY,
-		zoomTimeValue: 6 * tlDateUtil.MS_IN_HOUR,
+		ZOOM_1_5_MINUTE: 5 * Timeline.tlDateUtil.MS_IN_MINUTE,
+		ZOOM_2_15_MINUTE: 15 * Timeline.tlDateUtil.MS_IN_MINUTE,
+		ZOOM_3_30_MINUTE: 30 * Timeline.tlDateUtil.MS_IN_MINUTE,
+		ZOOM_4_1_HOUR: Timeline.tlDateUtil.MS_IN_HOUR,
+		ZOOM_5_3_HOURS: 3 * Timeline.tlDateUtil.MS_IN_HOUR,
+		ZOOM_6_6_HOURS: 6 * Timeline.tlDateUtil.MS_IN_HOUR,
+		ZOOM_7_12_HOURS: 12 * Timeline.tlDateUtil.MS_IN_HOUR,
+		ZOOM_8_1_DAY: Timeline.tlDateUtil.MS_IN_DAY,
+		ZOOM_9_7_DAYS: 7 * Timeline.tlDateUtil.MS_IN_DAY,
+		ZOOM_10_1_MONTH: 30 * Timeline.tlDateUtil.MS_IN_DAY,
+		ZOOM_11_3_MONTH: 90 * Timeline.tlDateUtil.MS_IN_DAY,
+		ZOOM_12_6_MONTH: 180 * Timeline.tlDateUtil.MS_IN_DAY,
+		ZOOM_13_1_YEAR: 365 * Timeline.tlDateUtil.MS_IN_DAY,
+		zoomTimeValue: 6 * Timeline.tlDateUtil.MS_IN_HOUR,
 		zoomPxValue: 80,
 		zoomXValue: 1,
 		zoom: 7,
@@ -52,9 +52,10 @@ var TimeLine = (function () {
 			that.activateDraggable();
 			that.createTimeLine(config);
 			that.timelineEventHandler();
+			that.getUnits();
 		},
 		setDate: function (date) {
-			var oldDate = tlDateUtil.timeStamp(that.currentDate);
+			var oldDate = Timeline.tlDateUtil.timeStamp(that.currentDate);
 			var newDate = new Date(date).getTime();
 			that.renderDateLabels(oldDate, newDate);
 			that.datesBetweenRange(that.arrayNewsElements, false, false);
@@ -75,7 +76,7 @@ var TimeLine = (function () {
 			}
 			else {
 				that.currentDate = newDate;
-				var timelineRange = tlDateUtil.newCurrentRange(that.currentDate,
+				var timelineRange = Timeline.tlDateUtil.newCurrentRange(that.currentDate,
 					that.zoomPxValue, that.zoomTimeValue, that.currentDatePos);
 				that.repaintElementInTimeLine(that.currentDate, timelineRange);
 			}
@@ -86,7 +87,7 @@ var TimeLine = (function () {
 				var oldDate = newDateObj.date;
 				var timeRange = newDateObj.rangeMs;
 				var newDate = new Date(oldDate).getTime() + timeRange;
-				TimeLine.setDate(newDate);
+				Timeline.setDate(newDate);
 			}, that.dateTimerIntervalMS);
 		},
 		startTimeLine: function () {
@@ -111,7 +112,7 @@ var TimeLine = (function () {
 			}
 		},
 		createBlockMarkup: function (selector) {
-			selector.append(timelineTemplateObj.markupMain);
+			selector.append(Timeline.TemplateObj.markupMain);
 		},
 		activateDraggable: function () {
 			$('#tl-container').draggable({
@@ -123,7 +124,7 @@ var TimeLine = (function () {
 			var config;
 	
 			config = configObj || {
-				dateStart: '2014-01-01',
+				dateStart: '2014-01-01'
 			};
 			that.currentDate = new Date(config.dateStart).getTime();
 
@@ -144,20 +145,20 @@ var TimeLine = (function () {
 
 		},
 		createTimeLineElement: function (bufTime, bufPos) {
-			var $el = $('[data-time-stamp="' + tlDateUtil.timeStamp(bufTime) + '"]');
+			var $el = $('[data-time-stamp="' + Timeline.tlDateUtil.timeStamp(bufTime) + '"]');
 			var newElementClassName = '';
 			var newElemHTMLValue = '';
-			var minutes = tlDateUtil.minuteReductionToType(tlDateUtil.minutesNumber(bufTime));
-			var monthNumber = tlDateUtil.monthNumber(bufTime);
-			var dateNumber = tlDateUtil.dateNumber(bufTime);
-			var hoursNumber = tlDateUtil.hoursNumber(bufTime);
-			var minutesNumber = tlDateUtil.minutesNumber(bufTime);
-			var monthName = that.MONTH_NAME[tlDateUtil.monthNumber(bufTime)];
+			var minutes = Timeline.tlDateUtil.minuteReductionToType(Timeline.tlDateUtil.minutesNumber(bufTime));
+			var monthNumber = Timeline.tlDateUtil.monthNumber(bufTime);
+			var dateNumber = Timeline.tlDateUtil.dateNumber(bufTime);
+			var hoursNumber = Timeline.tlDateUtil.hoursNumber(bufTime);
+			var minutesNumber = Timeline.tlDateUtil.minutesNumber(bufTime);
+			var monthName = that.MONTH_NAME[Timeline.tlDateUtil.monthNumber(bufTime)];
 			if (!$el.length) {
 				switch (true) {
 				case (monthNumber === 0 && dateNumber === 1 && hoursNumber === 0 && minutesNumber === 0):
 					newElementClassName = that.CLASS_NAME.yearElement;
-					newElemHTMLValue = tlDateUtil.yearNumber(bufTime) + '<br>' + that.MONTH_NAME[0];
+					newElemHTMLValue = Timeline.tlDateUtil.yearNumber(bufTime) + '<br>' + that.MONTH_NAME[0];
 					break;
 				case (dateNumber === 1 && hoursNumber === 0 && minutesNumber === 0):
 					newElementClassName = that.CLASS_NAME.monthElemnt;
@@ -165,15 +166,15 @@ var TimeLine = (function () {
 					break;
 				case (hoursNumber === 0  && minutesNumber === 0):
 					newElementClassName = that.CLASS_NAME.dayElement;
-					newElemHTMLValue = tlDateUtil.dateNumber(bufTime) + ' ' +
-						that.DAY_IN_WEEK[tlDateUtil.dayInWeekNumber(bufTime)] + '<br>' + monthName;
+					newElemHTMLValue = Timeline.tlDateUtil.dateNumber(bufTime) + ' ' +
+						that.DAY_IN_WEEK[Timeline.tlDateUtil.dayInWeekNumber(bufTime)] + '<br>' + monthName;
 					break;
 				default :
 					newElementClassName = that.CLASS_NAME.element;
-					newElemHTMLValue =  tlDateUtil.hoursNumber(bufTime) + '.' + minutes;
+					newElemHTMLValue =  Timeline.tlDateUtil.hoursNumber(bufTime) + '.' + minutes;
 					break;
 				}
-				$('<div class="' + newElementClassName + '" data-time-stamp="' + tlDateUtil.timeStamp(bufTime) + '">' +	newElemHTMLValue + '</div>')
+				$('<div class="' + newElementClassName + '" data-time-stamp="' + Timeline.tlDateUtil.timeStamp(bufTime) + '">' +	newElemHTMLValue + '</div>')
 					.css('left', bufPos + 'px')
 					.appendTo('#time');
 			} else {
@@ -181,13 +182,13 @@ var TimeLine = (function () {
 			}
 		},
 		createTimeLineCurrentElement: function () {
-			$('<div class="current-date">' + tlDateUtil.dateLiteral(that.currentDate) + '</div>')
+			$('<div class="current-date">' + Timeline.tlDateUtil.dateLiteral(that.currentDate) + '</div>')
 				.appendTo('.tl-wraper');
 		},
 		dataForTimeLine: function (rangeInSec, rangeInPixel) {
 			var offsetFromCurrentDate = {};
 			
-			offsetFromCurrentDate.currentTime = tlDateUtil.currentDayMsOnly(that.currentDate);
+			offsetFromCurrentDate.currentTime = Timeline.tlDateUtil.currentDayMsOnly(that.currentDate);
 			offsetFromCurrentDate.offsetInSecBack = offsetFromCurrentDate.currentTime % rangeInSec;
 			offsetFromCurrentDate.offsetInPixelBack = parseInt(rangeInPixel / rangeInSec *
 				offsetFromCurrentDate.offsetInSecBack, 10);
@@ -198,8 +199,8 @@ var TimeLine = (function () {
 			var timeInDay = 0;
 			if (that.zoom === 9) {
 				// zoom for week time interval
-				numberOfDay = tlDateUtil.dayInWeekNumber(that.currentDate);
-				timeInDay = tlDateUtil.currentDayMsOnly(that.currentDate);
+				numberOfDay = Timeline.tlDateUtil.dayInWeekNumber(that.currentDate);
+				timeInDay = Timeline.tlDateUtil.currentDayMsOnly(that.currentDate);
 				offsetFromCurrentDate.offsetInSecBack = timeInDay + (numberOfDay * 24 * 60 * 60 * 1000);
 				offsetFromCurrentDate.offsetInSecForward = rangeInSec - offsetFromCurrentDate.offsetInSecBack;
 				offsetFromCurrentDate.offsetInPixelBack = parseInt(rangeInPixel / rangeInSec *
@@ -212,11 +213,11 @@ var TimeLine = (function () {
 				var fullPeriod = parseInt(timeStampStartMonth.getMonth() / that.zoomXValue, 10);
 				timeStampStartMonth.setUTCMonth(fullPeriod * that.zoomXValue);
 				timeStampStartMonth.setUTCDate(1);
-				timeStampStartMonth = timeStampStartMonth - tlDateUtil.currentDayMsOnly(timeStampStartMonth);
+				timeStampStartMonth = timeStampStartMonth - Timeline.tlDateUtil.currentDayMsOnly(timeStampStartMonth);
 				var timeStampEndMonth = new Date(that.currentDate);
 				timeStampEndMonth.setUTCMonth((fullPeriod + 1) * that.zoomXValue);
 				timeStampEndMonth.setUTCDate(1);
-				timeStampEndMonth = timeStampEndMonth - tlDateUtil.currentDayMsOnly(timeStampEndMonth);
+				timeStampEndMonth = timeStampEndMonth - Timeline.tlDateUtil.currentDayMsOnly(timeStampEndMonth);
 
 				offsetFromCurrentDate.offsetInSecBack = that.currentDate - timeStampStartMonth;
 				offsetFromCurrentDate.offsetInSecForward = timeStampEndMonth - that.currentDate;
@@ -235,11 +236,11 @@ var TimeLine = (function () {
 			var bufObject = that.dataForTimeLine(zoomTimeValue, zoomPxValue);
 			var bufOffsetInPixelForward = that.currentDatePos + bufObject.offsetInPixelForward;
 				// bufAfterPos - variable with pixel position of element after current date
-			var bufOffsetInSecForward = tlDateUtil.timeStamp(that.currentDate) + bufObject.offsetInSecForward;
+			var bufOffsetInSecForward = Timeline.tlDateUtil.timeStamp(that.currentDate) + bufObject.offsetInSecForward;
 				// bufAfter - variable with time value of element after current date
 			var bufOffsetInPixelBack = that.currentDatePos - bufObject.offsetInPixelBack;
 				// bufAfterPos - variable with pixel position of element before current date
-			var bufOffsetInSecBack = tlDateUtil.timeStamp(that.currentDate) - bufObject.offsetInSecBack;
+			var bufOffsetInSecBack = Timeline.tlDateUtil.timeStamp(that.currentDate) - bufObject.offsetInSecBack;
 
 			if (that.zoom >= 10) {
 				for (var inz = 1, knz = parseInt(that.currentDatePos / zoomPxValue, 10) + 1; inz < knz; inz++) {
@@ -372,7 +373,7 @@ var TimeLine = (function () {
 			that.$timelineContainerEl.animate({
 				left: leftAction + leftValue + 'px'
 			}, 100 + Math.abs(leftMSValue), 'easeOutCubic', function() {
-				newCurrentDate = tlDateUtil.newCurrentDateTimeStamp(that.currentDate,
+				newCurrentDate = Timeline.tlDateUtil.newCurrentDateTimeStamp(that.currentDate,
 					that.zoomPxValue, that.zoomTimeValue, bufPosPx);
 				that.currentDate = newCurrentDate;
 				that.repaintContentAndTimeBlock(true, false);
@@ -388,7 +389,7 @@ var TimeLine = (function () {
 			that.removeElementOutTimeStamp(rangeTimeLineObj.timelineStartMs,
 				rangeTimeLineObj.timelineEndMs);
 			that.renderTimeLineDateLabel(that.zoomTimeValue, that.zoomPxValue);
-			$('.current-date').html(tlDateUtil.dateLiteral(that.currentDate));
+			$('.current-date').html(Timeline.tlDateUtil.dateLiteral(that.currentDate));
 			that.timelineStartMs = rangeTimeLineObj.timelineStartMs;
 			that.timelineEndMs = rangeTimeLineObj.timelineEndMs;
 		},
@@ -447,22 +448,22 @@ var TimeLine = (function () {
 			}
 		},
 		createNewsElement: function (dataElement, topPosPx, zIndex, animateTop, animateLeft) {
-			var $el = $('[data-start-date="' + dataElement.startDate + '"]');
+			var $el = $('[data-start-date="' + dataElement.time + '"]');
 			var dateLiteral = '';
-			var positionOfElement = that.positionOfContentElement(dataElement.startDate);
+			var positionOfElement = that.positionOfContentElement(dataElement.time);
 			var animateTime = 200;
 			if (!$el.length) {
-				dateLiteral = tlDateUtil.dateLiteral(dataElement.startDate);
-				$el = timelineTemplateObj.timeBlockElement(dataElement.id,
-					dataElement.title, dataElement.img, dataElement.startDate,
-					dataElement.endDate, positionOfElement, dateLiteral);
+				dateLiteral = Timeline.tlDateUtil.dateLiteral(dataElement.time);
+				$el = Timeline.TemplateObj.timeBlockElement(dataElement.id,
+					dataElement.title, dataElement.img, dataElement.time,
+					positionOfElement, dateLiteral);
 				that.$timelineContentEl.append($el);
-				$el = $('[data-start-date="' + dataElement.startDate + '"]');
+				$el = $('[data-start-date="' + dataElement.time + '"]');
 				$el.click(that.newsElementClickHandler);
-				if (parseInt(dataElement.startDate, 10) === that.currentDate) {
+				if (parseInt(dataElement.time, 10) === that.currentDate) {
 					that.arrayNewsElementInTimeLine.removeClass('current-news');
 					$el.addClass('current-news');
-					that.activeNewsElementTimeStamp = parseInt(dataElement.startDate, 10);
+					that.activeNewsElementTimeStamp = parseInt(dataElement.time, 10);
 				}
 			}
 			var animate = {};
@@ -497,8 +498,8 @@ var TimeLine = (function () {
 			var bufArrayofNews = [];
 			if (array instanceof Array) {
 				for (var i = 0; i < k; i++) {
-					if (array[i].startDate > that.timelineStartMs &&
-						array[i].startDate < that.timelineEndMs) {
+					if (array[i].time > that.timelineStartMs &&
+						array[i].time < that.timelineEndMs) {
 						bufArrayofNews.push(array[i]);
 					}
 				}
@@ -528,7 +529,7 @@ var TimeLine = (function () {
 						topPosPx = 15;
 						zIndex = 1;
 					}
-					if (bufArrayofNews[j].startDate > startTime && bufArrayofNews[j].startDate < bufTime) {
+					if (bufArrayofNews[j].time > startTime && bufArrayofNews[j].time < bufTime) {
 						that.createNewsElement(bufArrayofNews[j], topPosPx, zIndex, animateTop, animateLeft);
 						topPosPx += 20;
 						zIndex += 1;
@@ -557,11 +558,20 @@ var TimeLine = (function () {
 			that.setDate(that.activeNewsElementTimeStamp);
 		},
 		repaintContentAndTimeBlock: function (animateTop, animateLeft) {
-			var timelineRange = tlDateUtil.newCurrentRange(that.currentDate,
+			var timelineRange = Timeline.tlDateUtil.newCurrentRange(that.currentDate,
 				that.zoomPxValue, that.zoomTimeValue, that.currentDatePos);
 			that.repaintElementInTimeLine(that.currentDate, timelineRange);
 			that.datesBetweenRange(that.arrayNewsElements, animateTop, animateLeft);
 			that.startTimeOut();
+		},
+		getUnits: function(){
+			var that = this;
+			$.ajax({
+				url: Timeline.Config.getApprovedUnits
+			}).done(function(data) {
+				console.log(data);
+				that.setNews(data);
+			});
 		}
 	};
 	var that = process;
@@ -569,60 +579,17 @@ var TimeLine = (function () {
 		init: that.init,
 		setNews: that.setNews,
 		setDate: that.setDate,
-		startTimeLine: that.atsrtTimeLine,
+		startTimeLine: that.startTimeLine,
 		stopTimeLine: that.stopTimeLine
 	};
 })();
 
-var config = {
-	dateStart: new Date(1400529754000)
+
+var host = 'http://localhost:3000/';
+Timeline.Config = {
+	dateStart: new Date(1400529754000),
+	getApprovedUnits: host + 'unit'
 };
 
 
 
-TimeLine.init($('.time-block'), config);
-
-var news1 = {
-	id: 'n1',
-	title: 'Захід введе "смертельні" для РФ санкцій, якщо Путін не зупиниться - Турчинов',
-	img: 'timeline/images/newsPhoto/1.jpg',
-	startDate: '1400573054000',
-	endDate: '1400587454000'
-};
-
-var news2 = {
-	id: 'n2',
-	title: 'Російські війська відводять з Донбасу, але кадрові офіцери-інструктори лишаються - Тимчук',
-	img: 'timeline/images/newsPhoto/2.jpg',
-	startDate: '1400227454000',
-	endDate: '1400245454000'
-};
-
-var news3 = {
-	id: 'n3',
-	title: 'На міжбанку долар і євро "поповзли" вгору, а гривня втрачає свої позиції',
-	img: 'timeline/images/newsPhoto/3.png',
-	startDate: '1400331854000',
-	endDate: '1400353454000'
-};
-
-var news4 = {
-	id: 'n4',
-	title: 'Маріуполь готується до можливої атаки бойовиків, а РНБО повідомляє про колони російських танків',
-	img: 'timeline/images/newsPhoto/4.png',
-	startDate: '1400468654000',
-	endDate: '1400472254000'
-};
-
-var news5 = {
-	id: 'n5',
-	title: 'Порошенко і Меркель обговорили ситуацію на Донбасі в режимі припинення вогню',
-	img: 'timeline/images/newsPhoto/5.jpg',
-	startDate: '1430579854000',
-	endDate: '1432584254000'
-};
-
-var allNews = [news1, news2, news3, news4, news5];
-
-
-TimeLine.setNews(allNews);

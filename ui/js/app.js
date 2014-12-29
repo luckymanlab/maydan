@@ -1,6 +1,7 @@
 /*global UT, Backbone*/
 /*jshint -W079 */
 var UT = window.UT || {};
+var Timeline = window.Timeline || {};
 
 /**
  Constructor of View
@@ -13,14 +14,14 @@ UT.ApplicationView = Backbone.Marionette.View.extend({
 		var that = this;
 		this.map = $('#map');
 		//initialize route
-        this.router = new UT.Router();
-        this.router.on('route:editor', function(id) {
+		this.router = new UT.Router();
+		this.router.on('route:editor', function(id) {
 			alert(id);
 		});
 		Backbone.history.start();
-        this.vent = _.extend({}, Backbone.Events);
+		this.vent = _.extend({}, Backbone.Events);
 
-        this.vent.on('unitSelected', that.updateArticle, that);
+		this.vent.on('unitSelected', that.updateArticle, that);
 
 		//initialize map
 		var center = new google.maps.LatLng(50.450201, 30.524021);
@@ -73,6 +74,7 @@ UT.app = new Backbone.Marionette.Application();
  */
 UT.app.start = function(){
 	this.applicationView = new UT.ApplicationView({el: $('body')});
+	Timeline.core.init($('.time-block'), Timeline.Config);
 };
 /**
  * Start Marionette application

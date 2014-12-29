@@ -9,7 +9,7 @@ router.route('/articles')
     .get(article.getAll);
 
 router.route('/unit')
-    .get(unit.getAll)
+    .get(unit.getUnit)
     .post(unit.addUnit);
 
 router.route('/media')
