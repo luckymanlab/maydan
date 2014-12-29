@@ -9,7 +9,7 @@ router.route('/articles')
     .get(article.getAll);
 
 router.route('/unit')
-    .get(unit.getAll)
+    .get(unit.getUnit)
     .post(unit.addUnit);
 
 router.route('/media')
@@ -36,8 +36,4 @@ router.route('/temp/articles/:id')
 router.route('/unit-types')
     .get(unitTypes.getTypes);
 
-router.get('/unit/:id', unit.getById);
-
-//router.get('/unit/get-range\?start=start\&end=end', unit.getRangeUnits);
-router.get('/unit/get-range/:startDate/:endDate', unit.getRangeUnits);
 module.exports = router;
