@@ -171,5 +171,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask('watcher', ['jshint:files', 'sass', 'uglify:app', 'concat:local', 'watch']);
 
-    grunt.registerTask('timeline', ['jshint:files', 'uglify:timeline', 'sprite', 'sass']);
+    grunt.registerTask('timeline', ['jshint:files', 'uglify:timeline', 'sass']);
+    grunt.registerTask('timeline:sprite', 'sprite');
 };

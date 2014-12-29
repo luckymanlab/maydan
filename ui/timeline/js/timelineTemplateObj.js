@@ -1,5 +1,5 @@
-var timelineTemplateObj;
-timelineTemplateObj = {
+var UT = window.UT || {};
+UT.timelineTemplateObj = {
 	markupMain: '' +
 	'<div class="tl-wraper">' +
 		'<div class="tl-container-wrap">' +
