@@ -1,26 +1,31 @@
 var mongoose = require('../configs/connect'),
     models = require('../configs/models');
+/**
+ * Get units from DB according to the transferred parameters
+ *
+ * @param {object} req request
+ * @param {object} res response
+ */
+exports.getUnit = function(req,res) {
+    var query = {};
+    if (req.query.startDate || req.query.endDate) {
+        query.time = {};
 
-exports.getAll = function(req, res) {
-    models.unit.find(function(err, data) {
+        if (req.query.startDate) {
+            query.time.$gte =  new Date(req.query.startDate).getTime();
+        }
+        if (req.query.endDate) {
+            query.time.$lte = new Date(req.query.endDate).getTime();
+        }
+    } else if (req.query.id) {
+        query._id = req.query.id;
+    }
+    models.unit.find(query, function(err, data) {
         if(err) {
             res.send(err);
             console.log(err);
         } else {
             res.send(data);
-        }
-    });
-}
-
-exports.getById = function(req, res) {
-    var id = req.params.id;
-    models.unit.find({ _id: id }, function(err, data) {
-        if(err) {
-            console.log(err);
-        } else if(data) {
-            res.send(data)
-        } else {
-            res.send(false)
         }
     });
 }
@@ -88,3 +93,5 @@ exports.confirm = function(id, data) {
         }
     });
 }
+
+
