@@ -8,17 +8,20 @@ var UT = window.UT || {};
     @extends Backbone.Model
 */
 UT.I18n = Backbone.Model.extend({
-    baseURL: 'localization/',
-    initialize: function(lan) {
-        this.setLan(lan);
+    /**
+     * Initialize Model
+     * @param {string} locale name of json file
+     */
+    initialize: function(locale) {
+        this.setLan(locale);
     },
     /**
      * Set urlRoot form json file end baseURL
-     * @param {string} lan name of json file
+     * @param {string} locale name of json file
      */
-    setLan: function(lan) {
-        var language = lan || 'en_US';
-        this.urlRoot = '' + this.baseURL + language + '.json';
+    setLan: function(locale) {
+        var language = locale || UT.Config.localeDefault;
+        this.urlRoot = UT.Config.localeBaseURL + language + '.json';
         this.fetch();
     },
     /**

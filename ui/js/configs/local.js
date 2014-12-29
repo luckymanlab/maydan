@@ -5,5 +5,9 @@ var UT = window.UT || {},
 UT.Config = {
 	//Path for saving articles
 	saveArticlePath: host + 'temp/articles',
-	getAllUnitTypes: host + 'unit-types'
+	getAllUnitTypes: host + 'unit-types',
+	//Path for getting locale
+	localeBaseURL: 'locale/',
+	//default locale
+	localeDefault: 'en_US'
 };
