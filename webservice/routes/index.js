@@ -9,7 +9,15 @@ router.route('/articles')
     .get(article.getAll);
 
 router.route('/unit')
-    .get(unit.getUnit)
+    .get(function(req, res){
+        if(req.query.startDate || req.query.endDate){
+            unit.getByRange(req, res);
+        } else if(req.query.id){
+            unit.getById(req, res);
+        } else{
+            unit.getAll(req, res);
+        }
+    })
     .post(unit.addUnit);
 
 router.route('/media')

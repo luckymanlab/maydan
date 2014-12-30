@@ -1,24 +1,56 @@
 var mongoose = require('../configs/connect'),
     models = require('../configs/models');
+
 /**
- * Get units from DB according to the transferred parameters
+ * Get all approved units from DB
  *
  * @param {object} req request
  * @param {object} res response
  */
-exports.getUnit = function(req,res) {
-    var query = {};
-    if (req.query.startDate || req.query.endDate) {
-        query.time = {};
+exports.getAll = function(req, res) {
+    models.unit.find(function(err, data) {
+        console.log("Id is" , req.query.id);
+        if(err) {
+            res.send(err);
+            console.log(err);
+        } else {
+            res.send(data);
+        }
+    });
+}
 
-        if (req.query.startDate) {
-            query.time.$gte =  new Date(req.query.startDate).getTime();
+/**
+ * Get units from DB according to id
+ *
+ * @param {object} req request
+ * @param {object} res response
+ */
+exports.getById = function(req, res) {
+    models.unit.findOne(req.query.id, function(err, data) {
+        console.log("Id is" , req.query.id);
+        if(err) {
+            res.send(err);
+            console.log(err);
+        } else {
+            res.send(data);
         }
-        if (req.query.endDate) {
-            query.time.$lte = new Date(req.query.endDate).getTime();
-        }
-    } else if (req.query.id) {
-        query._id = req.query.id;
+    });
+}
+
+/**
+ * Get units from DB according to time range
+ *
+ * @param {object} req request
+ * @param {object} res response
+ */
+exports.getByRange = function(req, res) {
+    var query={};
+    query.time = {};
+    if (req.query.startDate) {
+        query.time.$gte =  new Date(req.query.startDate).getTime();
+    }
+    if (req.query.endDate) {
+        query.time.$lte = new Date(req.query.endDate).getTime();
     }
     models.unit.find(query, function(err, data) {
         if(err) {
@@ -29,7 +61,6 @@ exports.getUnit = function(req,res) {
         }
     });
 }
-
 exports.addUnit = function(req, res) {
     var unit = req.body;
     console.log('Adding unit: ' + JSON.stringify(unit));
