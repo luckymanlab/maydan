@@ -12,14 +12,12 @@ router.route('/unit')
     .get(function(req, res){
         if(req.query.startDate || req.query.endDate){
             unit.getByRange(req, res);
-        } else if(req.query.id){
-            unit.getById(req, res);
         } else{
             unit.getAll(req, res);
         }
     })
     .post(unit.addUnit);
-
+router.get('/unit/:id', unit.getById);
 router.route('/media')
     .get(media.getAll);
 
