@@ -1,21 +1,20 @@
+/*global UT, Backbone*/
+/*jshint -W079 */
 var UT = window.UT || {};
-/*jshint -W015 */
 
-UT.CreateArticleView = Backbone.View.extend({
-    initialize: function(){
-        this.model = new UT.Article();
-        this.render();
-    },
-    render: function(){
-        var that = this;
-        $.get('templates/create-article-template.html', function (data) {
-            var template=_.template(UT.i18n.processTemplate(data));
-            that.$el.append(template); //adding the template content to the main template.
-            that.popupFormInitialize();
-            that.createUnitTypesView();
-        }, 'html');
-        this.showModal();
-    },
+/**
+ Constructor of CompositeView
+ @constructor
+ @extends Backbone.Marionette.CompositeView
+ @property {object}  childView                - The child ItemView.
+ @property {string}  childViewContainer       - The id of ItemView parent element.
+ @property {object}  model                    - The model of CompositeView.
+ @property {object}  events                   - The events of CompositeView.
+ */
+UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
+    childView: UT.UnitTypeSelectItemView,
+    childViewContainer: '#unit-type-select-container',
+    model: new UT.Article(),
     events: {
         'click #save-article': 'saveArticle',
         'click #close-modal,#close-article-modal': 'closeArticleModal',
@@ -24,12 +23,29 @@ UT.CreateArticleView = Backbone.View.extend({
         'change #unitTitle, #mediaContent, #unitDate': 'validateInput',
         'click #optionsUnitType': 'validateSelect'
     },
-    createUnitTypesView: function() {
-        this.unitTypesView = new UT.UnitTypesSelectView({ el: $('#unit-type-select-container') });
+
+    /**
+     * Initialize CompositeView, get template & render view
+     */
+    initialize: function() {
+        var that = this;
+        $.get(UT.Config.createArticleTemplate, function(data) {
+            that.template = _.template(UT.i18n.processTemplate(data));
+            that.render();
+        });
     },
-    showModal: function () {
+
+    /**
+     * After render show modal window initialize plugins for form & create ItemView
+     */
+    onRender: function() {
         this.$el.modal('show');
+        this.popupFormInitialize();
+        /* jslint nonew: false */
+        new UT.UnitTypeSelectView();
+        /* jslint nonew: true */
     },
+
     validate: function(input, that) {
         var inputValue = input.value,
             label = $(input).attr('data-label'),
@@ -53,6 +69,7 @@ UT.CreateArticleView = Backbone.View.extend({
         }
         return isValid;
     },
+
     validateForm: function() {
         var isValid = true,
             that = this,
@@ -64,19 +81,23 @@ UT.CreateArticleView = Backbone.View.extend({
         });
         return isValid;
     },
+
     validateInput: function(e) {
         var that = this,
             input =  e.target;
         return that.validate(input, that);
     },
+
     validateSelect: function() {
         var that = this,
             input = $('#mainSelectUnitType')[0];
         return that.validate(input, that);
     },
+
     removeError: function(input){
         $(input).tooltip('destroy');
     },
+
     saveArticle: function(e){
         var unitDate = $('#unitDate')[0],
             hiddenUnitType = $('#hiddenUnitType')[0],
@@ -98,7 +119,7 @@ UT.CreateArticleView = Backbone.View.extend({
         unit.set(obj);
         media.set({content: mediaContent.value});
         if (!this.validateForm()){
-             return;
+            return;
         }
         this.model.set('accessToken', $.cookie('accessToken'));
         console.log(this.model);
@@ -116,6 +137,7 @@ UT.CreateArticleView = Backbone.View.extend({
             }
         });
     },
+
     closeArticleModal: function(){
         if(this.filledFields()){
             $('#confirm-modal').modal('show');
@@ -124,6 +146,7 @@ UT.CreateArticleView = Backbone.View.extend({
             this.destroyView();
         }
     },
+
     filledFields:function(){
         var isFilled = false,
             inputs =  $('#article-form').find('.inputData');
@@ -136,16 +159,21 @@ UT.CreateArticleView = Backbone.View.extend({
         });
         return isFilled;
     },
+
     closeModalConfirm: function(){
         $('#article-content').css('opacity', 1);
         this.destroyView();
     },
+
     cancelModalConfirm: function(){
         $('#confirm-modal').modal('hide');
         $('#article-content').css('opacity', 1);
     },
+
+    /**
+     * Destroy view
+     */
     destroyView: function () {
-        this.unitTypesView.destroy();
         $('.modal-backdrop').remove();
         $('.pac-container').remove();
         $('.datetimepicker').remove();
@@ -154,14 +182,16 @@ UT.CreateArticleView = Backbone.View.extend({
         this.remove();// Remove view element from Dom
 
     },
-    popupFormInitialize: function () {
-    //coordinate
-    // Basic usage
-        $('#placepicker').placepicker();
 
+    /**
+     * Initialize placepicker & datetimepacker for form
+     */
+    popupFormInitialize: function () {
+        //coordinate
+        // Basic usage
+        $('#placepicker').placepicker();
         // Advanced usage
         $('.placepicker').each(function() {
-
             // find map-element
             var target = this;
             var $collapse = $(this).parents('.form-group').next('.collapse');
@@ -174,7 +204,6 @@ UT.CreateArticleView = Backbone.View.extend({
                     $('#hiddenMapCoordinateLng').attr('value',this.getLocation().longitude);
                 }
             }).data('placepicker');
-
             // reload map after collapse in
             $collapse.on('show.bs.collapse', function () {
 
@@ -187,7 +216,6 @@ UT.CreateArticleView = Backbone.View.extend({
                 }, 0);
             });
         });
-
         //date time picker
         $('.form_datetime').datetimepicker({
             language:  'us',

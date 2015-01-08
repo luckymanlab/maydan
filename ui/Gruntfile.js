@@ -12,6 +12,7 @@ module.exports = function(grunt) {
 		'vendor/jquery.cookie.js',
 		'vendor/underscore-min.js',
 		'vendor/backbone-min.js',
+        'vendor/backbone.marionette.min.js',
 		'vendor/infobubble.js',
 		'vendor/bootstrap.min.js',
 		'vendor/bootstrap-datepicker.js',
@@ -30,6 +31,8 @@ module.exports = function(grunt) {
 		'js/view/article-modal-view.js',
 		'js/view/unit-types-select-view.js',
 		'js/view/create-article-view.js',
+        'js/view/control-panel-view.js',
+        'js/view/map-view.js',
 		'js/router.js',
 		'js/app.js'
 	];

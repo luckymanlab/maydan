@@ -6,6 +6,9 @@ UT.Config = {
 	//Path for saving articles
 	saveArticlePath: host + 'temp/articles',
 	getAllUnitTypes: host + 'unit-types',
+	//Path for getting templates
+	createArticleTemplate: 'templates/create-article-template.html',
+	unitTypesTemplate: 'templates/unit-types-select-template.html',
 	//Path for getting locale
 	localeBaseURL: 'locale/',
 	//default locale
