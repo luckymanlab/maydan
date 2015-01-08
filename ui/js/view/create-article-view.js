@@ -11,7 +11,7 @@ var UT = window.UT || {};
  @property {object}  model                    - The model of CompositeView.
  @property {object}  events                   - The events of CompositeView.
  */
-UT.CreateArticleCompositeView = Backbone.Marionette.CompositeView.extend({
+UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
     childView: UT.UnitTypeSelectItemView,
     childViewContainer: '#unit-type-select-container',
     model: new UT.Article(),
@@ -42,7 +42,7 @@ UT.CreateArticleCompositeView = Backbone.Marionette.CompositeView.extend({
         this.$el.modal('show');
         this.popupFormInitialize();
         /* jslint nonew: false */
-        new UT.UnitTypeSelectItemView();
+        new UT.UnitTypeSelectView();
         /* jslint nonew: true */
     },
 

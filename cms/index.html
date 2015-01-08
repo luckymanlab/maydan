@@ -65,16 +65,16 @@
                     </div>
                     <ul class="list-group">
                         <li class="list-group-item"><span class="lead">Title:</span>
-                            <%=incident.title %>
+                            <%=unit.title %>
                         </li>
                         <li class="list-group-item"><span class="lead">Date:</span>
-                            <%=new Date(incident.time).toLocaleDateString() %>
+                            <%=new Date(unit.time).toLocaleDateString() %>
                         </li>
                         <li class="list-group-item"><span class="lead">Creation Date:</span>
                             <%=new Date(criationDate).toLocaleDateString() %>
                         </li>
                         <li class="list-group-item"><span class="lead">Type:</span>
-                            <%=incident.incidentType %>
+                            <%=unit.unitType %>
                         </li>
                         <li class="list-group-item"><span class="lead">Description:</span>
                             <%=media.content %>

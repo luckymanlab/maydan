@@ -10,7 +10,7 @@ Constructor of ItemView
  @property {object}  collection               - The collection of ItemView.
  @property {object}  events                   - The events of CompositeView.
 */
-UT.UnitTypeSelectItemView = Backbone.Marionette.ItemView.extend({
+UT.UnitTypeSelectView = Backbone.Marionette.ItemView.extend({
     el: '#unit-type-select-container',
     collection: new UT.UnitTypesCollection(),
     events: {

@@ -12,7 +12,7 @@ UT.ArticlePreviewView = Marionette.ItemView.extend({
         this.render();
     },
     onRender: function() {
-        var coordinates = this.model.attributes.incident.coordinates || {
+        var coordinates = this.model.attributes.unit.coordinates || {
             lat: 0,
             lon: 0
         };
