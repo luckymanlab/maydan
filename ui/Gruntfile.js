@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -121,7 +122,17 @@ module.exports = function(grunt) {
                 src: '**',
                 dest: 'public/css/vendor',
                 flatten: true,
-                filter: 'isFile',
+                filter: 'isFile'
+            },
+            source: {
+                expand: true,
+                src: ['locale/**/*', 'templates/**/*', 'vendor/**/*', 'index.html'],
+                dest: 'public'
+            }
+        },
+        clean: {
+            public: {
+                src: [ 'public' ]
             }
         },
         concat: {
@@ -168,9 +179,9 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('compile', ['jshint:files', 'sass', 'uglify:app', 'concat:local', 'copy:css']);
-    grunt.registerTask('compile:dev', ['jshint:files', 'sass', 'uglify:app', 'concat:dev', 'copy:css']);
-    grunt.registerTask('compile:prod', ['jshint:files', 'sass', 'uglify:app', 'concat:prod', 'copy:css']);
+    grunt.registerTask('compile', ['clean','jshint:files', 'sass', 'uglify:app', 'concat:local', 'copy:css', 'copy:source']);
+    grunt.registerTask('compile:dev', ['clean','jshint:files', 'sass', 'uglify:app', 'concat:dev', 'copy:css', 'copy:source']);
+    grunt.registerTask('compile:prod', ['clean','jshint:files', 'sass', 'uglify:app', 'concat:prod', 'copy:css', 'copy:source']);
 
     grunt.registerTask('watcher', ['jshint:files', 'sass', 'uglify:app', 'concat:local', 'watch']);
 
