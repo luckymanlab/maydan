@@ -1,22 +1,22 @@
 [
 	{
 		"id": "1",
-		"imageSrc": "img/markers/fire.png",
+		"type": "unitTypeFire",
 		"name": "name1"
 	},
 	{
 		"id": "2",
-		"imageSrc": "img/markers/fire.png",
+		"type": "unitTypeWater",
 		"name": "name2"
 	},
 	{
 		"id": "3",
-		"imageSrc": "img/markers/fire.png",
+		"type": "unitTypeLand",
 		"name": "name3"
 	},
 	{
 		"id": "4",
-		"imageSrc": "img/markers/fire.png",
+		"type": "unitTypeAir",
 		"name": "name4"
 	}
 ]
