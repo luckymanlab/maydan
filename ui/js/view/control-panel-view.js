@@ -12,7 +12,7 @@ var UT = window.UT || {};
  */
 UT.ControlPanelView = Backbone.Marionette.ItemView.extend({
     el: '#control-panel',
-    template: _.template('<button class="btn btn-primary btn-lg" id="create-article-btn">Add Unit</button>'),
+    template: _.template('<button class="btn btn-success btn-sm create-article" id="create-article-btn">Add Unit</button>'),
     events:{
 		'click #create-article-btn': 'createArticle'
 	},
