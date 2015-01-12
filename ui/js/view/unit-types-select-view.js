@@ -27,8 +27,7 @@ UT.UnitTypeSelectView = Backbone.Marionette.ItemView.extend({
             that.collection.fetch({
                 success: function(result) {
                     that.collection.models.forEach(function(model){
-                        var type = model.attributes.type;
-                        model.attributes.type = UT.Config[type];
+                        model.attributes.imageSrc = UT.Config.imagePath.replace('{ITEM_TYPE}', model.attributes.type);
                     });
                     that.template = _.template(UT.i18n.processTemplate(data));
                     that.render();

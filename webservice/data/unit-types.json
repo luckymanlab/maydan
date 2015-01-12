@@ -1,22 +1,24 @@
 [
 	{
 		"id": "1",
-		"type": "unitTypeFire",
+		"type": "fire",
 		"name": "name1"
 	},
 	{
 		"id": "2",
-		"type": "unitTypeWater",
+		"type": "water",
 		"name": "name2"
 	},
 	{
 		"id": "3",
-		"type": "unitTypeLand",
+		"type": "fire",
 		"name": "name3"
 	},
 	{
 		"id": "4",
-		"type": "unitTypeAir",
+		"type": "water",
 		"name": "name4"
 	}
 ]
+
+
