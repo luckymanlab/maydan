@@ -12,5 +12,7 @@ UT.Config = {
 	//Path for getting locale
 	localeBaseURL: 'locale/',
 	//default locale
-	localeDefault: 'en_US'
+	localeDefault: 'en_US',
+	unitTypesImagePath: 'img/types/{ITEM_TYPE}.png',
+	preloader: 'http://a-develop.ru/media/blog/56_preview.gif'
 };

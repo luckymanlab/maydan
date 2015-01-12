@@ -126,7 +126,7 @@ module.exports = function(grunt) {
             },
             source: {
                 expand: true,
-                src: ['locale/**/*', 'templates/**/*', 'vendor/**/*', 'index.html'],
+                src: ['locale/**/*', 'img/**/*', 'templates/**/*', 'vendor/**/*', 'index.html'],
                 dest: 'public'
             }
         },

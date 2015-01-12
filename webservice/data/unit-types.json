@@ -1,22 +1,24 @@
 [
 	{
 		"id": "1",
-		"imageSrc": "img/markers/fire.png",
+		"type": "fire",
 		"name": "name1"
 	},
 	{
 		"id": "2",
-		"imageSrc": "img/markers/fire.png",
+		"type": "water",
 		"name": "name2"
 	},
 	{
 		"id": "3",
-		"imageSrc": "img/markers/fire.png",
+		"type": "fire",
 		"name": "name3"
 	},
 	{
 		"id": "4",
-		"imageSrc": "img/markers/fire.png",
+		"type": "water",
 		"name": "name4"
 	}
 ]
+
+
