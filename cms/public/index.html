@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Admin page</title>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="src/css/style.css">
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=places"></script>
+</head>
+
+<body>
+    <div id="content" class="col-sm-12"></div>
+    
+    <script src="src/vendor/jquery-1.11.0.min.js"></script>
+    <script src="src/vendor/json2.min.js"></script>
+    <script src="src/vendor/underscore-min.js"></script>
+    <script src="src/vendor/backbone-min.js"></script>
+    <script src="src/vendor/backbone.marionette.min.js"></script>
+    <script src="src/vendor/bootstrap.min.js"></script>
+    <script src="src/js/config.js"></script>
+    <script src="src/js/model/incident.js"></script>
+    <script src="src/js/model/media.js"></script>
+    <script src="src/js/model/article.js"></script>
+    <script src="src/js/collection/article-list-collection.js"></script>
+    <script src="src/js/view/article-item-view.js"></script>
+    <script src="src/js/view/article-table-view.js"></script>
+    <script src="src/js/view/preview-article-view.js"></script>
+    <script src="src/js/app.js"></script>
+    <script type="text/template" id="row-template">
+        <td class="col-sm-3">
+            <%=unit.title %>
+        </td>
+        <td class="col-sm-3">
+            <%=new Date(unit.time).toLocaleDateString() %>
+        </td>
+        <td class="col-sm-3">
+            <%=new Date(criationDate).toLocaleDateString() %>
+        </td>
+        <td class="col-sm-3">
+            <%=creatorId %>
+        </td>
+    </script>
+    <script type="text/template" id="table-template">
+        <h4 class="table-title">List of unconfirmed articles</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Creation Date</th>
+                    <th>Creator ID</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </script>
+    <script type="text/template" id="article-preview-modal">
+        <div class="modal article-modal" id="article-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div id="article-content" class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" aria-hidden="true" id="close-modal">&times;</button>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item"><span class="lead">Title:</span>
+                            <%=unit.title %>
+                        </li>
+                        <li class="list-group-item"><span class="lead">Date:</span>
+                            <%=new Date(unit.time).toLocaleDateString() %>
+                        </li>
+                        <li class="list-group-item"><span class="lead">Creation Date:</span>
+                            <%=new Date(criationDate).toLocaleDateString() %>
+                        </li>
+                        <li class="list-group-item"><span class="lead">Type:</span>
+                            <%=unit.unitType %>
+                        </li>
+                        <li class="list-group-item"><span class="lead">Description:</span>
+                            <%=media.content %>
+                        </li>
+                        <li class="list-group-item map-coordinate" id="map"></li>
+                    </ul>
+                    <div class="form-group col-sm-12">
+                        <button type="button" class="btn btn-primary confirm-item" id="close-article-modal">Aprove</button>
+                        <button type="button" class="btn btn-default delete-item" id="save-article">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+</body>
+
+</html>
