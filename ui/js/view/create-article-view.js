@@ -149,7 +149,14 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
 
     filledFields:function(){
         var isFilled = false,
-            inputs =  $('#article-form').find('.inputData');
+            inputs =  $('#article-form').find('.inputData'),
+            hiddenMapCoordinateLat = $('#hiddenMapCoordinateLat')[0].value,
+            hiddenMapCoordinateLng = $('#hiddenMapCoordinateLng')[0].value;
+        if (hiddenMapCoordinateLat !== undefined && hiddenMapCoordinateLng !== undefined &&
+            hiddenMapCoordinateLat !== UT.Config.defaultPosition.lat &&
+            hiddenMapCoordinateLng !== UT.Config.defaultPosition.lon) {
+            isFilled = true;
+        }
         _.forEach(inputs,function(input){
             var inputValue = input.value;
             if(inputValue !== undefined && inputValue.length !== 0){

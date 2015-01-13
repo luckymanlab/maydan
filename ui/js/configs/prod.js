@@ -14,5 +14,9 @@ UT.Config = {
 	//default locale
 	localeDefault: 'en_US',
 	unitTypesImagePath: 'img/types/{ITEM_TYPE}.png',
-	preloader: 'http://a-develop.ru/media/blog/56_preview.gif'
+	preloader: 'http://a-develop.ru/media/blog/56_preview.gif',
+	defaultPosition: {
+		lat: '50.4505879',
+		lon: '30.523233300000015'
+	}
 };
