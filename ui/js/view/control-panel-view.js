@@ -48,7 +48,6 @@ UT.ControlPanelView = Backbone.Marionette.ItemView.extend({
 	},
 
 	getAccessToken: function() {
-		return $.cookie('accessToken');
+		return $.cookie('connect.sid');
 	}
-
 });
