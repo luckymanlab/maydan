@@ -9,7 +9,6 @@ var mongoose = require('../configs/connect'),
  */
 exports.getAll = function(req, res) {
     models.unit.find(function(err, data) {
-        console.log("Id is" , req.query.id);
         if(err) {
             res.send(err);
             console.log(err);
@@ -61,6 +60,7 @@ exports.getByRange = function(req, res) {
         }
     });
 }
+
 exports.addUnit = function(req, res) {
     var unit = req.body;
     console.log('Adding unit: ' + JSON.stringify(unit));
