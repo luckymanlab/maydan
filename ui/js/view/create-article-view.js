@@ -16,10 +16,10 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
     childViewContainer: '#unit-type-select-container',
     model: new UT.Article(),
     events: {
-        'click #save-article': 'saveArticle',
-        'click #close-modal,#close-article-modal': 'closeArticleModal',
-        'click #close-confirm,#close-confirm-default': 'closeModalConfirm',
-        'click #close-return': 'cancelModalConfirm',
+        'click #saveArticle': 'saveArticle',
+        'click #close-modal,#closeArticleModal': 'closeArticleModal',
+        'click #closeConfirm,#closeConfirm-default': 'closeModalConfirm',
+        'click #closeReturn': 'cancelModalConfirm',
         'change #unitTitle, #mediaContent, #unitDate': 'validateInput',
         'click #optionsUnitType': 'validateSelect'
     },
@@ -73,7 +73,7 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
     validateForm: function() {
         var isValid = true,
             that = this,
-            inputs =  $('#article-form').find('.inputData');
+            inputs =  $('#articleForm').find('.input-data');
         _.forEach(inputs,function(input) {
             if (that.validate(input, that) === false) {
                 isValid = false;
@@ -127,12 +127,12 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
             dataType: 'text',
             success: function (model, response, options) {
                 console.log('The model has been saved to the server' , response, model, options);
-                $('#article-form')[0].reset();
+                $('#articleForm')[0].reset();
                 $('.alert-success').toggle();
             },
             error: function (model, response, options) {
                 console.log('Something went wrong while saving the model',response);
-                $('#article-form')[0].reset();
+                $('#articleForm')[0].reset();
                 $('.alert-danger').toggle();
             }
         });
@@ -140,41 +140,39 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
 
     closeArticleModal: function(){
         if(this.filledFields()){
-            $('#confirm-modal').modal('show');
-            $('#article-content').css('opacity', 0.5);
+            $('#confirmModal').modal('show');
+            $('#articleContent').css('opacity', 0.5);
         } else{
             this.destroyView();
         }
     },
 
     filledFields:function(){
-        var isFilled = false,
-            inputs =  $('#article-form').find('.inputData'),
+        var inputs =  $('#articleForm').find('.input-data'),
             hiddenMapCoordinateLat = $('#hiddenMapCoordinateLat')[0].value,
             hiddenMapCoordinateLng = $('#hiddenMapCoordinateLng')[0].value;
         if (hiddenMapCoordinateLat !== undefined && hiddenMapCoordinateLng !== undefined &&
             hiddenMapCoordinateLat !== UT.Config.defaultPosition.lat &&
             hiddenMapCoordinateLng !== UT.Config.defaultPosition.lon) {
-            isFilled = true;
+            return true;
         }
         _.forEach(inputs,function(input){
             var inputValue = input.value;
             if(inputValue !== undefined && inputValue.length !== 0){
-                isFilled = true;
-                return isFilled;
+                return true;
             }
         });
-        return isFilled;
+        return false;
     },
 
     closeModalConfirm: function(){
-        $('#article-content').css('opacity', 1);
+        $('#articleContent').css('opacity', 1);
         this.destroyView();
     },
 
     cancelModalConfirm: function(){
-        $('#confirm-modal').modal('hide');
-        $('#article-content').css('opacity', 1);
+        $('#confirmModal').modal('hide');
+        $('#articleContent').css('opacity', 1);
     },
 
     /**
