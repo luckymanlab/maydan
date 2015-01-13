@@ -146,22 +146,26 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
             this.destroyView();
         }
     },
-
+    /**
+     * Check if form fields is filled
+     * @returns {Boolean} is fields filled or empty
+     */
     filledFields:function(){
         var inputs =  $('#articleForm').find('.input-data'),
             hiddenMapCoordinateLat = $('#hiddenMapCoordinateLat')[0].value,
-            hiddenMapCoordinateLng = $('#hiddenMapCoordinateLng')[0].value;
+            hiddenMapCoordinateLng = $('#hiddenMapCoordinateLng')[0].value,
+            isEmpty = _.every(inputs, function(input){
+                var inputValue = input.value;
+                return inputValue.length === 0;
+            });
         if (hiddenMapCoordinateLat !== undefined && hiddenMapCoordinateLng !== undefined &&
             hiddenMapCoordinateLat !== UT.Config.defaultPosition.lat &&
             hiddenMapCoordinateLng !== UT.Config.defaultPosition.lon) {
             return true;
         }
-        _.forEach(inputs,function(input){
-            var inputValue = input.value;
-            if(inputValue !== undefined && inputValue.length !== 0){
-                return true;
-            }
-        });
+        if (!isEmpty) {
+            return true;
+        }
         return false;
     },
 
