@@ -17,7 +17,7 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
     model: new UT.Article(),
     events: {
         'click #saveArticle': 'saveArticle',
-        'click #close-modal,#closeArticleModal': 'closeArticleModal',
+        'click #closeModal,#closeArticleModal': 'closeArticleModal',
         'click #closeConfirm,#closeConfirm-default': 'closeModalConfirm',
         'click #closeReturn': 'cancelModalConfirm',
         'change #unitTitle, #mediaContent, #unitDate': 'validateInput',
