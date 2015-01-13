@@ -1,5 +1,5 @@
 /*global UT, Backbone*/
-/*jshint -W079 */
+/*jshint -W079, -W031 */
 var UT = window.UT || {};
 
 /**
@@ -17,8 +17,10 @@ UT.MapView = Backbone.Marionette.ItemView.extend({
 
     /**
      * Initialize main map on the page
+     * Initialize Units on the map
      */
     initMap: function() {
+        var that = this;
         this.map = $('#map');
         var center = new google.maps.LatLng(50.450201, 30.524021);
         var styles = [
@@ -37,5 +39,12 @@ UT.MapView = Backbone.Marionette.ItemView.extend({
             styles: styles
         };
         this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+        /**
+         * Initialize Units on the map
+         */
+        new UT.UnitCollectionView(that.map);
+
+
     }
 });
