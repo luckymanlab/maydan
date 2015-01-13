@@ -10,7 +10,7 @@ UT.UnitMapView = Backbone.Marionette.ItemView.extend({
 		that.model = options.model;
 		that.model.on('remove', that.remove, that);
 		that.map = options.map;
-		var pos = that.model.getPos();
+		var pos = that.model.getUnitPos();
         /**
          * create Marker
          */
@@ -18,15 +18,15 @@ UT.UnitMapView = Backbone.Marionette.ItemView.extend({
 			map: that.map,
             position: new google.maps.LatLng(pos.lat, pos.lon),
 			animation: google.maps.Animation.DROP,
-			title: that.model.getTitle(),
-			icon: 'img/markers/' + that.model.get('unitType') + '.png',
-			id : that.model.get('id')
+			title: that.model.getUnitTitle(),
+			icon: 'img/markers/' + that.model.getUnitType() + '.png',
+			id : that.model.getUnitId()
 		});
         /**
          * create PopUp content
          */
         var time = new Date(that.model.get('time'));
-		that.content = $('<div><h4>' + that.model.getTitle() + '</h4><span>' + time + '</span></div>');
+		that.content = $('<div><h4>' + that.model.getUnitTitle() + '</h4><span>' + time + '</span></div>');
         /**
          * create PopUp and add content
          */

@@ -1,19 +1,25 @@
 var UT = window.UT || {};
 
 UT.Unit = Backbone.Model.extend({
-    initialize: function() {},
     sync: function () { return false;},
     clear: function() {
         this.destroy();
     },
-    getPos: function() {
+    getUnitPos: function() {
         return this.get('coordinates');
     },
-    getTitle: function() {
+    getUnitTitle: function() {
         return this.get('title');
+    },
+    getUnitType: function() {
+        return this.get('unitType');
+    },
+    getUnitId: function() {
+        return this.get('id');
     },
 	defaults: {
 		time: '',
+        unitType: '',
 		coordinates: {
 			lat: '',
 			lon: ''
