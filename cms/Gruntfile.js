@@ -10,14 +10,13 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-spritesmith');
 
 	var libs = [
-		'src/vendor/backbone.marionette.min.js',
-        'src/vendor/backbone-min.js',
-        'src/vendor/bootstrap.min.js',
         'src/vendor/jquery-1.11.0.min.js',
         'src/vendor/json2.min.js',
-        'src/vendor/underscore-min.js'
-
-	];
+        'src/vendor/underscore-min.js',
+        'src/vendor/backbone-min.js',
+        'src/vendor/backbone.marionette.min.js',
+        'src/vendor/bootstrap.min.js'
+    ];
 
 	var base = [
 		'src/js/collection/article-list-collection.js',
