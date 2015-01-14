@@ -74,21 +74,7 @@ module.exports = function(grunt) {
                 src: [ 'public' ]
             }
         },
-        concat: {
-            local: {
-                src: ['js/configs/local.js', 'public/js/main.js'],
-                dest: 'public/js/main.js',
-            },
-            dev: {
-                src: ['js/configs/dev.js', 'public/js/main.js'],
-                dest: 'public/js/main.js',
-            },
-            prod: {
-                src: ['js/configs/prod.js', 'public/js/main.js'],
-                dest: 'public/js/main.js',
-            }
-        }
-
+        
     });
 
     grunt.registerTask('compile', ['clean','jshint:files','uglify:app','copy:source']);
