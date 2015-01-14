@@ -1,7 +1,7 @@
 var UT = window.UT || {};
 
 UT.ArticlePreviewView = Marionette.ItemView.extend({
-    template: "#article-preview-modal",
+    template: '#article-preview-modal',
     events: {
         'click .delete-item': 'destroyItem',
         'click .confirm-item': 'confirmItem',

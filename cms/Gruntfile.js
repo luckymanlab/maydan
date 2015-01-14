@@ -42,7 +42,7 @@ module.exports = function(grunt) {
                 jshintrc: '.jshintrc'
             },
             grunt: 'Gruntfile.js',
-            files: ['js/*.js', 'js/**/*.js']
+            files: ['src/js/*.js', 'src/js/**/*.js']
         },
         uglify: {
             app: {
@@ -50,7 +50,7 @@ module.exports = function(grunt) {
                     mangle: {
                         except: ['js/**/*.js']
                     },
-                    sourceMap: 'public/js/main.js.map',
+                    sourceMap: 'public/src/js/main.js.map',
                     sourceMapRoot: '../../js/',
                     sourceMappingURL: 'main.js.map',
                     sourceMapPrefix: 1,
@@ -58,14 +58,14 @@ module.exports = function(grunt) {
                     beautify: true
                 },
                 files: {
-                    'public/js/main.js': [libs, base]
+                    'public/src/js/main.js': [libs, base]
                 }
             },
         },
         copy: {
             source: {
                 expand: true,
-                src: ['src/css/**/*', 'src/vendor/**/*', 'index.html'],
+                src: ['src/css/**/*','index.html'],
                 dest: 'public'
             }
         },
