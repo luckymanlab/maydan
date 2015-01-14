@@ -91,9 +91,9 @@ module.exports = function(grunt) {
 
     });
 
-    grunt.registerTask('compile', ['clean','jshint:files','uglify:app', 'concat:local', 'copy:source']);
-    grunt.registerTask('compile:dev', ['clean','jshint:files', 'uglify:app', 'concat:dev', 'copy:source']);
-    grunt.registerTask('compile:prod', ['clean','jshint:files',  'uglify:app', 'concat:prod', 'copy:source']);
+    grunt.registerTask('compile', ['clean','jshint:files','uglify:app','copy:source']);
+    grunt.registerTask('compile:dev', ['clean','jshint:files', 'uglify:app','copy:source']);
+    grunt.registerTask('compile:prod', ['clean','jshint:files',  'uglify:app','copy:source']);
 
 
 };
