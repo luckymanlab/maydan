@@ -74,12 +74,11 @@ module.exports = function(grunt) {
                 src: [ 'public' ]
             }
         },
-        
+
     });
 
     grunt.registerTask('compile', ['clean','jshint:files','uglify:app','copy:source']);
-    grunt.registerTask('compile:dev', ['clean','jshint:files', 'uglify:app','copy:source']);
-    grunt.registerTask('compile:prod', ['clean','jshint:files',  'uglify:app','copy:source']);
+
 
 
 };
