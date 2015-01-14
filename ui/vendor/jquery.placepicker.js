@@ -1,11 +1,5 @@
 +function ( $, window) {
 
-  var defaultPosition = {
-    lat: 50.4505879,
-    lon: 30.523233300000015
-  };
-
-
   var $window = $(window);
   var pluginName = 'placepicker';
   
@@ -188,8 +182,8 @@
       initMap();
       
       if (!element.value) {
-        var lat = defaultPosition.lat;
-        var lng = defaultPosition.lon;
+        var lat = UT.Config.defaultPosition.lat;
+        var lng = UT.Config.defaultPosition.lon;
         instance.setLocation(lat, lng);
       } else {
         codePlace(element.value);
@@ -261,7 +255,7 @@
       // Try HTML5 geolocation
       if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
-          var pos = new google.maps.LatLng(defaultPosition.lat, defaultPosition.lon);
+          var pos = new google.maps.LatLng(UT.Config.defaultPosition.lat, UT.Config.defaultPosition.lon);
     
           codeLatLng(pos);
           updatePosition(pos);
