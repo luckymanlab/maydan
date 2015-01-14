@@ -74,6 +74,7 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
         var isValid = true,
             that = this,
             inputs =  $('#articleForm').find('.input-data');
+
         _.forEach(inputs,function(input) {
             if (that.validate(input, that) === false) {
                 isValid = false;
@@ -122,7 +123,6 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
             return;
         }
         this.model.set('accessToken', $.cookie('accessToken'));
-        console.log(this.model);
         this.model.save({}, {
             dataType: 'text',
             success: function (model, response, options) {
@@ -154,9 +154,17 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
         var inputs =  $('#articleForm').find('.input-data');
         var hiddenMapCoordinateLat = $('#hiddenMapCoordinateLat')[0].value;
         var hiddenMapCoordinateLng = $('#hiddenMapCoordinateLng')[0].value;
+        var customSelectorValue = $('#selectedValue')[0].innerText;
         var isEmpty = _.every(inputs, function(input){
                 var inputValue = input.value;
-                return inputValue.length === 0;
+                /**
+                 * "Skip-identifier" -> this input need skip, since he has special check-function
+                 */
+                if(!$(input).hasClass('skip-identifier')){
+                    return inputValue.length === 0;
+                } else {
+                    return 1 !== 0;
+                }
             });
         if (!isEmpty) {
             return true;
@@ -164,6 +172,12 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
         if (hiddenMapCoordinateLat !== undefined && hiddenMapCoordinateLng !== undefined &&
             hiddenMapCoordinateLat !== UT.Config.defaultPosition.lat &&
             hiddenMapCoordinateLng !== UT.Config.defaultPosition.lon) {
+            return true;
+        }
+        /**
+        * UnitType doesn't have value
+        */
+        if (customSelectorValue !== UT.i18n.attributes.SELECT_TYPE) {
             return true;
         }
         return false;

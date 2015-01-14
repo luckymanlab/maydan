@@ -1,13 +1,13 @@
 <div>
-	<div id="mainSelectUnitType" class="form-control inputData col-sm-10 " data-label="type">
-		<i class="glyphicon glyphicon-chevron-down"></i>
-		<span id="selectedValue" class="placeholder">{i18n.SELECT_TYPE}</span>
+	<div id="mainSelectUnitType" class="input-group" data-label="type">
+		<span class="input-group-addon glyphicon glyphicon-chevron-down select-unit-type-icon"></span>
+		<span id="selectedValue" class="placepicker form-control unit-type-input input-data skip-identifier">{i18n.SELECT_TYPE}</span>
 	</div>
 
 	<div id="optionsUnitType" class="col-sm-10">
 		<% _.each(items, function(item) { %>
 			<div class="col-sm-10 select-option" id="<%= item.id %>">
-				<img src="<%= item.imageSrc %>">
+				<img class="unit-type-icon" src="<%= item.imageSrc %>">
 				<span class="unit-type-name"><%= item.name %></span>
 			</div>
 		<% }); %>
