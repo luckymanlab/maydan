@@ -28,54 +28,7 @@
             <%=creatorId %>
         </td>
     </script>
-    <script type="text/template" id="table-template">
-        <h4 class="table-title">List of unconfirmed articles</h4>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Date</th>
-                    <th>Creation Date</th>
-                    <th>Creator ID</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </script>
-    <script type="text/template" id="article-preview-modal">
-        <div class="modal article-modal" id="article-modal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div id="article-content" class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" aria-hidden="true" id="close-modal">&times;</button>
-                    </div>
-                    <ul class="list-group">
-                        <li class="list-group-item"><span class="lead">Title:</span>
-                            <%=unit.title %>
-                        </li>
-                        <li class="list-group-item"><span class="lead">Date:</span>
-                            <%=new Date(unit.time).toLocaleDateString() %>
-                        </li>
-                        <li class="list-group-item"><span class="lead">Creation Date:</span>
-                            <%=new Date(criationDate).toLocaleDateString() %>
-                        </li>
-                        <li class="list-group-item"><span class="lead">Type:</span>
-                            <%=unit.unitType %>
-                        </li>
-                        <li class="list-group-item"><span class="lead">Description:</span>
-                            <%=media.content %>
-                        </li>
-                        <li class="list-group-item map-coordinate" id="map"></li>
-                    </ul>
-                    <div class="form-group col-sm-12">
-                        <button type="button" class="btn btn-primary confirm-item" id="close-article-modal">Aprove</button>
-                        <button type="button" class="btn btn-default delete-item" id="save-article">Delete</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </script>
+
 </body>
 
 </html>
