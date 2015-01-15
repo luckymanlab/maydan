@@ -151,21 +151,17 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
      * @returns {Boolean} is fields filled or empty
      */
     filledFields:function(){
-        var inputs =  $('#articleForm').find('.input-data');
+        /**
+         * "skip-identifier" -> this input need skip, since he has special check-function
+         */
+        var inputs =  $('#articleForm').find('.input-data').not('.skip-identifier');
         var hiddenMapCoordinateLat = $('#hiddenMapCoordinateLat')[0].value;
         var hiddenMapCoordinateLng = $('#hiddenMapCoordinateLng')[0].value;
         var customSelectorValue = $('#selectedValue')[0].innerText;
         var isEmpty = _.every(inputs, function(input){
-                var inputValue = input.value;
-                /**
-                 * "Skip-identifier" -> this input need skip, since he has special check-function
-                 */
-                if(!$(input).hasClass('skip-identifier')){
-                    return inputValue.length === 0;
-                } else {
-                    return 1 !== 0;
-                }
-            });
+            var inputValue = input.value;
+            return inputValue.length === 0;
+        });
         if (!isEmpty) {
             return true;
         }
