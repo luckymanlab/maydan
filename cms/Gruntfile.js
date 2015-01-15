@@ -19,15 +19,16 @@ module.exports = function(grunt) {
     ];
 
 	var base = [
+		'src/js/config.js',
+		'src/js/model/incident.js',
+		'src/js/model/media.js',
+		'src/js/model/article.js',
 		'src/js/collection/article-list-collection.js',
-        'src/js/model/article.js',
-        'src/js/model/incident.js',
-        'src/js/model/media.js',
-        'src/js/view/article-item-view.js',
+		'src/js/view/article-item-view.js',
         'src/js/view/article-table-view.js',
         'src/js/view/preview-article-view.js',
-        'src/js/app.js',
-        'src/js/config.js'
+		'src/js/app.js'
+      
 
 	];
 
