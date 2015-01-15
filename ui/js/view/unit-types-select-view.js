@@ -50,7 +50,7 @@ UT.UnitTypeSelectView = Backbone.Marionette.ItemView.extend({
      */
     selectOption: function(ev) {
         var typeName = $(ev.currentTarget).find('.unit-type-name').text();
-        this.$('#selectedValue').text(typeName).removeClass('placeholder');
+        this.$('#selectedValue').text(typeName);
         this.$('#optionsUnitType').toggle();
         $('#hiddenUnitType').attr('value', typeName);
     },

@@ -3,18 +3,33 @@
     border-top: none;
     font-size: 14px;
     width: 100%;
-    padding: 0;
+    padding: 2px 0 0 0;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    position: relative;
+    bottom: 2px;
 
         .select-option {
             cursor: pointer;
             width: 100%;
-            padding: 0;
-            margin: 0;
-            height: 25px;
+            padding: 2px 0;
+            height: 29px;
 
             &:hover {
                 background-color: $select-element-bg-hover;
                 color: $select-element-hover;
+            }
+            .unit-type-icon {
+              margin-left: 6px;
+            }
+            .unit-type-name {
+                margin-left: 16px;
+                position: relative;
+                top: 1px
+            }
+            &:last-child {
+              border-bottom-right-radius: 3px;
+              border-bottom-left-radius: 3px;
             }
         }
 }
@@ -29,4 +44,19 @@
     .selectValue {
         margin-left: 10px;
     }
+
+    .select-unit-type {
+        padding: 0;
+    }
+
+    .select-unit-type-icon {
+        padding: 9px 13px 9px 11px;
+        top: 0;
+    }
+
+    .unit-type-input {
+        background-color: #eee;
+    }
+
+
 }
