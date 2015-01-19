@@ -24,14 +24,13 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group date form_datetime" data-date="2013-10-16T05:25:07Z"
-                                 data-date-format="dd MM yyyy - HH:ii p" data-link-field="date-time-picker-input">
+                            data-date-format="dd MM yyyy - HH:ii p" data-link-field="date-time-picker-input">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-                                <input class="form-control input-data" size="16" type="text" value="" readonly placeholder="{i18n.SWITCH_DATE}" id="unitDate" data-label ="date">
+                                <input class="form-control input-data input-picker-cursor" size="16" type="text" value="" readonly placeholder="{i18n.SWITCH_DATE}" id="unitDate" data-label ="date">
                             </div>
                         </div>
                         <input id="date-time-picker-input" value="" type="hidden"/>
                     </div>
-
                     <input id="placepicker" class="form-control hiddenPlacepicker" />
                     <input id="hiddenMapCoordinateLat" type="hidden"/>
                     <input id="hiddenMapCoordinateLng" type="hidden"/>
@@ -39,9 +38,9 @@
                     <div data-example>
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <div class="input-group">
-                                    <span data-toggle="collapse" href="#collapseOne" class="input-group-addon"><span class="glyphicon glyphicon-globe"></span></span>
-                                    <input id="placepicker" class="placepicker form-control input-data skip-identifier" readonly placeholder="{i18n.SWITCH_COORDINATE}" data-label ="coordinates" />
+                                <div class="input-group" data-toggle="collapse" href="#collapseOne">
+                                    <span  class="input-group-addon"><span class="glyphicon glyphicon-globe"></span></span>
+                                    <input id="placepicker" class="placepicker form-control input-data input-picker-cursor skip-identifier" readonly placeholder="{i18n.SWITCH_COORDINATE}" data-label ="coordinates" />
                                 </div>
                             </div>
                         </div>
