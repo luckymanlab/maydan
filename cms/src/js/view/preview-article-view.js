@@ -8,8 +8,12 @@ UT.ArticlePreviewView = Marionette.ItemView.extend({
         'click #close-modal': 'destroy'
     },
     initialize: function(model) {
+        var that = this;
         this.model = model;
-        this.render();
+        $.get(UT.Config.articlePreviewTemplate, function(data) {
+            that.template = _.template(UT.i18n.processTemplate(data));
+            that.render();
+        });
     },
     onRender: function() {
         var coordinates = this.model.attributes.unit.coordinates || {
