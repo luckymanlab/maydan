@@ -20,6 +20,7 @@ module.exports = function(grunt) {
 
 	var base = [
 		'src/js/config.js',
+		'src/js/model/i18n.js',
 		'src/js/model/incident.js',
 		'src/js/model/media.js',
 		'src/js/model/article.js',
@@ -28,8 +29,6 @@ module.exports = function(grunt) {
         'src/js/view/article-table-view.js',
         'src/js/view/preview-article-view.js',
 		'src/js/app.js'
-      
-
 	];
 
 
@@ -65,7 +64,7 @@ module.exports = function(grunt) {
         copy: {
             source: {
                 expand: true,
-                src: ['src/css/**/*','index.html'],
+                src: ['src/css/**/*', 'src/locale/**/*', 'src/templates/**/*', 'index.html'],
                 dest: 'public'
             }
         },

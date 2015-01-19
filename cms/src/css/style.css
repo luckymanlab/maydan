@@ -10,3 +10,14 @@
 .modal-header .close {
     margin-top: -10px;
 }
+.article-title{
+    text-align: center;
+}
+.list-group-item.no-border{
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.lead{
+    font-size: 1em;
+}
