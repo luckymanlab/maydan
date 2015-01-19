@@ -10,6 +10,7 @@ UT.Config = {
 	//Path for getting templates
 	createArticleTemplate: 'templates/create-article-template.html',
 	unitTypesTemplate: 'templates/unit-types-select-template.html',
+	alertTemplate: 'templates/alert-template.html',
 	//Path for getting locale
 	localeBaseURL: 'locale/',
 	//default locale
