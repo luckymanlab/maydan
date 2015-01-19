@@ -1,4 +1,5 @@
-﻿/* =========================================================
+﻿/* this file was changed, please do not replace him; label to search: [Bug][openDatePicker]
+ * =========================================================
  * bootstrap-datetimepicker.js
  * =========================================================
  * Copyright 2012 Stefan Petre
@@ -43,7 +44,25 @@
 	var Datetimepicker = function (element, options) {
 		var that = this;
 
-		this.element = $(element);
+        this.element = $(element);
+
+        /*
+        * Fix [Bug][openDatePicker]: if DatePicker Input in focus -> datePicker PopUp doesn't open
+        * datePickerIcon - icon span(first child)
+        * datePickerInput - input(last child)
+        */
+
+        var datePickerIcon = this.element.find(':first');
+        var datePickerInput = this.element.find(':last');
+        var openDatePicker = function(){
+            datePickerIcon.click();
+        };
+
+        datePickerInput.on('click', openDatePicker);
+        /*
+        * end of openDatePicker
+        */
+
 
 		// add container for single page application
 		// when page switch the datetimepicker div will be removed also.

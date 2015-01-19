@@ -52,8 +52,8 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
             formGroup = input.parentNode.parentNode,
             textError = 'Enter ' + label,
             isValid = true;
-        if (input.id === 'mainSelectUnitType') {
-            inputValue = $('#selectedValue')[0].innerText;
+        if (input.id === 'selectedValue') {
+            inputValue = input.innerText;
         }
         if (inputValue === undefined || inputValue.length === 0 || inputValue === UT.i18n.attributes.SELECT_TYPE) {
             $(formGroup).addClass('has-error').removeClass('has-success');
@@ -91,7 +91,7 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
 
     validateSelect: function() {
         var that = this,
-            input = $('#mainSelectUnitType')[0];
+            input = $('#selectedValue')[0];
         return that.validate(input, that);
     },
 
