@@ -137,9 +137,15 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
             }
         });
     },
-
+    /**
+     * Close articleModal if form fields isn't filled or show confirmationModal
+     */
     closeArticleModal: function(){
+        var that = this;
         if(this.filledFields()){
+            $('#confirmModal').on('hidden.bs.modal', function () {
+                that.cancelModalConfirm();
+            });
             $('#confirmModal').modal('show');
             $('#articleContent').css('opacity', 0.5);
         } else{
