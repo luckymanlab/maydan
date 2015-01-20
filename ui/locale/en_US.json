@@ -10,6 +10,9 @@
 	"UNSAVED_DATA": "You have unsaved changes, are you sure?",
 	"BUTTON_SAVE": "Save",
 	"BUTTON_CANCEL": "Cancel",
-	"BUTTON_OK": "OK"
+	"BUTTON_OK": "OK",
+  	"SUCCESS_ALERT_MESSAGE": "The model has been saved to the server",
+  	"ERROR_ALERT_MESSAGE": "Something went wrong while saving the model",
+  	"WARNING_ALERT_MESSAGE": "Something went wrong while saving the model"
 
 }

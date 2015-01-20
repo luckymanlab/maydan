@@ -18,9 +18,11 @@ UT.app.start = function(){
 	});
 	Backbone.history.start();
 	UT.i18n = new UT.I18n();
+	UT.alertMessageCollection = new UT.AlertMessageCollection();
 	/* jslint nonew: false */
 	new UT.ControlPanelView();
 	new UT.MapView();
+	new UT.AlertMessengerView({collection: UT.alertMessageCollection});
 	/* jslint nonew: true */
 	Timeline.core.init($('.time-block'), Timeline.Config);
 };

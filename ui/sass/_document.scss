@@ -40,6 +40,16 @@
 .date-picker {
     width: 100px;
 }
+#alertMessenger {
+    position: absolute;
+    left: 25%;
+    top: 5%;
+    width: 50%;
+
+    .alert-success, .alert-danger {
+        display: block;
+    }
+}
 /* unit-types */
 .select-option > img{
     max-width: 25px;

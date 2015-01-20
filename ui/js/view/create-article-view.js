@@ -100,6 +100,7 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
     },
 
     saveArticle: function(e){
+        var that = this;
         var unitDate = $('#unitDate')[0],
             hiddenUnitType = $('#hiddenUnitType')[0],
             hiddenMapCoordinateLat = $('#hiddenMapCoordinateLat')[0],
@@ -128,12 +129,13 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
             success: function (model, response, options) {
                 console.log('The model has been saved to the server' , response, model, options);
                 $('#articleForm')[0].reset();
-                $('.alert-success').toggle();
+                UT.alertMessageCollection.setMessage(UT.i18n.processTemplate('{i18n.SUCCESS_ALERT_MESSAGE}'), 'SUCCESS');
+                that.destroyView();
             },
             error: function (model, response, options) {
                 console.log('Something went wrong while saving the model',response);
-                $('#articleForm')[0].reset();
-                $('.alert-danger').toggle();
+                UT.alertMessageCollection.setMessage(UT.i18n.processTemplate('{i18n.ERROR_ALERT_MESSAGE}'), 'ERROR');
+                that.destroyView();
             }
         });
     },
