@@ -1,10 +1,7 @@
 var mongoose = require('mongoose'),
-    url = 'mongodb://localhost/maydan';
-
-var options = {
-    user: 'padawan',
-    pass: '123123'
-};
+    Config = require('./configs/config'),
+    url = Config.mongooseUrl,
+    options = Config.mongooseOptions;
 
 mongoose.connect(url, options, function(err) {
     if(err) {
