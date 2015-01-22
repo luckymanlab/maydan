@@ -1,6 +1,6 @@
-var mongoose = require('../configs/connect'),
+var mongoose = require('../connect'),
     temp = require('./article-temp'),
-    models = require('../configs/models.js');
+    models = require('../models.js');
 
 exports.getAll = function(req, res) {
     models.article.find(function(err, data) {

@@ -1,4 +1,4 @@
-var passport = require('../configs/passport'),
+var passport = require('../passport'),
 	express = require('express'),
 	router = express.Router();
 

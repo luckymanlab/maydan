@@ -1,5 +1,5 @@
-var mongoose = require('../configs/connect'),
-    models = require('../configs/models'),
+var mongoose = require('../connect'),
+    models = require('../models'),
     media = require('./media'),
     unit = require('./unit'),
     https = require('https');

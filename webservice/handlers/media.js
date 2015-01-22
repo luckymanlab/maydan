@@ -1,5 +1,5 @@
-var mongoose = require('../configs/connect'),
-    models = require('../configs/models');
+var mongoose = require('../connect'),
+    models = require('../models');
 
 exports.confirm = function(data, callback) {
     var newMedia = models.media({
