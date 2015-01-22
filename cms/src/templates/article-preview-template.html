@@ -1,0 +1,29 @@
+<div class="modal article-modal" id="article-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div id="article-content" class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-hidden="true" id="close-modal">&times;</button>
+                <h3 class="modal-title article-title"> <%=unit.title %></h3>
+            </div>
+            <ul class="list-group">
+                <li class="list-group-item no-border"><span class="lead">{i18n.CREATION_DATE}:</span>
+                    <%=new Date(criationDate).toLocaleDateString() %>
+                </li>
+                <li class="list-group-item "><span class="lead">{i18n.DATE}:</span>
+                    <%=new Date(unit.time).toLocaleDateString() %>
+                </li>
+                <li class="list-group-item"><span class="lead">{i18n.TYPE}:</span>
+                    <%=unit.unitType %>
+                </li>
+                <li class="list-group-item"><span class="lead">{i18n.DESCRIPTION}:</span>
+                    <%=media.content %>
+                </li>
+                <li class="list-group-item map-coordinate" id="map"></li>
+            </ul>
+            <div class="form-group col-sm-12">
+                <button type="button" class="btn btn-primary confirm-item" id="close-article-modal">{i18n.APPROVE}</button>
+                <button type="button" class="btn btn-default delete-item" id="save-article">{i18n.DELETE}</button>
+            </div>
+        </div>
+    </div>
+</div>

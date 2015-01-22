@@ -7,7 +7,7 @@ UT.ArticleTableView = Marionette.CompositeView.extend({
     initialize: function(){
         var that = this;
         this.collection = new UT.ArticleListCollection();
-        $.get(UT.Config.articlesListTemplate, function(data) {
+        $.get(UT.Config.articlesTableTemplate, function(data) {
             that.template = _.template(UT.i18n.processTemplate(data));
             that.render();
         });

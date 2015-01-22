@@ -1,5 +1,5 @@
-var mongoose = require('../configs/connect'),
-    models = require('../configs/models');
+var mongoose = require('../connect'),
+    models = require('../models');
 
 /**
  * Get all approved units from DB
