@@ -17,6 +17,7 @@ UT.app.start = function(){
 		alert(id);
 	});
 	Backbone.history.start();
+	UT.timer = new UT.Timer();
 	UT.i18n = new UT.I18n();
 	UT.alertMessageCollection = new UT.AlertMessageCollection();
 	/* jslint nonew: false */
