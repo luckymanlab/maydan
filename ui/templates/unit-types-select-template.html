@@ -6,9 +6,9 @@
 
 	<div id="optionsUnitType" class="col-sm-10">
 		<% _.each(items, function(item) { %>
-			<div class="col-sm-10 select-option" id="<%= item.id %>">
-				<img class="unit-type-icon" src="<%= item.imageSrc %>">
-				<span class="unit-type-name"><%= item.name %></span>
+			<div class="col-sm-10 select-option" id="<%= item.attributes.id %>">
+				<img class="unit-type-icon" src="<%= item.attributes.imageSrc %>">
+				<span class="unit-type-name"><%= item.attributes.name %></span>
 			</div>
 		<% }); %>
 	</div>

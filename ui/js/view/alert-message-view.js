@@ -1,5 +1,5 @@
 /*global UT, Backbone*/
-/*jshint -W079 */
+/*jshint -W079, -W069 */
 var UT = window.UT || {};
 
 /**
@@ -20,9 +20,8 @@ UT.AlertMessageView = Backbone.Marionette.ItemView.extend({
      */
     initialize: function(option) {
         var item = this.model;
-        this.template = _.template(option.templ)({
-            item: item
-        });
+        var template1 =  window['JST']['templates/alert-template.html']({item: item}); // take template string from templates.js
+        this.template = _.template(template1);
     },
 
     onRender: function() {

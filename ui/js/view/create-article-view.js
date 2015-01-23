@@ -1,5 +1,5 @@
 /*global UT, Backbone*/
-/*jshint -W079 */
+/*jshint -W079, -W069 */
 var UT = window.UT || {};
 
 /**
@@ -28,13 +28,10 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
      * Initialize CompositeView, get template & render view
      */
     initialize: function() {
-        var that = this;
-        $.get(UT.Config.createArticleTemplate, function(data) {
-            that.template = _.template(UT.i18n.processTemplate(data));
-            that.render();
-        });
+        var template =  window['JST']['templates/create-article-template.html'](); // take template string from templates.js
+        this.template = _.template(UT.i18n.processTemplate(template));
+        this.render();
     },
-
     /**
      * After render show modal window initialize plugins for form & create ItemView
      */
@@ -107,6 +104,7 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
             hiddenMapCoordinateLng = $('#hiddenMapCoordinateLng')[0],
             mediaContent = $('#mediaContent')[0],
             unitTitle = $('#unitTitle')[0];
+
         var obj = {
                 time: new Date(unitDate.value).getTime(),
                 type: hiddenUnitType.value,
