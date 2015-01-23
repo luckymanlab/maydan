@@ -20,5 +20,9 @@ UT.Config = {
 	defaultPosition: {
 		lat: '50.4505879',
 		lon: '30.523233300000015'
-	}
+	},
+	//default timer
+	timerStartDate: 100,
+	timerInterval: 1000,
+	timerRange: 10
 };

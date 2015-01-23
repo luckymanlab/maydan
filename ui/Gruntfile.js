@@ -23,7 +23,8 @@ module.exports = function(grunt) {
 	];
 
 	var base = [
-		'js/model/unit.js',
+        'js/model/timer.js',
+        'js/model/unit.js',
 		'js/model/media.js',
 		'js/model/article.js',
         'js/model/i18n.js',
