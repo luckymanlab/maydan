@@ -21,7 +21,8 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
         'click #closeConfirm,#closeConfirm-default': 'closeModalConfirm',
         'click #closeReturn': 'cancelModalConfirm',
         'change #unitTitle, #mediaContent, #unitDate': 'validateInput',
-        'click #optionsUnitType': 'validateSelect'
+        'click #optionsUnitType': 'validateSelect',
+        'keydown': 'keyPressAction'
     },
 
     /**
@@ -36,6 +37,10 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
      * After render show modal window initialize plugins for form & create ItemView
      */
     onRender: function() {
+        this.$el.modal({
+            backdrop: 'static',
+            keyboard: false
+        });
         this.$el.modal('show');
         this.popupFormInitialize();
         /* jslint nonew: false */
@@ -150,6 +155,12 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
             $('#articleContent').css('opacity', 0.5);
         } else{
             this.destroyView();
+        }
+    },
+    keyPressAction: function(e) {
+        var code = e.keyCode || e.which;
+        if(code === 27) {//keyCode 'Escape'
+            this.closeArticleModal();
         }
     },
     /**
