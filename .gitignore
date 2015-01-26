@@ -30,7 +30,7 @@ build/Release
 node_modules
 
 # builded files #
-js/templates.js
+ui/js/templates.js
 ui/public/**
 webservice/public
 main.js
