@@ -148,20 +148,23 @@ module.exports = function(grunt) {
         clean: {
             public: {
                 src: [ 'public' ]
+            },
+            temp: {
+                src:['public/templates.js']
             }
         },
         concat: {
             local: {
-                src: ['js/configs/local.js', 'public/js/main.js'],
-                dest: 'public/js/main.js',
+                src: ['public/templates.js', 'js/configs/local.js', 'public/js/main.js' ],
+                dest: 'public/js/main.js'
             },
             dev: {
-                src: ['js/configs/dev.js', 'public/js/main.js'],
-                dest: 'public/js/main.js',
+                src: ['public/templates.js','js/configs/dev.js', 'public/js/main.js'],
+                dest: 'public/js/main.js'
             },
             prod: {
-                src: ['js/configs/prod.js', 'public/js/main.js'],
-                dest: 'public/js/main.js',
+                src: ['public/templates.js', 'js/configs/prod.js', 'public/js/main.js'],
+                dest: 'public/js/main.js'
             }
         },
         sprite: {
@@ -194,9 +197,9 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask('compile', ['clean','jshint:files', 'sass', 'uglify:app', 'concat:local',  'jst:compile', 'copy:css', 'copy:source']);
-    grunt.registerTask('compile:dev', ['clean','jshint:files', 'sass', 'uglify:app', 'concat:dev', 'jst:compile','copy:css', 'copy:source']);
-    grunt.registerTask('compile:prod', ['clean','jshint:files', 'sass', 'uglify:app', 'concat:prod', 'jst:compile', 'copy:css', 'copy:source']);
+    grunt.registerTask('compile', ['clean','jshint:files', 'sass', 'jst:compile', 'uglify:app', 'concat:local',  'copy:css', 'copy:source', 'clean:temp']);
+    grunt.registerTask('compile:dev', ['clean','jshint:files', 'sass', 'jst:compile', 'uglify:app', 'concat:dev', 'copy:css', 'copy:source', 'clean:temp']);
+    grunt.registerTask('compile:prod', ['clean','jshint:files', 'sass','jst:compile', 'uglify:app', 'jst:compile', 'concat:prod', 'copy:css', 'copy:source', 'clean:temp']);
 
     grunt.registerTask('watcher', ['jshint:files', 'sass', 'uglify:app', 'concat:local', 'watch']);
 
