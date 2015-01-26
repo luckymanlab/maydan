@@ -35,7 +35,11 @@ UT.Timer = Backbone.Model.extend({
      * @argument {number}  newTime - set argument to property time
      */
     setTime: function(newTime) {
-        this.set('time', newTime || UT.Config.timerStartDate);
+        if(newTime) {
+            this.set('time', newTime);
+        } else {
+            console.log('new time is not defined');
+        }
     },
 
     /**
