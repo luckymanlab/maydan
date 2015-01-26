@@ -1,5 +1,5 @@
 /*global UT, Backbone*/
-/*jshint -W079 */
+/*jshint -W079, -W069 */
 var UT = window.UT || {};
 
 /**
@@ -23,16 +23,15 @@ UT.UnitTypeSelectView = Backbone.Marionette.ItemView.extend({
      */
     initialize: function() {
         var that = this;
-        $.get(UT.Config.unitTypesTemplate, function(data) {
-            that.collection.fetch({
-                success: function(result) {
-                    that.collection.models.forEach(function(model){
-                        model.attributes.imageSrc = UT.Config.unitTypesImagePath.replace('{ITEM_TYPE}', model.attributes.type);
-                    });
-                    that.template = _.template(UT.i18n.processTemplate(data));
-                    that.render();
-                }
-            });
+        this.collection.fetch({
+            success: function(result) {
+                that.collection.models.forEach(function(model){
+                    model.attributes.imageSrc = UT.Config.unitTypesImagePath.replace('{ITEM_TYPE}', model.attributes.type);
+                });
+                var template =  window['JST']['templates/unit-types-select-template.html']({items: that.collection.models}); // take template string from templates.js
+                that.template = _.template(UT.i18n.processTemplate(template));
+                that.render();
+            }
         });
     },
 
