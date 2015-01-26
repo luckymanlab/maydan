@@ -52,7 +52,7 @@ Timeline.core = (function () {
 			that.activateDraggable();
 			that.createTimeLine(config);
 			that.timelineEventHandler();
-			that.getUnits();
+			that.getUnits(config);
 		},
 		setDate: function (date) {
 			var oldDate = Timeline.tlDateUtil.timeStamp(that.currentDate);
@@ -564,10 +564,10 @@ Timeline.core = (function () {
 			that.datesBetweenRange(that.arrayNewsElements, animateTop, animateLeft);
 			that.startTimeOut();
 		},
-		getUnits: function(){
+		getUnits: function(config){
 			var that = this;
 			$.ajax({
-				url: Timeline.Config.getApprovedUnits
+				url: config.getApprovedUnits
 			}).done(function(data) {
 				console.log(data);
 				that.setNews(data);
@@ -585,11 +585,6 @@ Timeline.core = (function () {
 })();
 
 
-var host = 'http://localhost:3000/';
-Timeline.Config = {
-	dateStart: new Date(1400529754000),
-	getApprovedUnits: host + 'unit'
-};
 
 
 

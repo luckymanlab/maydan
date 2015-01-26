@@ -1,8 +1,8 @@
 /*global UT, Backbone*/
-/*global Timeline, Timeline*/
+
 /*jshint -W079 */
 var UT = window.UT || {};
-var Timeline = window.Timeline || {};
+//var Timeline = window.Timeline || {};
 
 /**
  * Create instance of the Backbone.Marionette.Application
@@ -24,8 +24,8 @@ UT.app.start = function(){
 	new UT.ControlPanelView();
 	new UT.MapView();
 	new UT.AlertMessengerView({collection: UT.alertMessageCollection});
+	new UT.TimelineView({model: UT.timer});
 	/* jslint nonew: true */
-	Timeline.core.init($('.time-block'), Timeline.Config);
 };
 /**
  * Start Marionette application
