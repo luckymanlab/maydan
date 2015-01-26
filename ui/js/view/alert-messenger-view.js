@@ -1,5 +1,5 @@
 /*global UT, Backbone*/
-/*jshint -W079 */
+/*jshint -W079, -W069 */
 var UT = window.UT || {};
 
 /**
@@ -14,18 +14,10 @@ UT.AlertMessengerView = Backbone.Marionette.CollectionView.extend({
     childView: UT.AlertMessageView,
 
     /**
-     * Initialize CollectionView, get collection from options, get template & send it to childViewOptions
-     *
-     * @param {object} option  -  option has property collection, it's collection for CollectionView
+     * Initialize CollectionView
      */
     initialize: function(option) {
-        var that = this;
         this.collection = option.collection;
-        $.get(UT.Config.alertTemplate, function(data) {
-            that.childViewOptions = {
-                templ: data
-            };
-            that.render();
-        });
+        this.render();
     }
 });

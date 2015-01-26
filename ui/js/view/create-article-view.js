@@ -1,5 +1,5 @@
 /*global UT, Backbone*/
-/*jshint -W079 */
+/*jshint -W079, -W069 */
 var UT = window.UT || {};
 
 /**
@@ -21,24 +21,26 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
         'click #closeConfirm,#closeConfirm-default': 'closeModalConfirm',
         'click #closeReturn': 'cancelModalConfirm',
         'change #unitTitle, #mediaContent, #unitDate': 'validateInput',
-        'click #optionsUnitType': 'validateSelect'
+        'click #optionsUnitType': 'validateSelect',
+        'keydown': 'keyPressAction'
     },
 
     /**
      * Initialize CompositeView, get template & render view
      */
     initialize: function() {
-        var that = this;
-        $.get(UT.Config.createArticleTemplate, function(data) {
-            that.template = _.template(UT.i18n.processTemplate(data));
-            that.render();
-        });
+        var template =  window['JST']['templates/create-article-template.html'](); // take template string from templates.js
+        this.template = _.template(UT.i18n.processTemplate(template));
+        this.render();
     },
-
     /**
      * After render show modal window initialize plugins for form & create ItemView
      */
     onRender: function() {
+        this.$el.modal({
+            backdrop: 'static',
+            keyboard: false
+        });
         this.$el.modal('show');
         this.popupFormInitialize();
         /* jslint nonew: false */
@@ -107,6 +109,7 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
             hiddenMapCoordinateLng = $('#hiddenMapCoordinateLng')[0],
             mediaContent = $('#mediaContent')[0],
             unitTitle = $('#unitTitle')[0];
+
         var obj = {
                 time: new Date(unitDate.value).getTime(),
                 type: hiddenUnitType.value,
@@ -152,6 +155,12 @@ UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
             $('#articleContent').css('opacity', 0.5);
         } else{
             this.destroyView();
+        }
+    },
+    keyPressAction: function(e) {
+        var code = e.keyCode || e.which;
+        if(code === 27) {//keyCode 'Escape'
+            this.closeArticleModal();
         }
     },
     /**
