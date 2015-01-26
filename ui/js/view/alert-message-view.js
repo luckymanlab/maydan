@@ -20,8 +20,8 @@ UT.AlertMessageView = Backbone.Marionette.ItemView.extend({
      */
     initialize: function(option) {
         var item = this.model;
-        var template1 =  window['JST']['templates/alert-template.html']({item: item}); // take template string from templates.js
-        this.template = _.template(template1);
+        var template =  window['JST']['templates/alert-template.html']({item: item}); // take template string from templates.js
+        this.template = _.template(template);
     },
 
     onRender: function() {
