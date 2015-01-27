@@ -15,8 +15,12 @@ var UT = window.UT || {};
 UT.Timer = Backbone.Model.extend({
     TIMER_INTERVAL: UT.Config.timerInterval,
     TIMER_RANGE: UT.Config.timerRange,
-    time: UT.Config.timerStartDate,
-    isStartedTimer: false,
+    defaults: {
+        time: UT.Config.timerStartDate,
+        isStartedTimer: false
+    },
+
+    sync: function () { return false;},
 
     /**
      * Initialize Model timer starts
@@ -31,7 +35,11 @@ UT.Timer = Backbone.Model.extend({
      * @argument {number}  newTime - set argument to property time
      */
     setTime: function(newTime) {
-        this.time = newTime || UT.Config.timerStartDate;
+        if(newTime) {
+            this.set('time', newTime);
+        } else {
+            console.log('new time is not defined');
+        }
     },
 
     /**
@@ -39,7 +47,7 @@ UT.Timer = Backbone.Model.extend({
      * @return{number}  this.time
      */
     getTime: function() {
-        return this.time;
+        return this.get('time');
     },
 
     /**
@@ -49,7 +57,7 @@ UT.Timer = Backbone.Model.extend({
         var that = this;
         if(!this.isStartedTimer) {
             this.isStartedTimer = setInterval(function() {
-                that.setTime(that.time + that.TIMER_RANGE);
+                that.setTime(that.getTime() + that.TIMER_RANGE);
             }, this.TIMER_INTERVAL);
         }
     },

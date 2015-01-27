@@ -43,6 +43,7 @@ module.exports = function(grunt) {
         'js/view/alert-message-view.js',
         'js/view/alert-messenger-view.js',
         'js/view/map-view.js',
+        'js/view/timeline-view.js',
 		'js/router.js',
 		'js/app.js'
 	];
