@@ -3,20 +3,20 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" aria-hidden="true" id="close-modal">&times;</button>
-                <h3 class="modal-title article-title"> <%=unit.title %></h3>
+                <h3 class="modal-title article-title"> <%=article.unit.title %></h3>
             </div>
             <ul class="list-group">
                 <li class="list-group-item no-border"><span class="lead">{i18n.CREATION_DATE}:</span>
-                    <%=new Date(criationDate).toLocaleDateString() %>
+                    <%=new Date(article.criationDate).toLocaleDateString() %>
                 </li>
                 <li class="list-group-item "><span class="lead">{i18n.DATE}:</span>
-                    <%=new Date(unit.time).toLocaleDateString() %>
+                    <%=new Date(article.unit.time).toLocaleDateString() %>
                 </li>
                 <li class="list-group-item"><span class="lead">{i18n.TYPE}:</span>
-                    <%=unit.unitType %>
+                    <%=article.unit.unitType %>
                 </li>
                 <li class="list-group-item"><span class="lead">{i18n.DESCRIPTION}:</span>
-                    <%=media.content %>
+                    <%=article.media.content %>
                 </li>
                 <li class="list-group-item map-coordinate" id="map"></li>
             </ul>

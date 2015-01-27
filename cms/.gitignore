@@ -1,5 +1,5 @@
 # builded files #
-ui/public/**
+cms/public/**
 main.js
 
 # webstorm files #

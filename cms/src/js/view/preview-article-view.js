@@ -1,3 +1,4 @@
+/*jshint -W069 */
 var UT = window.UT || {};
 
 UT.ArticlePreviewView = Marionette.ItemView.extend({
@@ -8,12 +9,10 @@ UT.ArticlePreviewView = Marionette.ItemView.extend({
         'click #close-modal': 'destroy'
     },
     initialize: function(model) {
-        var that = this;
         this.model = model;
-        $.get(UT.Config.articlePreviewTemplate, function(data) {
-            that.template = _.template(UT.i18n.processTemplate(data));
-            that.render();
-        });
+        var template = window['JST']['src/templates/article-preview-template.html']({article: this.model.attributes}); // take template string from templates.js
+        this.template = _.template(UT.i18n.processTemplate(template));
+        this.render();
     },
     onRender: function() {
         var coordinates = this.model.attributes.unit.coordinates || {
