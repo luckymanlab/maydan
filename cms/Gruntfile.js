@@ -2,6 +2,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-jst');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-imagemin');
@@ -21,6 +22,7 @@ module.exports = function(grunt) {
 	var base = [
 		'src/js/config.js',
 		'src/js/model/i18n.js',
+        'src/js/templates.js',
 		'src/js/model/incident.js',
 		'src/js/model/media.js',
 		'src/js/model/article.js',
@@ -31,8 +33,6 @@ module.exports = function(grunt) {
 		'src/js/app.js'
 	];
 
-
-
     grunt.initConfig({
 
 
@@ -42,6 +42,13 @@ module.exports = function(grunt) {
             },
             grunt: 'Gruntfile.js',
             files: ['src/js/*.js', 'src/js/**/*.js']
+        },
+        jst: {
+            compile: {
+                files: {
+                    "src/js/templates.js": ["src/templates/**/*.html"]
+                }
+            }
         },
         uglify: {
             app: {
@@ -59,7 +66,7 @@ module.exports = function(grunt) {
                 files: {
                     'public/src/js/main.js': [libs, base]
                 }
-            },
+            }
         },
         copy: {
             source: {
@@ -72,11 +79,11 @@ module.exports = function(grunt) {
             public: {
                 src: [ 'public' ]
             }
-        },
+        }
 
     });
 
-    grunt.registerTask('compile', ['clean','jshint:files','uglify:app','copy:source']);
+    grunt.registerTask('compile', ['clean','jst:compile', 'jshint:files','uglify:app','copy:source']);
 
 
 

@@ -5,8 +5,6 @@ var UT = window.UT || {},
 UT.Config = {
     //Path for getting articles
     getAllArticles: host + 'temp/articles',
-    articlesTableTemplate: 'src/templates/articles-table-template.html',
-    articlePreviewTemplate: 'src/templates/article-preview-template.html',
     //Path for getting locale
     localeBaseURL: 'src/locale/',
     //default locale

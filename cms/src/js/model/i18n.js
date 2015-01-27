@@ -23,7 +23,6 @@ UT.I18n = Backbone.Model.extend({
     setLan: function(locale) {
         var currentLocale = locale || UT.Config.localeDefault;
         this.urlRoot = UT.Config.localeBaseURL + currentLocale + '.json';
-        this.fetch();
     },
 
     /**
