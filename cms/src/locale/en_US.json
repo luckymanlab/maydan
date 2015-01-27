@@ -7,5 +7,6 @@
 	"TYPE": "Article type",
 	"DESCRIPTION": "Description",
 	"APPROVE": "Approve",
-	"DELETE": "Delete"
+	"DELETE": "Delete",
+    "NO_ARTICLES": "There are no unapproved articles"
 }
