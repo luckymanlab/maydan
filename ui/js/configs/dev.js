@@ -11,6 +11,7 @@ UT.Config = {
 	localeBaseURL: 'locale/',
 	//default locale
 	localeDefault: 'en_US',
+    facebookAppId: 1525144001089909,
 	unitTypesImagePath: 'img/types/{ITEM_TYPE}.png',
 	preloader: 'http://a-develop.ru/media/blog/56_preview.gif',
 	defaultPosition: {
