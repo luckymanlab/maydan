@@ -25,8 +25,9 @@ exports.getAll = function(req, res) {
  * @param {object} res response
  */
 exports.getById = function(req, res) {
-    models.unit.findOne(req.query.id, function(err, data) {
-        console.log("Id is" , req.query.id);
+    models.unit.findOne({_id: req.params.id}, function(err, data) {
+        console.log("Id is" , req.params.id);
+        console.log();
         if(err) {
             res.send(err);
             console.log(err);
@@ -46,10 +47,12 @@ exports.getByRange = function(req, res) {
     var query={};
     query.time = {};
     if (req.query.startDate) {
-        query.time.$gte =  new Date(req.query.startDate).getTime();
+        //query.time.$gte =  new Date(req.query.startDate).getTime();
+        query.time.$gte =  req.query.startDate;
     }
     if (req.query.endDate) {
-        query.time.$lte = new Date(req.query.endDate).getTime();
+        //query.time.$lte = new Date(req.query.endDate).getTime();
+        query.time.$lte = req.query.endDate;
     }
     models.unit.find(query, function(err, data) {
         if(err) {

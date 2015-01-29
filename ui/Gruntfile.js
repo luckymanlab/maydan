@@ -32,6 +32,7 @@ module.exports = function(grunt) {
         'js/model/i18n.js',
         'js/model/alert-message.js',
 		'js/collection/unit-collection.js',
+		'js/collection/unit-loader-collection.js',
 		'js/collection/unit-types-collection.js',
         'js/collection/alert-message-collection.js',
 		'js/view/article-modal-view.js',
