@@ -1,6 +1,6 @@
 /*global UT, Backbone*/
 
-/*jshint -W079 */
+/*jshint -W079, -W117 */
 var UT = window.UT || {};
 //var Timeline = window.Timeline || {};
 
@@ -19,6 +19,8 @@ UT.app.start = function(){
 	Backbone.history.start();
 	UT.timer = new UT.Timer();
 	UT.i18n = new UT.I18n();
+    UT.auth = new UT.Auth();
+    UT.facebookAuthView = new UT.FacebookAuthView();
 	UT.alertMessageCollection = new UT.AlertMessageCollection();
 	/* jslint nonew: false */
 	new UT.ControlPanelView();
@@ -28,6 +30,19 @@ UT.app.start = function(){
 	UT.unitLoaderCollection = new UT.UnitLoaderCollection();
 
 	/* jslint nonew: true */
+
+    /**
+     * Add Facebook AccessToken to request headers
+     */
+    var originalSync = Backbone.sync;
+    Backbone.sync = function(method, model, options) {
+        options.headers = options.headers || {};
+        UT.auth.getLoginStatus(function(response) {
+            _.extend(options.headers, { 'X-FB-Token': response.authResponse.accessToken});
+            originalSync.call(model, method, model, options);
+        });
+
+    };
 };
 /**
  * Start Marionette application

@@ -1,5 +1,5 @@
 /*global UT, Backbone*/
-/*jshint -W079 */
+/*jshint -W079, -W117, -W031 */
 var UT = window.UT || {};
 
 /**
@@ -27,18 +27,10 @@ UT.ControlPanelView = Backbone.Marionette.ItemView.extend({
 	/**
 	 * Create view for creating new article
 	 */
-	createArticle: function(){
-		/* jslint nonew: false */
-        if(this.getAccessToken()) {
+	createArticle: function() {
+        UT.facebookAuthView.doFacebookAuth(function() {
             new UT.CreateArticleView();
-        } else {
-            this.authorization();
-        }
-		/* jslint nonew: true */
-	},
-
-	authorization: function() {
-		window.open('http://localhost:3000/auth/facebook', '_blank', 'width=600, height=500');
+        });
 	},
 
 	updateArticle: function(id){
