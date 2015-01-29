@@ -1,5 +1,6 @@
 # builded files #
 cms/public/**
+cms/js/templates.js
 main.js
 
 # webstorm files #
