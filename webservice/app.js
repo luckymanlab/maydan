@@ -4,7 +4,8 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
     cors = require('cors'),
-    router = require('./routes/index');
+    router = require('./routes/index'),
+    auth = require('./auth');
 
 var app = express();
 
@@ -14,6 +15,8 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, './public')));
+
+app.use(auth.detectUser);
 
 app.use('/', router);
 

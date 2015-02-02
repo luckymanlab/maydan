@@ -1,12 +1,10 @@
 var mongoose = require('../connect'),
     models = require('../models'),
     media = require('./media'),
-    unit = require('./unit'),
-    https = require('https');
+    unit = require('./unit');
 
 exports.addArticle = function(req, res) {
     var article = req.body;
-    console.log('Adding article into temp: ' + JSON.stringify(article));
 
     if(
         typeof article.media.content === undefined
@@ -19,44 +17,33 @@ exports.addArticle = function(req, res) {
     ) {
         res.status(400).res('Requested data is invalid');
         console.log('Bad request');
-    }
-    var access_token = article.accessToken;
-    var buffer = '';
-    var request = https.get("https://graph.facebook.com/me?access_token=" + access_token,
-        function(result){
-            result.setEncoding('utf8');
-            result.on('data', function(chunk){
-                buffer += chunk;
-            });
-            
-            result.on('end', function(){
-                var newArticle = new models.articleTemp({
-                    media: {
-                        content: article.media.content
-                    },
-                    unit: {
-                        time: article.unit.time,
-                        unitType: article.unit.type,
-                        coordinates: {
-                            lat: article.unit.coordinates.lat,
-                            lon: article.unit.coordinates.lon
-                        },
-                        title: article.unit.title
-                    },
-                    creatorId: JSON.parse(buffer).id
-                });
+    } else if(req.user.id) {
+        var newArticle = new models.articleTemp({
+            media: {
+                content: article.media.content
+            },
+            unit: {
+                time: article.unit.time,
+                unitType: article.unit.type,
+                coordinates: {
+                    lat: article.unit.coordinates.lat,
+                    lon: article.unit.coordinates.lon
+                },
+                title: article.unit.title
+            },
+            creatorId: req.user.id
+        });
 
-                newArticle.save(function(err, data) {
-                    if(err) {
-                        res.status(400).send(err);
-                        console.log(err);
-                    } else {
-                        res.send('Success');
-                    }
-                });
-            });
-    });
-},
+        newArticle.save(function(err, data) {
+            if(err) {
+                res.status(400).send(err);
+                console.log(err);
+            } else {
+                res.send('Success');
+            }
+        });
+    }
+}
 
 exports.getAll = function(req, res) {
     models.articleTemp.find(function(err, data) {
@@ -67,7 +54,7 @@ exports.getAll = function(req, res) {
             res.send(data);
         }
     });
-},
+}
 
 exports.removeById = function(req, res) {
     var id = req.params.id;
@@ -80,7 +67,7 @@ exports.removeById = function(req, res) {
             res.send('Success');
         }
     });
-},
+}
 
 exports.confirm = function(req, res) {
     var id = req.params.id;
