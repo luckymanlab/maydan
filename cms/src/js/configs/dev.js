@@ -8,5 +8,6 @@ UT.Config = {
     //Path for getting locale
     localeBaseURL: 'src/locale/',
     //default locale
-    localeDefault: 'en_US'
+    localeDefault: 'en_US',
+    facebookAppId: 1525144001089909
 };

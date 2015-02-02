@@ -69,11 +69,35 @@ module.exports = function(grunt) {
                 }
             }
         },
+        sass: {
+            dist: {
+                options: {
+                    style: 'compressed'
+                },
+                files: {
+                    'public/src/css/style.css': 'src/sass/style.scss'
+                }
+            }
+        },
         copy: {
             source: {
                 expand: true,
                 src: ['src/css/**/*', 'src/locale/**/*', 'src/templates/**/*', 'index.html'],
                 dest: 'public'
+            }
+        },
+        concat: {
+            local: {
+                src: ['src/js/configs/local.js', 'public/src/js/main.js' ],
+                dest: 'public/src/js/main.js'
+            },
+            dev: {
+                src: ['src/js/configs/dev.js', 'public/src/js/main.js'],
+                dest: 'public/src/js/main.js'
+            },
+            prod: {
+                src: ['src/js/configs/prod.js', 'public/src/js/main.js'],
+                dest: 'public/src/js/main.js'
             }
         },
         clean: {
@@ -84,7 +108,9 @@ module.exports = function(grunt) {
 
     });
 
-    grunt.registerTask('compile', ['clean','jst:compile', 'jshint:files','uglify:app','copy:source']);
+    grunt.registerTask('compile', ['clean', 'sass','jst:compile', 'jshint:files','uglify:app','concat:local','copy:source']);
+    grunt.registerTask('compile:prod', ['clean', 'sass','jst:compile', 'jshint:files','uglify:app','concat:prod','copy:source']);
+    grunt.registerTask('compile:dev', ['clean', 'sass','jst:compile', 'jshint:files','uglify:app','concat:dev','copy:source']);
 
 
 
