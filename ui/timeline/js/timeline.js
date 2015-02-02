@@ -288,6 +288,8 @@ Timeline.core = (function () {
 			var parentOffsetLeft;
 			// var needRepaint = false;
 			that.$timelineContainerEl.on( 'dragstart', function( event, ui ) {
+				//event.stopPropagation();
+				$(that.$timelineContainerEl).trigger('dragStarted');
 				parentOffsetLeft = $('.tl-container-wrap').offset();
 				parentOffsetLeft = parseInt(parentOffsetLeft.left, 10);
 				lastPxPosition =  parseInt(that.$timelineContainerEl.css('left'), 10);
@@ -378,6 +380,7 @@ Timeline.core = (function () {
 				that.currentDate = newCurrentDate;
 				that.repaintContentAndTimeBlock(true, false);
 				that.$timelineContainerEl.css('left', 0 + 'px');
+				$(that.$timelineContainerEl).trigger('dragStopped');
 			});
 		},
 		zoomElementClickHandler: function () {
@@ -572,6 +575,10 @@ Timeline.core = (function () {
 				console.log(data);
 				that.setNews(data);
 			});
+		},
+
+		getCurrentDate: function() {
+			return that.currentDate;
 		}
 	};
 	var that = process;
@@ -580,7 +587,8 @@ Timeline.core = (function () {
 		setNews: that.setNews,
 		setDate: that.setDate,
 		startTimeLine: that.startTimeLine,
-		stopTimeLine: that.stopTimeLine
+		stopTimeLine: that.stopTimeLine,
+		getCurrentDate: that.getCurrentDate
 	};
 })();
 
