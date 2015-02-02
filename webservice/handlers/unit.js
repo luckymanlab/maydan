@@ -47,11 +47,9 @@ exports.getByRange = function(req, res) {
     var query={};
     query.time = {};
     if (req.query.startDate) {
-        //query.time.$gte =  new Date(req.query.startDate).getTime();
         query.time.$gte =  req.query.startDate;
     }
     if (req.query.endDate) {
-        //query.time.$lte = new Date(req.query.endDate).getTime();
         query.time.$lte = req.query.endDate;
     }
     models.unit.find(query, function(err, data) {
