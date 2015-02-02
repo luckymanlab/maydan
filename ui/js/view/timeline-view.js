@@ -7,46 +7,55 @@ var Timeline = window.Timeline || {};
  * Constructor of ItemView
  * @constructor
  * @extends Backbone.Marionette.ItemView
- * @property {string}  el                - Parent element of view.
- * @property {object}  events            - The events of ItemView.
- * @property {object}  modelEvents       - views events of model.
+ * @property {string}  el                    - Parent element of view.
+ * @property {object}  events                - The events of ItemView.
+ * @property {boolean}  dragStopedFlag       - Flag for checking drag condition
  */
 UT.TimelineView = Backbone.Marionette.ItemView.extend({
     el: '.time-block',
     events: {
-        'click .start-time-line': 'startTimeline',
-        'click .stop-time-line': 'stopTimeline'
+        'click .start-time-line': 'UT.timer.startTimer',
+        'click .stop-time-line': 'UT.timer.stopTimer'
 
     },
-    modelEvents: {
-        'change': 'changeTimeline'
-    },
+    dragStopedFlag: true,
 
     /**
      * Initialize ItemView
      */
     initialize: function() {
-        Timeline.core.init(this.$el, UT.Config.timelineOptions);
+        var that = this;
+        Timeline.core.init(that.$el, UT.Config.timelineOptions);
+        this.listenTo(UT.timer, 'change', that.changeTimeline);
+        $('#tl-container').on('dragStarted', that.dragStart);
+        $('#tl-container').on('dragStopped', that.dragStop);
     },
 
     /**
-     * Stop timeline
+     * Stop timer & change condition of dragStopedFlag
      */
-    stopTimeline: function() {
-        this.model.stopTimer();
+    dragStart: function() {
+        this.dragStopedFlag = false;
+        UT.timer.stopTimer();
     },
 
     /**
-     * Move timeline
+     * Set time from timeline to timer model & start timer & dragStopedFlag
      */
-    startTimeline: function() {
-        this.model.startTimer();
+    dragStop: function(event) {
+        var newTime = Timeline.core.getCurrentDate();
+        event.stopPropagation();
+        UT.timer.setTime(newTime);
+        this.dragStopedFlag = true;
+        UT.timer.startTimer();
     },
 
     /**
      * change current date of timeline
      */
     changeTimeline: function() {
-        Timeline.core.setDate(this.model.getTime());
+        if(this.dragStopedFlag) {
+            Timeline.core.setDate(UT.timer.getTime());
+        }
     }
 });
