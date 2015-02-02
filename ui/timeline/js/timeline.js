@@ -286,9 +286,7 @@ Timeline.core = (function () {
 			var lastPxPosition = 0;
 			var interval;
 			var parentOffsetLeft;
-			// var needRepaint = false;
-			that.$timelineContainerEl.on( 'dragstart', function( event, ui ) {
-				//event.stopPropagation();
+			that.$timelineContainerEl.on( 'dragstart', function() {
 				$(that.$timelineContainerEl).trigger('dragStarted');
 				parentOffsetLeft = $('.tl-container-wrap').offset();
 				parentOffsetLeft = parseInt(parentOffsetLeft.left, 10);
