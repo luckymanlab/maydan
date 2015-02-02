@@ -27,6 +27,8 @@ UT.app.start = function(){
 	new UT.MapView();
 	new UT.AlertMessengerView({collection: UT.alertMessageCollection});
 	new UT.TimelineView({model: UT.timer});
+	UT.unitLoaderCollection = new UT.UnitLoaderCollection();
+
 	/* jslint nonew: true */
 
     /**

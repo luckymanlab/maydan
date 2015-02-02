@@ -19,7 +19,7 @@ UT.Config = {
 		lon: '30.523233300000015'
 	},
 	//default timer
-	timerStartDate: 864000000,
+	timerStartDate: 1380636600000,
 	timerInterval: 1000,
 	timerRange: 43200000,
 	//default timeline

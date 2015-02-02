@@ -10,12 +10,11 @@
     "debug": "^2.1.0",
     "express": "^4.10.1",
     "express-session": "^1.9.3",
+    "fb": "^0.7.0",
     "mongodb": "^1.4.19",
     "mongoose": "^3.8.18",
     "morgan": "^1.4.1",
     "nodemon": "^1.2.1",
-    "passport": "^0.2.1",
-    "passport-facebook": "^1.0.3",
     "path": "^0.4.9"
   },
   "devDependencies": {},
