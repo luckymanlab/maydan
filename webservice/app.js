@@ -16,8 +16,6 @@ app.use(cookieParser());
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, './public')));
 
-app.use(auth.detectUser);
-
 app.use('/', router);
 
 app.use(function(req, res, next) {
