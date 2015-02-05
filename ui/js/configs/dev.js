@@ -13,7 +13,6 @@ UT.Config = {
 	localeDefault: 'en_US',
     facebookAppId: 1525144001089909,
 	unitTypesImagePath: 'img/types/{ITEM_TYPE}.png',
-	preloader: 'http://a-develop.ru/media/blog/56_preview.gif',
 	defaultPosition: {
 		lat: '50.4505879',
 		lon: '30.523233300000015'
