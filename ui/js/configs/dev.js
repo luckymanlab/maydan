@@ -1,5 +1,5 @@
 var UT = window.UT || {},
-	host = 'http://http://fcoin.com.ua:3000/';
+	host = 'http://fcoin.com.ua:3000/';
 
 //Configuration object
 UT.Config = {
