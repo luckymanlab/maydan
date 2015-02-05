@@ -13,7 +13,7 @@ var UT = window.UT || {};
  */
 UT.CreateArticleView = Backbone.Marionette.CompositeView.extend({
     childView: UT.UnitTypeSelectItemView,
-    childViewContainer: '#unit-type-select-container',
+    childViewContainer: '#unitTypeSelectContainer',
     model: new UT.Article(),
     events: {
         'click #saveArticle': 'saveArticle',
