@@ -1,4 +1,4 @@
-//Configuration object
+//Configuration object for local env
 var Config = {
     //facebook options
     appID: '1525144001089909',
