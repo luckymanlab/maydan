@@ -5,17 +5,16 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     cors = require('cors'),
     router = require('./routes/index'),
-    auth = require('./auth');
-
-var app = express();
+    auth = require('./auth'),
+    app = express();
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(logger('dev'));
-app.use(express.static(path.join(__dirname, './public')));
 
+app.use(express.static(path.join(__dirname, './public')));
 app.use('/', router);
 
 app.use(function(req, res, next) {

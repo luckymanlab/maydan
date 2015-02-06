@@ -1,4 +1,4 @@
-var configs = require('../configs/config'),
+var configs = require('../getConfigs'),
     FB = require('fb'),
     NodeCache = require('node-cache'),
     myCache = new NodeCache(),
@@ -28,7 +28,6 @@ function setUserInfo(req, profile, callback) {
 
 function checkUserPermissions(profile, callback) {
     getAdminsList(function(adminsList) {
-        console.log(profile);
         for(var i = 0; i < adminsList.length; i++) {
             if(profile.id = adminsList[i]) {
                 callback('admin');

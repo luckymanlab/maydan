@@ -1,7 +1,7 @@
 var mongoose = require('mongoose'),
-    Config = require('./configs/config'),
-    url = Config.mongoDBUrl,
-    options = Config.mongoDBOptions;
+    сonfig = require('./getConfigs'),
+    url = сonfig.mongoDBUrl,
+    options = сonfig.mongoDBOptions;
 
 mongoose.connect(url, options, function(err) {
     if(err) {
