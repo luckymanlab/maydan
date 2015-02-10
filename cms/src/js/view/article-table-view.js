@@ -13,12 +13,15 @@ UT.ArticleTableView = Marionette.CompositeView.extend({
     childView: UT.ArticleItemView,
     emptyView: UT.EmptyView,
     childViewContainer: 'tbody',
-    el: '#content',
+
 
     /**
      * Initialize CompositeView, get template,fetch collection & render view
      */
     initialize: function(){
+        $('#content').append('<div id="unapprovedArticles"></div>');
+        this.$el = $('#unapprovedArticles');
+
         this.collection = new UT.ArticleListCollection();
         var template = window['JST']['src/templates/articles-table-template.html'](); // take template string from templates.js
         this.template = _.template(UT.i18n.processTemplate(template));
