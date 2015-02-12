@@ -2,9 +2,10 @@
 var UT = window.UT || {};
 
 UT.AdministrationView = Backbone.Marionette.ItemView.extend({
-    el: '#main',
 
     initialize: function(){
+        $('#main').append('<div id="body"><div id="adminPanel" class="col-sm-12"></div><div id="content" class="col-sm-12 container"></div></div>');
+        this.$el = $('#body');
         this.model = new UT.AdminPanelMenu();
         this.model.attributes.projectName = UT.Config.projectName;
         var that = this;
@@ -14,14 +15,12 @@ UT.AdministrationView = Backbone.Marionette.ItemView.extend({
         var menuItemCollection = new UT.MenuListCollection(this.model.getMenuList());
         new UT.AdminPanelView({menuModel: this.model, collection: menuItemCollection});
 
-        this.currentContentView = new UT.ArticleTableView();
+        this.currentContentView = new UT.ArticleTableView({current: this.model.attributes.current});
     },
     changeCurrentMenuItem: function() {
-        console.log('change!', this.model.getCurrentMenuItem());
         this.currentContentView.destroy();
-        if(+this.model.getCurrentMenuItem() === 0) {
-            this.currentContentView = new UT.ArticleTableView();
-        }
+        this.currentContentView = new UT.ArticleTableView({current: this.model.attributes.current});
+
     }
 
 });

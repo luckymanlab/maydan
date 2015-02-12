@@ -4,9 +4,14 @@
 	"CREATION_DATE": "Creation date",
   	"CREATOR_ID": "Id of creator user",
     "LIST_TITLE": "List of unconfirmed articles",
+    "LIST_UNIT_TITLE": "List of confirmed articles(units)",
 	"TYPE": "Article type",
+	"TYPE_UNIT": "Unit type",
+	"BUTTONS": "Buttons",
 	"DESCRIPTION": "Description",
 	"APPROVE": "Approve",
 	"DELETE": "Delete",
-    "NO_ARTICLES": "There are no unapproved articles"
+    "LOGOUT": "Logout",
+    "NO_ARTICLES": "There are no unapproved articles",
+    "NO_UNITS": "There are no approved articles"
 }

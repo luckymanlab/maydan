@@ -12,6 +12,16 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul id="adminMenuList" class="nav navbar-nav">
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="<%=user.link%>" target="_blank" class="profile-link-padding" title="<%=user.name%>">
+                        <img src="http://graph.facebook.com/<%=user.id%>/picture" style="margin: 7px; width: 36px; height: 36px; border-radius: 3px;"/>
+                    </a>
+                </li>
+                <li>
+                    <span id="logoutButton" title="{i18n.LOGOUT}" class="glyphicon glyphicon-log-out logout-button" aria-hidden="true"></span>
+                </li>
+            </ul>
         </div><!--/.nav-collapse -->
     </div>
 </nav>
