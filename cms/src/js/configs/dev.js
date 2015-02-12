@@ -4,10 +4,12 @@ var UT = window.UT || {},
 //Configuration object
 UT.Config = {
     //Path for getting articles
-    getAllArticles: host + 'temp/articles',
+    getUnapprovedArticles: host + 'temp/articles',
+    getApprovedArticles: host + 'unit',
     //Path for getting locale
     localeBaseURL: 'src/locale/',
     //default locale
+    projectName: 'Ukraine Timeline',
     localeDefault: 'en_US',
     facebookAppId: 1525144001089909
 };

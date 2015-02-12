@@ -1,6 +1,10 @@
+#content{
+  margin-top: 55px;
+}
 #content ul {
     list-style: none;
 }
+
 .table-title {
     text-align: center;
 }
@@ -23,4 +27,21 @@
 }
 .center{
     text-align: center;
+}
+
+//admin-panel
+.navbar-nav>li>a.profile-link-padding, .nav>li>a.profile-link-padding {
+    padding: 0;
+}
+.logout-button {
+    font-size: 24px;
+    position: relative;
+    top: 5px;
+    color: #A2A3A8;
+    margin: 7px;
+    cursor: pointer;
+
+    &:hover {
+      color: #777B87;
+    }
 }
