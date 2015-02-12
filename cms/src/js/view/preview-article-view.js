@@ -6,7 +6,8 @@ UT.ArticlePreviewView = Marionette.ItemView.extend({
     events: {
         'click .delete-item': 'destroyItem',
         'click .confirm-item': 'confirmItem',
-        'click #close-modal': 'destroy'
+        'click #close-modal': 'destroy',
+        'keydown': 'keyPressAction'
     },
     initialize: function(model) {
         this.model = model;
@@ -47,6 +48,12 @@ UT.ArticlePreviewView = Marionette.ItemView.extend({
     destroyItem: function(event) {
         this.destroy();
         this.model.destroy();
+    },
+    keyPressAction: function(e) {
+        var code = e.keyCode || e.which;
+        if(code === 27) {//keyCode 'Escape'
+            this.destroy();
+        }
     },
     confirmItem: function(event) {
         this.destroy();
