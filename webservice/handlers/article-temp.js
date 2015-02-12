@@ -13,11 +13,10 @@ exports.addArticle = function(req, res) {
         || typeof article.unit.coordinates.lat === undefined
         || typeof article.unit.coordinates.lon === undefined
         || typeof article.unit.title === undefined
-        || typeof article.creatorId === undefined
     ) {
         res.status(400).res('Requested data is invalid');
         console.log('Bad request');
-    } else if(req.user.id) {
+    } else {
         var newArticle = new models.articleTemp({
             media: {
                 content: article.media.content
@@ -31,7 +30,7 @@ exports.addArticle = function(req, res) {
                 },
                 title: article.unit.title
             },
-            creatorId: req.user.id
+            creatorId: req.user.profile.id
         });
 
         newArticle.save(function(err, data) {

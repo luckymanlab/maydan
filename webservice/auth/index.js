@@ -1,26 +1,17 @@
-var configs = require('../configs/config'),
-    FB = require('fb');
+var auth = require('./user-info'),
+    permissionGraduation = [
+        'guest',
+        'user',
+        'admin',
+        'root'
+    ];
 
-exports.detectUser = function(req, res, next) {
-    if(req.headers['x-fb-token']) {
-        FB.options({
-            'appSecret': configs.appSecret,
-            'appId': configs.appID,
-            'accessToken': req.headers['x-fb-token']
-        });
-
-        FB.api('me', function (res) {
-            if(res) {
-                console.log('FB user detected. User id: ', res.id);
-                req.user = res;
-                next();
-            } else {
-                console.log('Authorization error');
-                next();
-            }
-        });
-    } else {
-        console.log('x-fb-token missed');
-        next();
-    }
-};
+exports.checkAccess = function(req, res, next, suggested, callback) {
+    auth.getUserInform(req, res, function() {
+        if(permissionGraduation.indexOf(req.user.permissions) >= permissionGraduation.indexOf(suggested)) {
+            callback(req, res, next);
+        } else {
+            res.status(403).send('No permissions');
+        }
+    });
+}

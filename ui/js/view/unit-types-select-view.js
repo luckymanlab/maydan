@@ -11,7 +11,7 @@ Constructor of ItemView
  @property {object}  events                   - The events of CompositeView.
 */
 UT.UnitTypeSelectView = Backbone.Marionette.ItemView.extend({
-    el: '#unit-type-select-container',
+    el: '#unitTypeSelectContainer',
     collection: new UT.UnitTypesCollection(),
     events: {
         'click #mainSelectUnitType': 'showOptions',
